@@ -1,13 +1,7 @@
 package com.mygdx.game;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.constraintlayout.widget.ConstraintSet;
-
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -21,6 +15,34 @@ public class HomeScreen extends AndroidApplication {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_screen);
         AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();
-        initializeForView(new MyGdxGame(), config);
+        View libGDXView = initializeForView(new MyGdxGame(), config);
+        View embeddedView = findViewById(R.id.gameView);
+
+        Button galleryScreenButton = findViewById(R.id.galleryScreenButton);
+        galleryScreenButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openLoadVideoScreen();
+            }
+        });
+        replaceView(embeddedView, libGDXView);
     }
+    public void openLoadVideoScreen(){
+        Intent intent = new Intent(this, GalleryScreen.class);
+        startActivity(intent);
+    }
+
+    private void replaceView(View oldView, View newView) {
+        ViewGroup parent = (ViewGroup)oldView.getParent();
+        ViewGroup.LayoutParams oldParameters = oldView.getLayoutParams();
+        newView.setLayoutParams(oldParameters);
+
+        if(parent == null) {
+            return;
+        }
+        int index = parent.indexOfChild(oldView);
+        parent.removeViewAt(index);
+        parent.addView(newView, index);
+    }
+
 }
