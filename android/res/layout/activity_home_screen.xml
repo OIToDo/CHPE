@@ -1,38 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/my_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/my_layout"
+    android:background="@android:color/black"
     tools:context=".HomeScreen">
 
     <Button
         android:id="@+id/galleryScreenButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="440dp"
-        android:text="Load Video" />
+        android:layout_marginBottom="50dp"
+        android:text="Load Video"
+        android:textColor="@android:color/holo_orange_light"
+        app:layout_constraintBottom_toTopOf="@+id/previousResults"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/previousResults"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="50dp"
+        android:text="Previous Results"
+        android:textColor="@android:color/holo_orange_light"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <View
         android:id="@+id/gameView"
-        android:layout_width="187dp"
-        android:layout_height="312dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginTop="15dp"
-        android:layout_marginStart="112dp"
-        android:layout_marginEnd="112dp"
-        android:layout_marginBottom="419dp" />
+        android:layout_width="285dp"
+        android:layout_height="349dp"
+        android:layout_marginTop="50dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/resultScreenButton"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="-110dp"
-        android:layout_marginBottom="50dp"
-        android:text="home screen"
-        android:textColor="@android:color/holo_orange_light" />
-</RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
