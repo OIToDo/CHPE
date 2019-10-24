@@ -5,7 +5,7 @@ import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Update;
 
-import test.com.example.coordinatesdao.persistance.Coordinate.NNCoordinate;
+import com.mygdx.gamepersistance.Coordinate.NNCoordinate;
 
 @Dao
 public interface NNCoordinatesCoordinateDAO {

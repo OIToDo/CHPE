@@ -4,8 +4,8 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
 
-import test.com.example.coordinatesdao.persistance.Coordinates.NNCoordinates;
-import test.com.example.coordinatesdao.persistance.Session.NNSession;
+import com.mygdx.gamepersistance.Coordinates.NNCoordinates;
+import com.mygdx.gamepersistance.Session.NNSession;
 
 @Entity(
         primaryKeys = {

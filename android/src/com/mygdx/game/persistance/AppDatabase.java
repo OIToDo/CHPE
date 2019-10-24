@@ -8,16 +8,16 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteOpenHelper;
 
-import test.com.example.coordinatesdao.persistance.Coordinate.NNCoordinate;
-import test.com.example.coordinatesdao.persistance.Coordinate.NNCoordinateDAO;
-import test.com.example.coordinatesdao.persistance.Coordinates.NNCoordinates;
-import test.com.example.coordinatesdao.persistance.Coordinates.NNCoordinatesDAO;
-import test.com.example.coordinatesdao.persistance.Relations.NNCoordinatesCoordinate;
-import test.com.example.coordinatesdao.persistance.Relations.NNCoordinatesCoordinateDAO;
-import test.com.example.coordinatesdao.persistance.Relations.NNSessionCoordinates;
-import test.com.example.coordinatesdao.persistance.Relations.NNSessionCoordinatesDAO;
-import test.com.example.coordinatesdao.persistance.Session.NNSession;
-import test.com.example.coordinatesdao.persistance.Session.NNSessionDAO;
+import com.mygdx.game.persistance.Coordinate.NNCoordinate;
+import com.mygdx.game.persistance.Coordinate.NNCoordinateDAO;
+import com.mygdx.game.persistance.Coordinates.NNCoordinates;
+import com.mygdx.game.persistance.Coordinates.NNCoordinatesDAO;
+import com.mygdx.game.persistance.Relations.NNCoordinatesCoordinate;
+import com.mygdx.game.persistance.Relations.NNCoordinatesCoordinateDAO;
+import com.mygdx.game.persistance.Relations.NNSessionCoordinates;
+import com.mygdx.game.persistance.Relations.NNSessionCoordinatesDAO;
+import com.mygdx.game.persistance.Session.NNSession;
+import com.mygdx.game.persistance.Session.NNSessionDAO;
 
 
 @Database(
