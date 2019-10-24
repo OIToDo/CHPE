@@ -21,6 +21,6 @@ public class HomeScreen extends AndroidApplication {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_screen);
         AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();
-        initializeForView(new MyGdxGame(), config);
+        initialize(new MyGdxGame(), config);
     }
 }
