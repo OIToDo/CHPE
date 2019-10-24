@@ -1,8 +1,8 @@
 package com.mygdx.game.persistance.Relations;
 
 
-import com.mygdx.gamepersistance.Coordinate.NNCoordinate;
-import com.mygdx.gamepersistance.Coordinates.NNCoordinates;
+import com.mygdx.game.persistance.Coordinate.NNCoordinate;
+import com.mygdx.game.persistance.Coordinates.NNCoordinates;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
