@@ -18,11 +18,15 @@ import java.io.IOException;
 import java.io.Serializable;
 
 public class GalleryScreen extends AppCompatActivity implements Serializable {
+    //Button declaration for on-screen buttons.
     Button videoSelectButton;
     Button homeScreenButton;
+    //VideoView and MediaController declaration for the embedded video view with media control UI.
     VideoView videoView;
     MediaController mediaController;
+    //String declaration to copy video-file path with.
     String selectedVideoPath;
+    //Int declaration to enter video function with.
     private final int SELECT_VIDEO_REQUEST = 1;
 
     @Override

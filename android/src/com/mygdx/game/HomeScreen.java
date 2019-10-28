@@ -10,17 +10,24 @@ import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
 
 public class HomeScreen extends AndroidApplication {
+    //Button declaration of on-screen buttons.
+    Button previousResultScreenButton;
+    Button galleryScreenButton;
+    //View Declaration of embedded on-screen libGDX views.
+    View libGDXView;
+    View embeddedView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_screen);
         AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();
 
-        View libGDXView = initializeForView(new MyGdxGame(), config);
-        View embeddedView = findViewById(R.id.gameView);
+        libGDXView = initializeForView(new MyGdxGame(), config);
+        embeddedView = findViewById(R.id.gameView);
 
-        Button previousResultScreenButton = findViewById(R.id.previousResults);
-        Button galleryScreenButton = findViewById(R.id.galleryScreenButton);
+        previousResultScreenButton = findViewById(R.id.previousResults);
+        galleryScreenButton = findViewById(R.id.galleryScreenButton);
 
         previousResultScreenButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -39,7 +46,7 @@ public class HomeScreen extends AndroidApplication {
     }
 
     public void openPreviousResultScreen(){
-        Intent intent = new Intent(this, ResultActivity.class);
+        Intent intent = new Intent(this, PreviousResultActivity.class);
         startActivity(intent);
     }
 

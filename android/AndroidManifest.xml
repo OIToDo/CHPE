@@ -14,7 +14,9 @@
         android:isGame="true"
         android:label="@string/app_name"
         android:theme="@style/Theme.AppCompat.NoActionBar">
-        <activity android:name=".ResultActivity"></activity>
+        <activity android:name=".ProcessingScreenActivity"></activity>
+        <activity android:name=".CurrentResultActivity" />
+        <activity android:name=".PreviousResultActivity" />
         <activity android:name=".GalleryScreen" />
         <activity
             android:name=".HomeScreen"
