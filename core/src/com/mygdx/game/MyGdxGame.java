@@ -35,6 +35,7 @@ public class MyGdxGame implements ApplicationListener {
 	public Environment environment;
 	public BitmapFont font;
 	public BodyPart bodyPart;
+	public BodyLimb bodyLimb;
 	public Body body;
 	public boolean loading;
 
@@ -43,6 +44,7 @@ public class MyGdxGame implements ApplicationListener {
 		modelBatch = new ModelBatch();
 		modelBuilder = new ModelBuilder();
 		bodyPart = new BodyPart();
+		bodyLimb = new BodyLimb();
 		body = new Body();
 		environment = new Environment();
 		environment.set(new ColorAttribute(ColorAttribute.AmbientLight, 0.4f, 0.4f, 0.4f, 1f));
@@ -65,7 +67,7 @@ public class MyGdxGame implements ApplicationListener {
 		camController = new CameraInputController(gameCam);
 		Gdx.input.setInputProcessor(camController);
 
-		Array<ModelInstance> bodyInstances = body.create(0,0,0,0.5f);
+		Array<ModelInstance> bodyInstances = body.create(0,0,0,1f);
 		instances = bodyInstances;
 
 		assets = new AssetManager();
