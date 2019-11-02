@@ -6,12 +6,10 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.PerspectiveCamera;
-import com.badlogic.gdx.graphics.VertexAttributes;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g3d.Environment;
-import com.badlogic.gdx.graphics.g3d.Material;
 import com.badlogic.gdx.graphics.g3d.Model;
 import com.badlogic.gdx.graphics.g3d.ModelBatch;
 import com.badlogic.gdx.graphics.g3d.ModelInstance;
@@ -29,15 +27,15 @@ public class MyGdxGame implements ApplicationListener {
 	public PerspectiveCamera guiCam;
 	public CameraInputController camController;
 	public Shader shader;
-	public Model model;
 	public ModelBuilder modelBuilder;
 	public AssetManager assets;
-	public Array<ModelInstance> instances = new Array<ModelInstance>();
+	public Array<ModelInstance> instances = new Array<>();
 	public ModelBatch modelBatch;
 	public Batch batch;
 	public Environment environment;
 	public BitmapFont font;
 	public BodyPart bodyPart;
+	public Body body;
 	public boolean loading;
 
 	@Override
@@ -45,6 +43,7 @@ public class MyGdxGame implements ApplicationListener {
 		modelBatch = new ModelBatch();
 		modelBuilder = new ModelBuilder();
 		bodyPart = new BodyPart();
+		body = new Body();
 		environment = new Environment();
 		environment.set(new ColorAttribute(ColorAttribute.AmbientLight, 0.4f, 0.4f, 0.4f, 1f));
 		environment.add(new DirectionalLight().set(0.8f, 0.8f, 0.8f, -1f, -0.8f, -0.2f));
@@ -66,34 +65,8 @@ public class MyGdxGame implements ApplicationListener {
 		camController = new CameraInputController(gameCam);
 		Gdx.input.setInputProcessor(camController);
 
-		//Todo Make factory =)
-		ModelInstance bodyBot = bodyPart.create(0f, 0,0,0.5f, Vector3.Z, 0, model);
-		instances.add(bodyBot);
-		ModelInstance bodyTop = bodyPart.create(0, 7.5f,0,0.5f, Vector3.Z, 0, model);
-		instances.add(bodyTop);
-		ModelInstance shoulderLeft = bodyPart.create(2, 7.5f,0,0.5f, Vector3.Z, 0, model);
-		instances.add(shoulderLeft);
-		ModelInstance shoulderRight = bodyPart.create(-2, 7.5f,0,0.5f, Vector3.Z, 0, model);
-		instances.add(shoulderRight);
-		ModelInstance neck = bodyPart.create(0, 8.5f,0,0.5f, Vector3.Z, 0, model);
-		instances.add(neck);
-		ModelInstance elbowLeft = bodyPart.create(4, 4,0,0.5f, Vector3.Z, 0, model);
-		instances.add(elbowLeft);
-		ModelInstance elbowRight = bodyPart.create(-4, 4,0,0.5f, Vector3.Z, 0, model);
-		instances.add(elbowRight);
-		ModelInstance wristLeft = bodyPart.create(4, -1,0,0.5f, Vector3.Z, 0, model);
-		instances.add(wristLeft);
-		ModelInstance wristRight = bodyPart.create(-4, -1,0,0.5f, Vector3.Z, 0, model);
-		instances.add(wristRight);
-		ModelInstance kneeLeft = bodyPart.create(2, -6,0,0.5f, Vector3.Z, 0, model);
-		instances.add(kneeLeft);
-		ModelInstance kneeRight = bodyPart.create(-2, -6,0,0.5f, Vector3.Z, 0, model);
-		instances.add(kneeRight);
-		ModelInstance ankleLeft = bodyPart.create(2, -12,0,0.5f, Vector3.Z, 0, model);
-		instances.add(ankleLeft);
-		ModelInstance ankleRight = bodyPart.create(-2, -12,0,0.5f, Vector3.Z, 0, model);
-		instances.add(ankleRight);
-
+		Array<ModelInstance> bodyInstances = body.create(0,0,0,0.5f);
+		instances = bodyInstances;
 
 		assets = new AssetManager();
 		assets.load("data/human.obj", Model.class);
@@ -118,7 +91,6 @@ public class MyGdxGame implements ApplicationListener {
 		humanInstance.materials.get(0).set(attributeV);
 		humanInstance.transform.setToRotation(Vector3.Z,90);
 		humanInstance.transform.setTranslation(10,0, 0);
-//		instances.add(humanInstance);
 		loading = false;
 	}
 
@@ -138,6 +110,7 @@ public class MyGdxGame implements ApplicationListener {
 		modelBatch.end();
 
 		batch.begin();
+
 		// Render GUI items
 		HelperClass.DrawDebugLine(new Vector2(0,-200), new Vector2(0,200), 4, Color.RED, guiCam.combined);
 		HelperClass.DrawDebugLine(new Vector2(-200,0), new Vector2(200,0), 4, Color.BLUE, guiCam.combined);
