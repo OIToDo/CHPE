@@ -7,13 +7,24 @@
     android:layout_height="match_parent"
     android:background="@android:color/black"
     tools:context=".HomeScreen">
-
+<FrameLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="25dp"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent">
+    <VideoView
+        android:id="@+id/videoView"
+        android:layout_width="match_parent"
+        android:layout_height="410dp" />
+</FrameLayout>
     <Button
-        android:id="@+id/galleryScreenButton"
+        android:id="@+id/homeScreenButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="35dp"
-        android:text="Load Video"
+        android:text="Home Screen"
         android:textColor="@android:color/holo_orange_light"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -21,36 +32,43 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/previousResults"
+        android:id="@+id/videoGalleryScreenButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="15dp"
-        android:text="Previous Results"
+        android:text="Select a video"
         android:textColor="@android:color/holo_orange_light"
-        app:layout_constraintBottom_toTopOf="@+id/galleryScreenButton"
+        app:layout_constraintBottom_toTopOf="@+id/startAnalysis"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/startAnalysis"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="15dp"
+        android:text="Start analysis"
+        android:textColor="@android:color/holo_orange_light"
+        app:layout_constraintBottom_toTopOf="@+id/homeScreenButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <Button
-        android:id="@+id/JUMP"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="15dp"
-        android:text="JUMP"
-        android:textColor="@android:color/holo_orange_light"
-        app:layout_constraintBottom_toTopOf="@+id/previousResults"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent" />
+    <!--    <ImageView
+        android:layout_height="400dp"
+        android:layout_width="333dp"
+        android:id="@+id/galleryView"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp"/>-->
 
-    <View
-        android:id="@+id/gameView"
-        android:layout_width="380dp"
-        android:layout_height="410dp"
-        android:layout_marginTop="25dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <!--   <Button
+           android:id="@+id/imageGalleryScreenButton"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:layout_centerHorizontal="true"
+           android:layout_marginTop="400dp"
+           android:textColor="@android:color/holo_orange_light"
+           android:text="Select an image" />-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

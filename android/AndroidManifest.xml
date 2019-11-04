@@ -2,17 +2,30 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.mygdx.game">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+
     <application
         android:allowBackup="true"
         android:appCategory="game"
         android:icon="@drawable/ic_launcher"
         android:isGame="true"
         android:label="@string/app_name"
-        android:theme="@style/GdxTheme">
-        <activity android:name=".HomeScreen"
-            android:theme="@style/Theme.AppCompat">
+        android:theme="@style/Theme.AppCompat.NoActionBar">
+<!--        <service android:name="NeuralNetworkingService"
+            android:description="Processing video presentation for analysis."></service>-->
+        <activity android:name=".ProcessingScreenActivity"></activity>
+        <activity android:name=".CurrentResultActivity" />
+        <activity android:name=".PreviousResultActivity" />
+        <activity android:name=".GalleryScreen" />
+        <activity
+            android:name=".HomeScreen"
+            android:theme="@style/Theme.AppCompat.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
