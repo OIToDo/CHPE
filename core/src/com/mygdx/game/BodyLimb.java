@@ -18,7 +18,6 @@ public class BodyLimb {
                 new Material(),
                 VertexAttributes.Usage.Position | VertexAttributes.Usage.Normal | VertexAttributes.Usage.TextureCoordinates);
         ModelInstance cylinder = new ModelInstance(model);
-//        cylinder.transform.setToTranslation(x1 - (0.5f * (x1 - x2)), y1 - (0.5f * length), z);
         cylinder.transform.setToTranslation(x1 - (0.5f * (x1 - x2)), y1 - (0.5f * (y1 - y2)), z);
         cylinder.transform.rotate(Vector3.Z, rotation - 90);
 
