@@ -2,7 +2,7 @@ package com.mygdx.game.persistance.Relations;
 
 
 import com.mygdx.game.persistance.Coordinate.NNCoordinate;
-import com.mygdx.game.persistance.Coordinates.NNCoordinates;
+import com.mygdx.game.persistance.Frame.NNFrame;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
@@ -10,28 +10,29 @@ import androidx.room.ForeignKey;
 
 @Entity(
         primaryKeys = {
-                "coordinatesId",
-                "coordinateId"
+                "frame_id",
+                "coordinate_id"
         },
         foreignKeys = {
                 @ForeignKey(
-                        entity = NNCoordinates.class,
+                        entity = NNFrame.class,
                         parentColumns = "id",
-                        childColumns = "coordinatesId"
+                        childColumns = "frame_id"
                 ),
                 @ForeignKey(
                         entity = NNCoordinate.class,
                         parentColumns = "id",
-                        childColumns = "coordinateId"
+                        childColumns = "coordinate_id"
                 )
         },
-        tableName = "coordinatescoordinate"
+        tableName = "frame_coordinate"
 )
 
 
-public class NNCoordinatesCoordinate {
+public class NNFrameCoordinate {
     @ColumnInfo(index = true)
-    public int coordinatesId;
+    public int FrameId;
+
     @ColumnInfo(index = true)
-    public int coordinateId;
+    public int CoordinateId;
 }

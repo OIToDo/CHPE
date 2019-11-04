@@ -1,35 +1,29 @@
 package com.mygdx.game.persistance;
 
-import androidx.annotation.NonNull;
 import androidx.room.Database;
-import androidx.room.DatabaseConfiguration;
-import androidx.room.InvalidationTracker;
-import androidx.room.Room;
 import androidx.room.RoomDatabase;
-import androidx.sqlite.db.SupportSQLiteOpenHelper;
 
 import com.mygdx.game.persistance.Coordinate.NNCoordinate;
 import com.mygdx.game.persistance.Coordinate.NNCoordinateDAO;
-import com.mygdx.game.persistance.Coordinates.NNCoordinates;
-import com.mygdx.game.persistance.Coordinates.NNCoordinatesDAO;
-import com.mygdx.game.persistance.Relations.NNCoordinatesCoordinate;
-import com.mygdx.game.persistance.Relations.NNCoordinatesCoordinateDAO;
-import com.mygdx.game.persistance.Relations.NNSessionCoordinates;
-import com.mygdx.game.persistance.Relations.NNSessionCoordinatesDAO;
+import com.mygdx.game.persistance.Frame.NNFrame;
+import com.mygdx.game.persistance.Frame.NNFrameDAO;
+import com.mygdx.game.persistance.Relations.NNFrameCoordinate;
+import com.mygdx.game.persistance.Relations.NNFrameCoordinateDAO;
+import com.mygdx.game.persistance.Relations.NNSessionFrame;
+import com.mygdx.game.persistance.Relations.NNSessionFrameDAO;
 import com.mygdx.game.persistance.Session.NNSession;
 import com.mygdx.game.persistance.Session.NNSessionDAO;
 
 
 @Database(
         entities = {
-                NNCoordinates.class,
+                NNFrame.class,
                 NNSession.class,
                 NNCoordinate.class,
 
                 // Many-to-many
-                NNSessionCoordinates.class,
-                NNCoordinatesCoordinate.class,
-
+                NNSessionFrame.class,
+                NNFrameCoordinate.class,
         },
         version = 1,
         exportSchema = false)
@@ -37,15 +31,14 @@ import com.mygdx.game.persistance.Session.NNSessionDAO;
 public abstract class AppDatabase extends RoomDatabase {
     private static AppDatabase appDatabase;
 
-    public abstract NNCoordinatesDAO nnCoordinatesDAO();
+    public abstract NNFrameDAO nnFrameDAO();
 
     public abstract NNSessionDAO nnSessionDAO();
 
     public abstract NNCoordinateDAO nnCoordinateDAO();
 
-    public abstract NNSessionCoordinatesDAO nnSessionCoordinatesDAO();
+    public abstract NNSessionFrameDAO nnSessionFrameDAO();
 
-    public abstract NNCoordinatesCoordinateDAO nnCoordinatesCoordinateDAO();
-
+    public abstract NNFrameCoordinateDAO nnFrameCoordinateDAO();
 }
 

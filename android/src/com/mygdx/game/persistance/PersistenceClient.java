@@ -1,6 +1,7 @@
 package com.mygdx.game.persistance;
 
 import android.content.Context;
+
 import androidx.room.Room;
 
 public class PersistenceClient {
@@ -15,7 +16,7 @@ public class PersistenceClient {
         this.mCtx = mCtx;
 
         //creating the app database with Room database builder
-        //MyToDos is the name of the database
+        // is the name of the database
         appDatabase = Room.databaseBuilder(mCtx, AppDatabase.class, "MyToDos").build();
     }
 

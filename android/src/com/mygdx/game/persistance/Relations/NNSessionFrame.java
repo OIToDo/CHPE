@@ -4,29 +4,29 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
 
-import com.mygdx.game.persistance.Coordinates.NNCoordinates;
+import com.mygdx.game.persistance.Frame.NNFrame;
 import com.mygdx.game.persistance.Session.NNSession;
 
 @Entity(
         primaryKeys = {
-                "sessionId",
-                "coordinatesId"
+                "session_id",
+                "frame_id"
         },
         foreignKeys = {
                 @ForeignKey(
                         entity = NNSession.class,
                         parentColumns = "id",
-                        childColumns = "sessionId"
+                        childColumns = "session_id"
                 ),
                 @ForeignKey(
-                        entity = NNCoordinates.class,
+                        entity = NNFrame.class,
                         parentColumns = "id",
-                        childColumns = "coordinatesId"
+                        childColumns = "frame_id"
                 )
         },
-        tableName = "sessioncoordinates"
+        tableName = "session_frame"
 )
-public class NNSessionCoordinates {
-    @ColumnInfo(index = true) public int sessionId;
-    @ColumnInfo(index = true) public int coordinatesId;
+public class NNSessionFrame {
+    @ColumnInfo(index = true) public int SessionId;
+    @ColumnInfo(index = true) public int FrameId;
 }
