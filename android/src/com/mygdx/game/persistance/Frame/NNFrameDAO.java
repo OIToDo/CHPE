@@ -21,6 +21,6 @@ public interface NNFrameDAO {
     void update(NNFrame nnFrame);
 
 
-    @Query("SELECT width,height from coordinate") // TODO: Finish
-    List<Integer> get_coordinate(int frame_id, int body_count);  // TODO: Vec2
+    //@Query("SELECT width,height from coordinate") // TODO: Finish
+    //List<Integer> get_coordinate(int frame_id, int body_count);  // TODO: Vec2
 }

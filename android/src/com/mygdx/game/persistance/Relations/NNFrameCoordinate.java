@@ -31,8 +31,8 @@ import androidx.room.ForeignKey;
 
 public class NNFrameCoordinate {
     @ColumnInfo(index = true)
-    public int FrameId;
+    public int frame_id;
 
     @ColumnInfo(index = true)
-    public int CoordinateId;
+    public int coordinate_id;
 }
