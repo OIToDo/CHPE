@@ -13,6 +13,7 @@ public class HomeScreen extends AndroidApplication {
     //Button declaration of on-screen buttons.
     Button previousResultScreenButton;
     Button galleryScreenButton;
+    Button JUMP;
     //View Declaration of embedded on-screen libGDX views.
     View libGDXView;
     View embeddedView;
@@ -28,6 +29,7 @@ public class HomeScreen extends AndroidApplication {
 
         previousResultScreenButton = findViewById(R.id.previousResults);
         galleryScreenButton = findViewById(R.id.galleryScreenButton);
+        JUMP = findViewById(R.id.JUMP);
 
         previousResultScreenButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -42,11 +44,24 @@ public class HomeScreen extends AndroidApplication {
                 openLoadVideoScreen();
             }
         });
+
+        JUMP.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openJUMP();
+            }
+        });
+
         replaceView(embeddedView, libGDXView);
     }
 
     public void openPreviousResultScreen(){
         Intent intent = new Intent(this, PreviousResultActivity.class);
+        startActivity(intent);
+    }
+
+    public void openJUMP(){
+        Intent intent = new Intent(HomeScreen.this, CurrentResultActivity.class);
         startActivity(intent);
     }
 

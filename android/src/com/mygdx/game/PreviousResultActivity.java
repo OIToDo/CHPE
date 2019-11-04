@@ -12,16 +12,19 @@ import android.widget.TextSwitcher;
 import android.widget.TextView;
 import android.widget.ViewSwitcher;
 
-public class PreviousResultActivity extends AppCompatActivity {
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 
+public class PreviousResultActivity extends AppCompatActivity {
+//  Button to return the user to the home screen.
     Button homeScreenButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_previous_result);
-        homeScreenButton = findViewById(R.id.homeScreenButton);
 
+        homeScreenButton = findViewById(R.id.homeScreenButton);
         homeScreenButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -29,6 +32,5 @@ public class PreviousResultActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
     }
 }

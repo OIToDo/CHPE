@@ -26,8 +26,10 @@ public class GalleryScreen extends AppCompatActivity implements Serializable {
     MediaController mediaController;
     //String declaration to copy video-file path with.
     String selectedVideoPath;
+    String extraVideoPath;
     //Int declaration to enter video function with.
     private final int SELECT_VIDEO_REQUEST = 1;
+    Uri extra;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,8 +38,15 @@ public class GalleryScreen extends AppCompatActivity implements Serializable {
 
         homeScreenButton = findViewById(R.id.homeScreenButton);
         videoSelectButton = findViewById(R.id.videoGalleryScreenButton);
+
         videoView = findViewById(R.id.videoView);
+
+        extraVideoPath = "android.resource://" + getPackageName() + "/" + R.raw.example;
+        extra = Uri.parse(extraVideoPath);
+        videoView.setVideoURI(extra);
         mediaController = new MediaController(this);
+        videoView.setMediaController(mediaController);
+        mediaController.setAnchorView(videoView);
 
         homeScreenButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,12 +81,10 @@ public class GalleryScreen extends AppCompatActivity implements Serializable {
         startActivityForResult(intent, SELECT_VIDEO_REQUEST);
     }
 
-    public Uri getMedia(String mediaName) {
-        return Uri.parse("android/resource://" + getPackageName() + "raw/" + mediaName);
-    }
+
 
     public void initializePlayer(String name ) {
-        Uri videoUri = getMedia(name);
+        Uri videoUri = Uri.parse(name);
         videoView.setVideoURI(videoUri);
         videoView.start();
     }
@@ -88,43 +95,9 @@ public class GalleryScreen extends AppCompatActivity implements Serializable {
         if (resultCode == RESULT_OK) {
             if (requestCode == SELECT_VIDEO_REQUEST) {
                 Uri selectedVideoUri = data.getData();
-                selectedVideoPath = selectedVideoUri.getPath();
+                selectedVideoPath = "android.resource://" + getPackageName() + "/" + selectedVideoUri.getPath();
                 initializePlayer(selectedVideoPath);
             }
-/*            if (requestCode == SELECT_IMAGE_REQUEST) {
-                Uri uri = data.getData();
-                try {
-                    Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
-                    imageView.setImageBitmap(bitmap);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }*/
         }
     }
 }
-    /*
-        imageSelectButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent();
-                intent.setAction(Intent.ACTION_GET_CONTENT);
-                intent.setType("image/*");
-                startActivityForResult(intent, SELECT_IMAGE_REQUEST);
-            }
-        });*/
-/*    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data){
-        super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == REQUEST_CODE && resultCode == RESULT_OK && data != null && data.getData() != null) {
-            Uri uri = data.getData();
-            try {
-                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
-                imageView.setImageBitmap(bitmap);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    }*/
-
-
