@@ -12,6 +12,9 @@ public class Body {
 
     public float scale;
     public int limbAmount = 0;
+    public float limbDiameter = 1f;
+    public float jointDiameter = 1f;
+
 
     //Joint coords
     public Vector3 BodyBotCoords = new Vector3();
@@ -65,43 +68,43 @@ public class Body {
             System.out.println(e.getMessage());
         }
         // BodyParts -------------------------------------------------------------------------------------------------------------------|
-        ModelInstance bodyBot = bodyPart.create(0f * scale, 0 * scale,0 * scale,0.5f * scale, Vector3.Z, 0);
+        ModelInstance bodyBot = bodyPart.create(0f * scale, 0 * scale,0 * scale,jointDiameter * scale, Vector3.Z, 0);
         BodyPartInstances.add(bodyBot);
 
-        ModelInstance bodyTop = bodyPart.create(0 * scale, 7.5f * scale,0 * scale,0.5f * scale, Vector3.Z, 0);
+        ModelInstance bodyTop = bodyPart.create(0 * scale, 7.5f * scale,0 * scale,jointDiameter * scale, Vector3.Z, 0);
         BodyPartInstances.add(bodyTop);
 
-        ModelInstance shoulderLeft = bodyPart.create(-2 * scale, 7.5f * scale,0 * scale,0.5f * scale, Vector3.Z, 0);
+        ModelInstance shoulderLeft = bodyPart.create(-2 * scale, 7.5f * scale,0 * scale,jointDiameter * scale, Vector3.Z, 0);
         BodyPartInstances.add(shoulderLeft);
 
-        ModelInstance shoulderRight = bodyPart.create(2 * scale, 7.5f * scale,0 * scale,0.5f * scale, Vector3.Z, 0);
+        ModelInstance shoulderRight = bodyPart.create(2 * scale, 7.5f * scale,0 * scale,jointDiameter * scale, Vector3.Z, 0);
         BodyPartInstances.add(shoulderRight);
 
-        ModelInstance neck = bodyPart.create(0 * scale, 8.5f * scale,0 * scale,0.5f * scale, Vector3.Z, 0);
+        ModelInstance neck = bodyPart.create(0 * scale, 8.5f * scale,0 * scale,jointDiameter * scale, Vector3.Z, 0);
         BodyPartInstances.add(neck);
 
-        ModelInstance elbowLeft = bodyPart.create(-4 * scale, 4 * scale,0 * scale,0.5f * scale, Vector3.Z, 0);
+        ModelInstance elbowLeft = bodyPart.create(-4 * scale, 4 * scale,0 * scale,jointDiameter * scale, Vector3.Z, 0);
         BodyPartInstances.add(elbowLeft);
 
-        ModelInstance elbowRight = bodyPart.create(4 * scale, 4 * scale,0 * scale,0.5f * scale, Vector3.Z, 0);
+        ModelInstance elbowRight = bodyPart.create(4 * scale, 4 * scale,0 * scale,jointDiameter * scale, Vector3.Z, 0);
         BodyPartInstances.add(elbowRight);
 
-        ModelInstance wristLeft = bodyPart.create(-4 * scale, -1 * scale,0 * scale,0.5f * scale, Vector3.Z, 0);
+        ModelInstance wristLeft = bodyPart.create(-4 * scale, -1 * scale,0 * scale,jointDiameter * scale, Vector3.Z, 0);
         BodyPartInstances.add(wristLeft);
 
-        ModelInstance wristRight = bodyPart.create(4 * scale, -1 * scale,0 * scale,0.5f * scale, Vector3.Z, 0);
+        ModelInstance wristRight = bodyPart.create(4 * scale, -1 * scale,0 * scale,jointDiameter * scale, Vector3.Z, 0);
         BodyPartInstances.add(wristRight);
 
-        ModelInstance kneeLeft = bodyPart.create(-2 * scale, -6 * scale,0 * scale,0.5f * scale, Vector3.Z, 0);
+        ModelInstance kneeLeft = bodyPart.create(-2 * scale, -6 * scale,0 * scale,jointDiameter * scale, Vector3.Z, 0);
         BodyPartInstances.add(kneeLeft);
 
-        ModelInstance kneeRight = bodyPart.create(2 * scale, -6 * scale,0 * scale,0.5f * scale, Vector3.Z, 0);
+        ModelInstance kneeRight = bodyPart.create(2 * scale, -6 * scale,0 * scale,jointDiameter * scale, Vector3.Z, 0);
         BodyPartInstances.add(kneeRight);
 
-        ModelInstance ankleLeft = bodyPart.create(-2 * scale, -12 * scale,0 * scale,0.5f * scale, Vector3.Z, 0);
+        ModelInstance ankleLeft = bodyPart.create(-2 * scale, -12 * scale,0 * scale,jointDiameter * scale, Vector3.Z, 0);
         BodyPartInstances.add(ankleLeft);
 
-        ModelInstance ankleRight = bodyPart.create(2 * scale, -12 * scale,0 * scale,0.5f * scale, Vector3.Z, 0);
+        ModelInstance ankleRight = bodyPart.create(2 * scale, -12 * scale,0 * scale,jointDiameter * scale, Vector3.Z, 0);
         BodyPartInstances.add(ankleRight);
 
         // BodyLimbs -------------------------------------------------------------------------------------------------------------------|
@@ -120,51 +123,51 @@ public class Body {
         AnkleRightCoords.add(2 * scale, -12 * scale,0 * scale);
 
         //Neck
-        ModelInstance neckLimb = bodyLimb.create(NeckCoords.x, NeckCoords.y, BodyTopCoords.x, BodyTopCoords.y, 0, 0.25f * scale);
+        ModelInstance neckLimb = bodyLimb.create(NeckCoords.x, NeckCoords.y, BodyTopCoords.x, BodyTopCoords.y, 0, limbDiameter * scale);
         BodyPartInstances.add(neckLimb);
         limbAmount += 1;
         //Shoulder Left
-        ModelInstance shoulderLeftLimb = bodyLimb.create(BodyTopCoords.x, BodyTopCoords.y, ShoulderLeftCoords.x, ShoulderLeftCoords.y, 0, 0.25f * scale);
+        ModelInstance shoulderLeftLimb = bodyLimb.create(BodyTopCoords.x, BodyTopCoords.y, ShoulderLeftCoords.x, ShoulderLeftCoords.y, 0, limbDiameter * scale);
         BodyPartInstances.add(shoulderLeftLimb);
         limbAmount += 1;
         //Shoulder Right
-        ModelInstance shoulderRightLimb = bodyLimb.create(BodyTopCoords.x, BodyTopCoords.y, ShoulderRightCoords.x, ShoulderRightCoords.y, 0, 0.25f * scale);
+        ModelInstance shoulderRightLimb = bodyLimb.create(BodyTopCoords.x, BodyTopCoords.y, ShoulderRightCoords.x, ShoulderRightCoords.y, 0, limbDiameter * scale);
         BodyPartInstances.add(shoulderRightLimb);
         limbAmount += 1;
         //Upper Arm Left
-        ModelInstance upperArmLeftLimb = bodyLimb.create(ShoulderLeftCoords.x, ShoulderLeftCoords.y, ElbowLeftCoords.x, ElbowLeftCoords.y, 0, 0.25f * scale);
+        ModelInstance upperArmLeftLimb = bodyLimb.create(ShoulderLeftCoords.x, ShoulderLeftCoords.y, ElbowLeftCoords.x, ElbowLeftCoords.y, 0, limbDiameter * scale);
         BodyPartInstances.add(upperArmLeftLimb);
         limbAmount += 1;
         //Upper Arm Right
-        ModelInstance upperArmRightLimb = bodyLimb.create(ShoulderRightCoords.x, ShoulderRightCoords.y, ElbowRightCoords.x, ElbowRightCoords.y, 0, 0.25f * scale);
+        ModelInstance upperArmRightLimb = bodyLimb.create(ShoulderRightCoords.x, ShoulderRightCoords.y, ElbowRightCoords.x, ElbowRightCoords.y, 0, limbDiameter * scale);
         BodyPartInstances.add(upperArmRightLimb);
         limbAmount += 1;
         //Lower Arm Left
-        ModelInstance lowerArmLeftLimb = bodyLimb.create(ElbowLeftCoords.x, ElbowLeftCoords.y, WristLeftCoords.x, WristLeftCoords.y, 0, 0.25f * scale);
+        ModelInstance lowerArmLeftLimb = bodyLimb.create(ElbowLeftCoords.x, ElbowLeftCoords.y, WristLeftCoords.x, WristLeftCoords.y, 0, limbDiameter * scale);
         BodyPartInstances.add(lowerArmLeftLimb);
         limbAmount += 1;
         //Upper Arm Right
-        ModelInstance lowerArmRightLimb = bodyLimb.create(ElbowRightCoords.x, ElbowRightCoords.y, WristRightCoords.x, WristRightCoords.y, 0, 0.25f * scale);
+        ModelInstance lowerArmRightLimb = bodyLimb.create(ElbowRightCoords.x, ElbowRightCoords.y, WristRightCoords.x, WristRightCoords.y, 0, limbDiameter * scale);
         BodyPartInstances.add(lowerArmRightLimb);
         limbAmount += 1;
         //Waist
-        ModelInstance waist = bodyLimb.create(BodyTopCoords.x, BodyTopCoords.y, BodyBotCoords.x, BodyBotCoords.y, 0, 0.25f * scale);
+        ModelInstance waist = bodyLimb.create(BodyTopCoords.x, BodyTopCoords.y, BodyBotCoords.x, BodyBotCoords.y, 0, limbDiameter * scale);
         BodyPartInstances.add(waist);
         limbAmount += 1;
         //Left upper leg
-        ModelInstance upperLegLeftLimb = bodyLimb.create(BodyBotCoords.x, BodyBotCoords.y, KneeLeftCoords.x, KneeLeftCoords.y, 0, 0.25f * scale);
+        ModelInstance upperLegLeftLimb = bodyLimb.create(BodyBotCoords.x, BodyBotCoords.y, KneeLeftCoords.x, KneeLeftCoords.y, 0, limbDiameter * scale);
         BodyPartInstances.add(upperLegLeftLimb);
         limbAmount += 1;
         //Right upper leg
-        ModelInstance upperLegRightLimb = bodyLimb.create(BodyBotCoords.x, BodyBotCoords.y, KneeRightCoords.x, KneeRightCoords.y, 0, 0.25f * scale);
+        ModelInstance upperLegRightLimb = bodyLimb.create(BodyBotCoords.x, BodyBotCoords.y, KneeRightCoords.x, KneeRightCoords.y, 0, limbDiameter * scale);
         BodyPartInstances.add(upperLegRightLimb);
         limbAmount += 1;
         //Left lower leg
-        ModelInstance lowerLegLeftLimb = bodyLimb.create(KneeLeftCoords.x, KneeLeftCoords.y, AnkleLeftCoords.x, AnkleLeftCoords.y, 0, 0.25f * scale);
+        ModelInstance lowerLegLeftLimb = bodyLimb.create(KneeLeftCoords.x, KneeLeftCoords.y, AnkleLeftCoords.x, AnkleLeftCoords.y, 0, limbDiameter * scale);
         BodyPartInstances.add(lowerLegLeftLimb);
         limbAmount += 1;
         //Right lower leg
-        ModelInstance lowerLegRightLimb = bodyLimb.create(KneeRightCoords.x, KneeRightCoords.y, AnkleRightCoords.x, AnkleRightCoords.y, 0, 0.25f * scale);
+        ModelInstance lowerLegRightLimb = bodyLimb.create(KneeRightCoords.x, KneeRightCoords.y, AnkleRightCoords.x, AnkleRightCoords.y, 0, limbDiameter * scale);
         BodyPartInstances.add(lowerLegRightLimb);
         limbAmount += 1;
 
