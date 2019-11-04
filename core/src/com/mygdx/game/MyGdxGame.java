@@ -37,6 +37,8 @@ public class MyGdxGame implements ApplicationListener {
 	public BodyPart bodyPart;
 	public BodyLimb bodyLimb;
 	public Body body;
+
+	public int fieldOfView = 67;
 	public boolean loading;
 
 	@Override
@@ -50,14 +52,14 @@ public class MyGdxGame implements ApplicationListener {
 		environment.set(new ColorAttribute(ColorAttribute.AmbientLight, 0.4f, 0.4f, 0.4f, 1f));
 		environment.add(new DirectionalLight().set(0.8f, 0.8f, 0.8f, -1f, -0.8f, -0.2f));
 
-		gameCam = new PerspectiveCamera(67, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+		gameCam = new PerspectiveCamera(fieldOfView, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		gameCam.position.set(1f, 1f, 20f);
 		gameCam.lookAt(0,0,0);
 		gameCam.near = 1f;
 		gameCam.far = 300f;
 		gameCam.update();
 
-		guiCam = new PerspectiveCamera(67, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+		guiCam = new PerspectiveCamera(fieldOfView, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		guiCam.position.set(1f, 1f, 20f);
 		guiCam.lookAt(0, 0, 0);
 		guiCam.near = 1f;
