@@ -11,6 +11,12 @@ import com.mygdx.game.persistance.Coordinate.NNCoordinate;
 import com.mygdx.game.persistance.Coordinate.NNCoordinateDAO;
 import com.mygdx.game.persistance.Frame.NNFrameDAO;
 import com.mygdx.game.persistance.Frame.NNFrame;
+import com.mygdx.game.persistance.Relations.NNFrameCoordinate;
+import com.mygdx.game.persistance.Relations.NNFrameCoordinateDAO;
+import com.mygdx.game.persistance.Relations.NNSessionFrame;
+import com.mygdx.game.persistance.Relations.NNSessionFrameDAO;
+import com.mygdx.game.persistance.Session.NNSession;
+import com.mygdx.game.persistance.Session.NNSessionDAO;
 
 import java.lang.reflect.Array;
 import java.lang.reflect.Field;
@@ -33,52 +39,46 @@ public class MockData {
         return result;
     }
 
-    private void insertFrames() {
-        long insertId = 0;
-        MPI poseModel = new MPI();
+    // TODO: Insert wrapper for inserting frames would be useful
+
+    private long insertFrame(int frameCount) {
+        NNFrame nnFrame = new NNFrame();
+        nnFrame.frameCount = frameCount;
+        NNFrameDAO nnFrameDAO = this.appDatabase.nnFrameDAO();
+        return nnFrameDAO.insert(nnFrame);
+    }
+
+    private long insertSession(long frameCount){
+        NNSession nnSession = new NNSession();
+        nnSession.frame_count = frameCount;
+        nnSession.frames_per_second = 24;
+        NNSessionDAO nnSessionDAO = this.appDatabase.nnSessionDAO();
+        return nnSessionDAO.insert(nnSession);
+    }
+    private long insertCoordinate(int x, int y){
 
         NNCoordinateDAO nnCoordinateDAO = appDatabase.nnCoordinateDAO();
-        for (int i = 0; i < this.entries.length(); i++) {
-            try {
-                JSONObject jsonObject = this.entries.getJSONObject(i);
-
-                for(String spart: poseModel.body_parts){
-
-                    Object part = jsonObject.get(spart);
-                    String values = part.toString();
-                    values = values.substring(1, values.length()-1);
-
-                    String[] nums = values.split(",");
-                    int[] coordinates = StringArrToIntArr(nums);
-
-                    NNCoordinate coordinate = new NNCoordinate();
-                    coordinate.x = coordinates[0];
-                    coordinate.y = coordinates[1];
-                    long recordInsertID = nnCoordinateDAO.insert(coordinate);
-
-                    if(insertId == 0){
-                        insertId = recordInsertID;
-                    }
-                }
-
-
-
-            } catch (JSONException ex) {
-                DebugLog.log(ex.getMessage());
-            }
-        }
-
-
+        NNCoordinate coordinate = new NNCoordinate();
+        coordinate.x = x;
+        coordinate.y = y;
+        return nnCoordinateDAO.insert(coordinate);
+    }
+    private void insertFrameCoordinate(long fid, long cid){
+        NNFrameCoordinate nnFrameCoordinate = new NNFrameCoordinate();
+        NNFrameCoordinateDAO nnFrameCoordinateDAO = this.appDatabase.nnFrameCoordinateDAO();
+        nnFrameCoordinate.coordinate_id = cid;
+        nnFrameCoordinate.frame_id = fid;
+        nnFrameCoordinateDAO.insert(nnFrameCoordinate);
     }
 
-    private void insertCoordinates() {
+    private void insertSessionFrame(long fid, long sid){
+        NNSessionFrame nnSessionFrame = new NNSessionFrame();
+        NNSessionFrameDAO nnSessionFrameDAO = this.appDatabase.nnSessionFrameDAO();
+        nnSessionFrame.session_id = sid;
+        nnSessionFrame.frame_id = fid;
+        nnSessionFrameDAO.insert(nnSessionFrame);
     }
 
-    private void insertSession() {
-    }
-
-    private void insertRelations() {
-    }
 
     public MockData(AppDatabase appDatabase) {
         this.appDatabase = appDatabase;
@@ -90,14 +90,51 @@ public class MockData {
             DebugLog.log(ex.getMessage());
         }
 
-        insertFrames();
+        executeInserts();
+
+    }
+
+    public void executeInserts() {
+        long sessionId = insertSession(this.entries.length());
+        long insertId = 0;
+        MPI poseModel = new MPI();
+
+        for (int i = 0; i < this.entries.length(); i++) {
+            try {
+                JSONObject jsonObject = this.entries.getJSONObject(i);
+                long frameId = insertFrame(i);
+                insertSessionFrame(frameId, sessionId);
+                for (String spart : poseModel.body_parts) {
+
+                    Object part = jsonObject.get(spart);
+                    String values = part.toString();
+                    values = values.substring(1, values.length() - 1);
+
+                    String[] nums = values.split(",");
+                    int [] coordinates = StringArrToIntArr(nums);
+                    long recordInsertID = insertCoordinate(coordinates[0], coordinates[1]);
+                    insertFrameCoordinate(frameId, recordInsertID);
+                }
+            } catch (JSONException ex) {
+                DebugLog.log(ex.getMessage());
+            }
+        }
+
 
         /*
         insertCoordinates();
         insertSession();
         insertRelations();
-
          */
+    }
+
+    public MockData(AppDatabase appDatabase, String content) {
+        this.appDatabase = appDatabase;
+        try {
+            this.entries = new JSONArray(content);
+        } catch (JSONException ex) {
+            DebugLog.log(ex.getMessage());
+        }
     }
 
 }

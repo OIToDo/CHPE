@@ -19,4 +19,8 @@ public interface NNFrameCoordinateDAO {
     @Delete
     void delete(NNFrameCoordinate nnFrameCoordinate);
 
+
+    @Query("DELETE FROM frame_coordinate")
+    void nukeTable(); // Naming is about as clear as it can be.
+
 }

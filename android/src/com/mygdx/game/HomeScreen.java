@@ -23,7 +23,11 @@ public class HomeScreen extends AndroidApplication {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        AppDatabase appDatabase = Room.databaseBuilder(getApplicationContext(), AppDatabase.class, "CHPE")
+        AppDatabase appDatabase =
+                Room.databaseBuilder(
+                        getApplicationContext(),
+                        AppDatabase.class,
+                        "CHPE")
                 .allowMainThreadQueries().build(); // TODO: Multi-threaded agent
         MockData mockData = new MockData(appDatabase);
         super.onCreate(savedInstanceState);

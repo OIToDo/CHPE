@@ -5,7 +5,7 @@ import androidx.room.PrimaryKey;
 
 @Entity(tableName = "frame")
 public class NNFrame {
-    @PrimaryKey
-    public int id;
-    public int frameCount;
+    @PrimaryKey(autoGenerate = true)
+    public long  id;
+    public int  frame_count;
 }

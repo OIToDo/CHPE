@@ -27,6 +27,6 @@ import com.mygdx.game.persistance.Session.NNSession;
         tableName = "session_frame"
 )
 public class NNSessionFrame {
-    @ColumnInfo(index = true) public int session_id;
-    @ColumnInfo(index = true) public int frame_id;
+    @ColumnInfo(index = true) public long  session_id;
+    @ColumnInfo(index = true) public long  frame_id;
 }

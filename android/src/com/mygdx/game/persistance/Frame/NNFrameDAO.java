@@ -12,7 +12,7 @@ import androidx.room.Update;
 public interface NNFrameDAO {
 
     @Insert
-    void insert(NNFrame nnFrame);
+    long insert(NNFrame nnFrame);
 
     @Delete
     void delete(NNFrame nnFrame);
@@ -20,7 +20,7 @@ public interface NNFrameDAO {
     @Update
     void update(NNFrame nnFrame);
 
+    @Query("DELETE FROM frame")
+    void nukeTable(); // Naming is about as clear as it can be.
 
-    //@Query("SELECT width,height from coordinate") // TODO: Finish
-    //List<Integer> get_coordinate(int frame_id, int body_count);  // TODO: Vec2
 }
