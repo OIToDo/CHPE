@@ -1,5 +1,8 @@
 package com.mygdx.game.PoseEstimation.nn;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MPI implements PoseModel {
     public enum body_part {
         head, neck, l_shoulder, l_elbow,
@@ -7,6 +10,14 @@ public class MPI implements PoseModel {
         r_hand, l_hip, l_knee, l_foot,
         r_hip, r_knee, r_foot, waist
     }
+
+    public String[] body_parts = new String[]{
+            "head", "neck", "l_shoulder", "l_elbow",
+            "l_wrist", "r_shoulder", "r_elbow",
+            "r_wrist", "l_hip", "l_knee", "l_foot",
+            "r_hip", "r_knee", "r_foot", "waist"
+    };
+
 
     public final int POSE_PAIRS[][] = {
             {0, 1},

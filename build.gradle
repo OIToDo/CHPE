@@ -49,6 +49,7 @@ project(":android") {
 
     dependencies {
         implementation project(":core")
+        debugImplementation 'com.amitshekhar.android:debug-db:1.0.6'
         api "com.badlogicgames.gdx:gdx-backend-android:$gdxVersion"
         natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-armeabi"
         natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-armeabi-v7a"

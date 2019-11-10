@@ -6,8 +6,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import androidx.room.Room;
+
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
+import com.mygdx.game.persistance.AppDatabase;
 
 public class HomeScreen extends AndroidApplication {
     //Button declaration of on-screen buttons.
@@ -20,6 +23,9 @@ public class HomeScreen extends AndroidApplication {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        AppDatabase appDatabase = Room.databaseBuilder(getApplicationContext(),
+                AppDatabase.class, "CHPE").build();
+        MockData mockData = new MockData(appDatabase);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_screen);
         AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();

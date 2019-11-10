@@ -16,12 +16,15 @@ public interface NNCoordinateDAO {
     int getCount();
 
     @Insert
-    void insert(NNCoordinate nnCoordinate);
+    long insert(NNCoordinate nnCoordinate);
 
     @Update
     void update(NNCoordinate nnCoordinate);
 
     @Delete
     void delete(NNCoordinate nnCoordinate);
+
+    @Query("DELETE FROM coordinate")
+    void nukeTable(); // Naming is about as clear as it can be.
 
 }
