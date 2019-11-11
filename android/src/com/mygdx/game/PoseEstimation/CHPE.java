@@ -35,10 +35,9 @@ public class CHPE {
     }
 
 
-    public void process_frame() {
 
 
-
+    public void ProcessFrame() {
 
     }
 

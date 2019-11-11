@@ -43,7 +43,7 @@ public class MockData {
 
     private long insertFrame(int frameCount) {
         NNFrame nnFrame = new NNFrame();
-        nnFrame.frameCount = frameCount;
+        nnFrame.frame_count = frameCount;
         NNFrameDAO nnFrameDAO = this.appDatabase.nnFrameDAO();
         return nnFrameDAO.insert(nnFrame);
     }

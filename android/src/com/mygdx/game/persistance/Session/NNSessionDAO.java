@@ -34,8 +34,6 @@ public interface NNSessionDAO {
     @Query("SELECT coordinate.id, coordinate.x, coordinate.y from coordinate, frame, frame_coordinate, session_frame WHERE session_frame.session_id = :sessionId and frame.frame_count = :frameCount LIMIT 1 OFFSET :bodyPart;")
     NNCoordinate get_coordinates(int frameCount, int bodyPart, int sessionId);  // TODO: Vec2
 
-
     @Query("DELETE FROM session_frame")
     void nukeTable();
-
 }
