@@ -10,6 +10,6 @@ public class NNSession {
     public long id;
     //public long  creation_date; TODO: Create date field
     public float frames_per_second;
-    public float frame_count;
+    public int frame_count;
 
 }

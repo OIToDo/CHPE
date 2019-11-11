@@ -11,6 +11,7 @@ import androidx.room.Room;
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
 import com.mygdx.game.persistance.AppDatabase;
+import com.mygdx.game.persistance.PersistenceClient;
 
 public class HomeScreen extends AndroidApplication {
     //Button declaration of on-screen buttons.
@@ -23,13 +24,10 @@ public class HomeScreen extends AndroidApplication {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        AppDatabase appDatabase =
-                Room.databaseBuilder(
-                        getApplicationContext(),
-                        AppDatabase.class,
-                        "CHPE")
-                .allowMainThreadQueries().build(); // TODO: Multi-threaded agent
-        MockData mockData = new MockData(appDatabase);
+
+        PersistenceClient.getInstance(getApplicationContext());
+
+        MockData mockData = new MockData(PersistenceClient.getInstance(getApplicationContext()).getAppDatabase());
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_screen);
         AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();
