@@ -18,7 +18,7 @@ public class PersistenceClient {
         //creating the app database with Room database builder
         // is the name of the database
         // TODO: change name 'MyToDos3'
-        appDatabase = Room.databaseBuilder(mCtx, AppDatabase.class, "MyToDos3")
+        appDatabase = Room.databaseBuilder(mCtx, AppDatabase.class, "MyToDos4")
                .allowMainThreadQueries().build();
     }
 

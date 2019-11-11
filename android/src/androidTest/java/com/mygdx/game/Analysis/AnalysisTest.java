@@ -9,7 +9,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4;
 import com.mygdx.game.MockData;
 import com.mygdx.game.persistance.AppDatabase;
 import com.mygdx.game.persistance.Coordinate.NNCoordinate;
-import com.mygdx.game.persistance.Session.NNSessionDAO;
+import com.mygdx.game.persistance.Video.NNVideoDAO;
 
 import org.junit.After;
 import org.junit.Before;
@@ -27,7 +27,7 @@ public class AnalysisTest {
     private String databaseName = "test";
     private int frameCount = 24 * 5;
     private int framesPerSecond = 24;
-    private NNSessionDAO nnSessionDAO;
+    private NNVideoDAO nnVideoDAO;
     private long insertId;
 
     @Before
@@ -40,7 +40,7 @@ public class AnalysisTest {
                 .build();
 
         MockData mockData = new MockData(this.appDatabase);
-        this.nnSessionDAO = this.appDatabase.nnSessionDAO();
+        this.nnVideoDAO = this.appDatabase.nnVideoDAO();
 
 
         // Initialising with mock data
@@ -48,13 +48,13 @@ public class AnalysisTest {
 
     @After
     public void tearDown() throws Exception {
-        this.nnSessionDAO.nukeTable();
+        this.nnVideoDAO.nukeTable();
     }
 
     @Test
     public void get_coordinates() {
 
-        NNCoordinate coordinate = this.nnSessionDAO.get_coordinates(2,0,0);
+        NNCoordinate coordinate = this.nnVideoDAO.get_coordinates(2,0,0);
         System.out.println(coordinate.x);
         System.out.println(coordinate.y);
         assertEquals(361, coordinate.x,0.0);

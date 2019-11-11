@@ -3,8 +3,8 @@ package com.mygdx.game.Analysis;
 
 import com.mygdx.game.persistance.*;
 import com.mygdx.game.persistance.Coordinate.NNCoordinate;
-import com.mygdx.game.persistance.Session.NNSession;
-import com.mygdx.game.persistance.Session.NNSessionDAO;
+import com.mygdx.game.persistance.Video.NNVideo;
+import com.mygdx.game.persistance.Video.NNVideoDAO;
 
 import com.mygdx.game.DebugLog;
 
@@ -25,8 +25,8 @@ public class DatabaseData implements Data {
      */
     public DatabaseData(AppDatabase appDatabase) {
         this.appDatabase=appDatabase;
-        this.nnSessionDAO = this.appDatabase.nnSessionDAO();
-        this.currentSession = this.nnSessionDAO.getLastSession();
+        this.nnVideoDAO = this.appDatabase.nnVideoDAO();
+        this.currentSession = this.nnVideoDAO.getLastSession();
 
     }
 
@@ -34,13 +34,10 @@ public class DatabaseData implements Data {
      * Implements Data's interface function for getting a single coordinate using Java's JSON library.
      */
     public Vec2 getCoord(int frame, body_part bp) {
-        NNCoordinate nnCoordinate = this.nnSessionDAO.get_coordinates(frame,bp.ordinal(),
+        NNCoordinate nnCoordinate = this.nnVideoDAO.get_coordinates(frame,bp.ordinal(),
                 this.currentSession.id);
 
-        DebugLog.log(Integer.toString(frame));
-
-        DebugLog.log(Integer.toString(bp.ordinal()));
-        DebugLog.log(Long.toString(this.currentSession.id));
+        DebugLog.log(bp.toString());
         DebugLog.log(String.valueOf(nnCoordinate.x));
         DebugLog.log(String.valueOf(nnCoordinate.y));
 
@@ -81,7 +78,7 @@ public class DatabaseData implements Data {
 
 
     private AppDatabase appDatabase;
-    private NNSessionDAO nnSessionDAO;
-    private NNSession currentSession;
+    private NNVideoDAO nnVideoDAO;
+    private NNVideo currentSession;
 
 }

@@ -13,10 +13,10 @@ import com.mygdx.game.persistance.Frame.NNFrameDAO;
 import com.mygdx.game.persistance.Frame.NNFrame;
 import com.mygdx.game.persistance.Relations.NNFrameCoordinate;
 import com.mygdx.game.persistance.Relations.NNFrameCoordinateDAO;
-import com.mygdx.game.persistance.Relations.NNSessionFrame;
-import com.mygdx.game.persistance.Relations.NNSessionFrameDAO;
-import com.mygdx.game.persistance.Session.NNSession;
-import com.mygdx.game.persistance.Session.NNSessionDAO;
+import com.mygdx.game.persistance.Relations.NNVideoFrame;
+import com.mygdx.game.persistance.Relations.NNVideoFrameDAO;
+import com.mygdx.game.persistance.Video.NNVideo;
+import com.mygdx.game.persistance.Video.NNVideoDAO;
 
 import java.lang.reflect.Array;
 import java.lang.reflect.Field;
@@ -49,11 +49,11 @@ public class MockData {
     }
 
     private long insertSession(int frameCount){
-        NNSession nnSession = new NNSession();
+        NNVideo nnSession = new NNVideo();
         nnSession.frame_count = frameCount;
         nnSession.frames_per_second = 24;
-        NNSessionDAO nnSessionDAO = this.appDatabase.nnSessionDAO();
-        return nnSessionDAO.insert(nnSession);
+        NNVideoDAO nnVideoDAO = this.appDatabase.nnVideoDAO();
+        return nnVideoDAO.insert(nnSession);
     }
     private long insertCoordinate(int x, int y){
 
@@ -72,9 +72,9 @@ public class MockData {
     }
 
     private void insertSessionFrame(long fid, long sid){
-        NNSessionFrame nnSessionFrame = new NNSessionFrame();
-        NNSessionFrameDAO nnSessionFrameDAO = this.appDatabase.nnSessionFrameDAO();
-        nnSessionFrame.session_id = sid;
+        NNVideoFrame nnSessionFrame = new NNVideoFrame();
+        NNVideoFrameDAO nnSessionFrameDAO = this.appDatabase.nnSessionFrameDAO();
+        nnSessionFrame.video_id = sid;
         nnSessionFrame.frame_id = fid;
         nnSessionFrameDAO.insert(nnSessionFrame);
     }
