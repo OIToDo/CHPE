@@ -1,17 +1,12 @@
 package com.mygdx.game.Analysis;
 
-
+import com.mygdx.game.DebugLog;
 import com.mygdx.game.persistance.*;
-import com.mygdx.game.persistance.Coordinate.NNCoordinate;
+import com.badlogic.gdx.math.Vector3;
 import com.mygdx.game.persistance.Video.NNVideo;
 import com.mygdx.game.persistance.Video.NNVideoDAO;
-
-import com.mygdx.game.DebugLog;
-
-
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import com.mygdx.game.PoseEstimation.nn.MPI.body_part;
+import com.mygdx.game.persistance.Coordinate.NNCoordinate;
 
 /**
  * This class implements the Data interface, it retrieves the vector data
@@ -33,7 +28,7 @@ public class DatabaseData implements Data {
     /**
      * Implements Data's interface function for getting a single coordinate using Java's JSON library.
      */
-    public Vec2 getCoord(int frame, body_part bp) {
+    public Vector3 getCoord(int frame, body_part bp) {
         NNCoordinate nnCoordinate = this.nnVideoDAO.get_coordinates(frame,bp.ordinal(),
                 this.currentSession.id);
 
@@ -41,7 +36,7 @@ public class DatabaseData implements Data {
         DebugLog.log(String.valueOf(nnCoordinate.x));
         DebugLog.log(String.valueOf(nnCoordinate.y));
 
-        return new Vec2(nnCoordinate.x, nnCoordinate.y);
+        return new Vector3(nnCoordinate.x, nnCoordinate.y, 0);
     }
 
     /**
@@ -76,9 +71,19 @@ public class DatabaseData implements Data {
         return;
     }
 
-
+    /**
+     * Connection to the Android room database.
+     */
     private AppDatabase appDatabase;
+
+    /**
+     * Data access object for getting data out of the database.
+     */
     private NNVideoDAO nnVideoDAO;
+
+    /**
+     * Identifier that specifies which session's data we want.
+     */
     private NNVideo currentSession;
 
 }

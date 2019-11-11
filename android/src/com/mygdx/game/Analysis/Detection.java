@@ -7,8 +7,11 @@ import java.util.Map;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.ArrayList;
+import java.util.Vector;
 
 import com.mygdx.game.DebugLog;
+import com.badlogic.gdx.math.Vector3;
+import com.mygdx.game.PoseEstimation.nn.MPI.body_part;
 /**
  * This class handles checking the vector data for certain FUTURE: Actions
  * and FUTURE: Patterns. For now these are just single functions with descriptive names.
@@ -28,6 +31,14 @@ public class Detection {
      * @param dt Given amount of time for it to be true.
      * @return if the Action was detected or not.
      */
+
+    public Vector3 abs(Vector3 v) {
+        return new Vector3(
+                v.x < 0 ? v.x * -1 : v.x,
+                v.y < 0 ? v.y * -1 : v.y,
+                v.z < 0 ? v.z * -1 : v.z
+        );
+    }
     public boolean handsFound(float dt) {
         boolean inAction = false;
         float action_time = 0;
@@ -35,18 +46,18 @@ public class Detection {
             if(action_time >= dt) {
                 return true;
             }
-            Vec2 r_handCoord = data.getCoord(i, body_part.r_wrist);
-            Vec2 l_handCoord = data.getCoord(i, body_part.l_wrist);
+            Vector3 r_handCoord = data.getCoord(i, body_part.r_wrist);
+            Vector3 l_handCoord = data.getCoord(i, body_part.l_wrist);
             if(!inAction) {
-                if(r_handCoord.isNull() &&
-                        l_handCoord.isNull()) {
+                if(r_handCoord.isZero() &&
+                        l_handCoord.isZero()) {
                     action_time = 0;
                     inAction = true;
                 }
             }
             if(inAction) {
-                if(!r_handCoord.isNull()  &&
-                        !l_handCoord.isNull()) {
+                if(!r_handCoord.isZero()  &&
+                        !l_handCoord.isZero()) {
                     inAction = false;
                     continue;
                 }
@@ -68,8 +79,8 @@ public class Detection {
         boolean inAction = false;
         float actionTime = 0;
 
-        Vec2 deltas[] = { new Vec2(0,0), new Vec2(0,0)};
-        Vec2 lastHandPos[] = {
+        Vector3 deltas[] = new Vector3[2];
+        Vector3 lastHandPos[] = {
                 data.getCoord(0, body_part.l_wrist),
                 data.getCoord(0, body_part.r_wrist)
         };
@@ -79,8 +90,8 @@ public class Detection {
             if(actionTime >= dt) {
                 return true;
             }
-            deltas[0] = data.getCoord(i, body_part.l_wrist).sub(lastHandPos[0]).abs();
-            deltas[1] = data.getCoord(i, body_part.r_wrist).sub(lastHandPos[1]).abs();
+            deltas[0] = abs(data.getCoord(i, body_part.l_wrist).sub(lastHandPos[0]));
+            deltas[1] = abs(data.getCoord(i, body_part.r_wrist).sub(lastHandPos[1]));
             boolean movedHands = deltas[0].x > threshold && deltas[1].x > threshold &&
                     deltas[0].y > threshold && deltas[1].y > threshold;
 
@@ -118,19 +129,19 @@ public class Detection {
             if(action_time >= dt) {
                 return true;
             }
-            Vec2 headCoord = data.getCoord(i, body_part.l_shoulder);
-            Vec2 r_handCoord = data.getCoord(i, body_part.r_wrist);
-            Vec2 l_handCoord = data.getCoord(i, body_part.l_wrist);
+            Vector3 headCoord = data.getCoord(i, body_part.l_shoulder);
+            Vector3 r_handCoord = data.getCoord(i, body_part.r_wrist);
+            Vector3 l_handCoord = data.getCoord(i, body_part.l_wrist);
             if(!inAction) {
-                if((!l_handCoord.isNull() && l_handCoord.y < headCoord.y) ||
-                        (!r_handCoord.isNull() && r_handCoord.y < headCoord.y)) {
+                if((!l_handCoord.isZero() && l_handCoord.y < headCoord.y) ||
+                        (!r_handCoord.isZero() && r_handCoord.y < headCoord.y)) {
                     action_time = 0;
                     inAction = true;
                 }
             }
             if(inAction) {
-                if((!l_handCoord.isNull() && l_handCoord.y > headCoord.y) &&
-                        (!r_handCoord.isNull() && r_handCoord.y > headCoord.y)) {
+                if((!l_handCoord.isZero() && l_handCoord.y > headCoord.y) &&
+                        (!r_handCoord.isZero() && r_handCoord.y > headCoord.y)) {
                     inAction = false;
                     continue;
                 }

@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MPI implements PoseModel {
-    public enum body_part {
+    public static enum body_part {
         head, neck, l_shoulder, l_elbow,
-        l_hand, r_shoulder, r_elbow,
-        r_hand, l_hip, l_knee, l_foot,
+        l_wrist, r_shoulder, r_elbow,
+        r_wrist, l_hip, l_knee, l_foot,
         r_hip, r_knee, r_foot, waist
     }
 

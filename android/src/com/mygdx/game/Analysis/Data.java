@@ -6,20 +6,10 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.ArrayList;
 
-
+import com.mygdx.game.PoseEstimation.nn.MPI.body_part;
 import com.mygdx.game.PoseEstimation.nn.PoseModel;
 
-
-/**
- * "Hardcoded" enumeration for body parts.
- * TODO: figure out a way to abstract this too.
- */
-enum body_part {
-    head, neck, l_shoulder, l_elbow,
-    l_wrist, r_shoulder, r_elbow,
-    r_wrist, l_hip, l_knee, l_foot,
-    r_hip, r_knee, r_foot, waist
-}
+import com.badlogic.gdx.math.Vector3;
 
 /**
  * this class provides an interface to the vector data so the analysis
@@ -34,7 +24,7 @@ public interface Data {
      * @return A 2 component integer vector that contains the specified body part's coordinate
      * in indexed frames' screen space.
      */
-    public abstract Vec2 getCoord(int frame, body_part bp);
+    public abstract Vector3 getCoord(int frame, body_part bp);
 
     /**
      * 
