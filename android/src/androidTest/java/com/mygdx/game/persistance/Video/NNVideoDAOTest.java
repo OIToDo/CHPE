@@ -1,20 +1,15 @@
-package com.mygdx.game.persistance.Session;
+package com.mygdx.game.persistance.Video;
 
 import android.content.Context;
 
-import com.mygdx.game.MockData;
 import com.mygdx.game.persistance.AppDatabase;
-import com.mygdx.game.persistance.Coordinate.NNCoordinate;
-import com.mygdx.game.persistance.Coordinate.NNCoordinateDAO;
-import com.mygdx.game.persistance.Relations.NNSessionFrame;
+import com.mygdx.game.persistance.Relations.NNVideoFrame;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-
-import java.util.List;
 
 import androidx.room.Room;
 import androidx.test.core.app.ApplicationProvider;
@@ -24,12 +19,12 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 
 @RunWith(AndroidJUnit4.class)
-public class NNSessionDAOTest {
+public class NNVideoDAOTest {
     private AppDatabase appDatabase;
     private String databaseName = "test";
     private int frameCount = 24 * 5;
     private int framesPerSecond = 24;
-    private NNSessionDAO nnSessionDAO;
+    private NNVideoDAO nnSessionDAO;
     private long insertId;
 
     @Before
@@ -41,7 +36,7 @@ public class NNSessionDAOTest {
                 .allowMainThreadQueries() // TODO: Multi-threaded agent
                 .build();
 
-        NNSession nnSession = new NNSession();
+        NNVideo nnSession = new NNVideo();
         nnSession.frame_count = this.frameCount;
         nnSession.frames_per_second = this.framesPerSecond;
         this.nnSessionDAO = this.appDatabase.nnSessionDAO();
