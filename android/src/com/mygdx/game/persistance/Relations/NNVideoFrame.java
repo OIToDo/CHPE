@@ -5,18 +5,18 @@ import androidx.room.Entity;
 import androidx.room.ForeignKey;
 
 import com.mygdx.game.persistance.Frame.NNFrame;
-import com.mygdx.game.persistance.Session.NNSession;
+import com.mygdx.game.persistance.Video.NNVideo;
 
 @Entity(
         primaryKeys = {
-                "session_id",
+                "video_id",
                 "frame_id"
         },
         foreignKeys = {
                 @ForeignKey(
-                        entity = NNSession.class,
+                        entity = NNVideo.class,
                         parentColumns = "id",
-                        childColumns = "session_id"
+                        childColumns = "video_id"
                 ),
                 @ForeignKey(
                         entity = NNFrame.class,
@@ -24,9 +24,9 @@ import com.mygdx.game.persistance.Session.NNSession;
                         childColumns = "frame_id"
                 )
         },
-        tableName = "session_frame"
+        tableName = "video_frame"
 )
-public class NNSessionFrame {
-    @ColumnInfo(index = true) public long  session_id;
+public class NNVideoFrame {
+    @ColumnInfo(index = true) public long  video_id;
     @ColumnInfo(index = true) public long  frame_id;
 }

@@ -7,18 +7,18 @@ import androidx.room.Query;
 import androidx.room.Update;
 
 @Dao
-public interface NNSessionFrameDAO {
+public interface NNVideoFrameDAO {
 
     @Insert
-    void insert(NNSessionFrame nnSessionFrame);
+    void insert(NNVideoFrame nnVideoFrame);
 
     @Update
-    void update(NNSessionFrame nnSessionFrame);
+    void update(NNVideoFrame nnVideoFrame);
 
     @Delete
-    void delete(NNSessionFrame nnSessionFrame);
+    void delete(NNVideoFrame nnVideoFrame);
 
-    @Query("DELETE FROM session_frame")
+    @Query("DELETE FROM video_frame")
     void nukeTable(); // Naming is about as clear as it can be.
 
 }
