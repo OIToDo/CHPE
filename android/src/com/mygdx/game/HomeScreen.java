@@ -1,5 +1,6 @@
 package com.mygdx.game;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -20,6 +21,8 @@ public class HomeScreen extends AndroidApplication {
     //View Declaration of embedded on-screen libGDX views.
     View libGDXView;
     View embeddedView;
+
+    private static Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +63,11 @@ public class HomeScreen extends AndroidApplication {
         });
 
         replaceView(embeddedView, libGDXView);
+        HomeScreen.context = getApplicationContext();
+    }
+
+    public static Context getAppContext(){
+        return HomeScreen.context;
     }
 
     public void openPreviousResultScreen(){

@@ -1,5 +1,7 @@
 package com.mygdx.game.Simulation;
 
+import android.content.Context;
+
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
@@ -21,6 +23,12 @@ import com.badlogic.gdx.graphics.g3d.utils.ModelBuilder;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
+import com.mygdx.game.Analysis.Data;
+import com.mygdx.game.Analysis.DatabaseData;
+import com.mygdx.game.HomeScreen;
+import com.mygdx.game.persistance.PersistenceClient;
+
+import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
 
 public class MyGdxGame implements ApplicationListener {
 	public PerspectiveCamera gameCam;
@@ -43,6 +51,10 @@ public class MyGdxGame implements ApplicationListener {
 
 	@Override
 	public void create(){
+		//Data object
+		Context context = HomeScreen.getAppContext();
+		Data data = new DatabaseData(PersistenceClient.getInstance(context).getAppDatabase());
+
 		modelBatch = new ModelBatch();
 		modelBuilder = new ModelBuilder();
 		bodyPart = new BodyPart();
