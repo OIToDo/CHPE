@@ -24,7 +24,7 @@ public class NNVideoDAOTest {
     private String databaseName = "test";
     private int frameCount = 24 * 5;
     private int framesPerSecond = 24;
-    private NNVideoDAO nnSessionDAO;
+    private NNVideoDAO nnVideoDAO;
     private long insertId;
 
     @Before
@@ -39,27 +39,27 @@ public class NNVideoDAOTest {
         NNVideo nnSession = new NNVideo();
         nnSession.frame_count = this.frameCount;
         nnSession.frames_per_second = this.framesPerSecond;
-        this.nnSessionDAO = this.appDatabase.nnSessionDAO();
-        this.insertId = nnSessionDAO.insert(nnSession);
+        this.nnVideoDAO = this.appDatabase.nnVideoDAO();
+        this.insertId = nnVideoDAO.insert(nnSession);
 
         // Initialising with mock data
     }
 
     @After
     public void tearDown() throws Exception {
-        nnSessionDAO.nukeTable();
+        nnVideoDAO.nukeTable();
     }
 
     @Test
     public void getFramesPerSecond() {
         assertEquals(this.framesPerSecond,
-                this.nnSessionDAO.getLastSession().frames_per_second,
+                this.nnVideoDAO.getLastSession().frames_per_second,
                 0.0);
     }
 
     @Test
     public void getFrameCount() {
-        assertEquals(this.frameCount, this.nnSessionDAO.getLastSession().frame_count, 0.0);
+        assertEquals(this.frameCount, this.nnVideoDAO.getLastSession().frame_count, 0.0);
     }
 
 }
