@@ -13,7 +13,7 @@ import static org.junit.Assert.assertTrue;
 
 
 @RunWith(AndroidJUnit4.class)
-public class BasePersistenceDABTest {
+public class BasePersistenceDAOTest {
     private AppDatabase appDatabase;
 
     @Before
