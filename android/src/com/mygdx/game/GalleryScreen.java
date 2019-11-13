@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.os.Bundle;
 import android.view.View;
 import android.content.Intent;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.MediaController;
 import android.widget.VideoView;
@@ -30,6 +31,9 @@ public class GalleryScreen extends AppCompatActivity implements Serializable {
     //Int declaration to enter video function with.
     private final int SELECT_VIDEO_REQUEST = 1;
     Uri extra;
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,4 +104,6 @@ public class GalleryScreen extends AppCompatActivity implements Serializable {
             }
         }
     }
+
+
 }

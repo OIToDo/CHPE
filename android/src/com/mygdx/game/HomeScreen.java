@@ -13,7 +13,11 @@ public class HomeScreen extends AndroidApplication {
     //Button declaration of on-screen buttons.
     Button previousResultScreenButton;
     Button galleryScreenButton;
+    /////////////////////////////
+    //TIJDELIJKE KNOPPEN/////////
     Button JUMP;
+    Button processWindow;
+    /////////////////////////
     //View Declaration of embedded on-screen libGDX views.
     View libGDXView;
     View embeddedView;
@@ -30,7 +34,7 @@ public class HomeScreen extends AndroidApplication {
         previousResultScreenButton = findViewById(R.id.previousResults);
         galleryScreenButton = findViewById(R.id.galleryScreenButton);
         JUMP = findViewById(R.id.JUMP);
-
+        processWindow = findViewById(R.id.WindowProcess);
         previousResultScreenButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -51,7 +55,12 @@ public class HomeScreen extends AndroidApplication {
                 openJUMP();
             }
         });
-
+        processWindow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openProcess();
+            }
+        });
         replaceView(embeddedView, libGDXView);
     }
 
@@ -62,6 +71,11 @@ public class HomeScreen extends AndroidApplication {
 
     public void openJUMP(){
         Intent intent = new Intent(HomeScreen.this, CurrentResultActivity.class);
+        startActivity(intent);
+    }
+
+    public void openProcess() {
+        Intent intent = new Intent(this, ProcessingScreenActivity.class);
         startActivity(intent);
     }
 
