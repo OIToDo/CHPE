@@ -29,6 +29,7 @@ public class HomeScreen extends AndroidApplication {
 
         PersistenceClient.getInstance(getApplicationContext());
 
+        MockData mockData = new MockData(PersistenceClient.getInstance(getApplicationContext()).getAppDatabase());
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_screen);
         AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();

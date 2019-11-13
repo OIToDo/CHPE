@@ -249,7 +249,7 @@ public class Body {
         // todo if something terribly messes up here, look at the math order (1st for the neck limb should be in the correct order)!
         float neck_length = HelperClass.PythagorasTheorem(headCoords.x * data_scale, headCoords.y * data_scale, neckCoords.x * data_scale, neckCoords.y * data_scale);
         float neck_rotation = HelperClass.getAngle(headCoords.x * data_scale, headCoords.y * data_scale, neckCoords.x * data_scale, neckCoords.y * data_scale);
-        Model neck_model = modelBuilder.createCylinder(limbDiameter, neck_length, limbDiameter, 20,
+        Model neck_model = modelBuilder.createCylinder(limbDiameter * scale, neck_length, limbDiameter * scale, 20,
                 new Material(),
                 VertexAttributes.Usage.Position | VertexAttributes.Usage.Normal | VertexAttributes.Usage.TextureCoordinates);
         instances.set(15, new ModelInstance(neck_model));
@@ -258,7 +258,7 @@ public class Body {
 
         float l_shoulder_length = HelperClass.PythagorasTheorem(neckCoords.x * data_scale, neckCoords.y * data_scale, l_shoulderCoords.x * data_scale, l_shoulderCoords.y * data_scale);
         float l_shoulder_rotation = HelperClass.getAngle(neckCoords.x * data_scale, neckCoords.y * data_scale, l_shoulderCoords.x * data_scale, l_shoulderCoords.y * data_scale);
-        Model l_shoulder_model = modelBuilder.createCylinder(limbDiameter, l_shoulder_length, limbDiameter, 20,
+        Model l_shoulder_model = modelBuilder.createCylinder(limbDiameter * scale, l_shoulder_length, limbDiameter * scale, 20,
                 new Material(),
                 VertexAttributes.Usage.Position | VertexAttributes.Usage.Normal | VertexAttributes.Usage.TextureCoordinates);
         instances.set(16, new ModelInstance(l_shoulder_model));
@@ -267,7 +267,7 @@ public class Body {
 
         float r_shoulder_length = HelperClass.PythagorasTheorem(neckCoords.x * data_scale, neckCoords.y * data_scale, r_shoulderCoords.x * data_scale, r_shoulderCoords.y * data_scale);
         float r_shoulder_rotation = HelperClass.getAngle(neckCoords.x * data_scale, neckCoords.y * data_scale, r_shoulderCoords.x * data_scale, r_shoulderCoords.y * data_scale);
-        Model r_shoulder_model = modelBuilder.createCylinder(limbDiameter, r_shoulder_length, limbDiameter, 20,
+        Model r_shoulder_model = modelBuilder.createCylinder(limbDiameter * scale, r_shoulder_length, limbDiameter * scale, 20,
                 new Material(),
                 VertexAttributes.Usage.Position | VertexAttributes.Usage.Normal | VertexAttributes.Usage.TextureCoordinates);
         instances.set(17, new ModelInstance(r_shoulder_model));
@@ -276,7 +276,7 @@ public class Body {
 
         float l_elbow_length = HelperClass.PythagorasTheorem(l_elbowCoords.x * data_scale, l_elbowCoords.y * data_scale, l_shoulderCoords.x * data_scale, l_shoulderCoords.y * data_scale);
         float l_elbow_rotation = HelperClass.getAngle(l_elbowCoords.x * data_scale, l_elbowCoords.y * data_scale, l_shoulderCoords.x * data_scale, l_shoulderCoords.y * data_scale);
-        Model l_elbow_model = modelBuilder.createCylinder(limbDiameter, l_elbow_length, limbDiameter, 20,
+        Model l_elbow_model = modelBuilder.createCylinder(limbDiameter * scale, l_elbow_length, limbDiameter * scale, 20,
                 new Material(),
                 VertexAttributes.Usage.Position | VertexAttributes.Usage.Normal | VertexAttributes.Usage.TextureCoordinates);
         instances.set(18, new ModelInstance(l_elbow_model));
@@ -285,7 +285,7 @@ public class Body {
 
         float r_elbow_length = HelperClass.PythagorasTheorem(r_elbowCoords.x * data_scale, r_elbowCoords.y * data_scale, r_shoulderCoords.x * data_scale, r_shoulderCoords.y * data_scale);
         float r_elbow_rotation = HelperClass.getAngle(r_elbowCoords.x * data_scale, r_elbowCoords.y * data_scale, r_shoulderCoords.x * data_scale, r_shoulderCoords.y * data_scale);
-        Model r_elbow_model = modelBuilder.createCylinder(limbDiameter, r_elbow_length, limbDiameter, 20,
+        Model r_elbow_model = modelBuilder.createCylinder(limbDiameter * scale, r_elbow_length, limbDiameter * scale, 20,
                 new Material(),
                 VertexAttributes.Usage.Position | VertexAttributes.Usage.Normal | VertexAttributes.Usage.TextureCoordinates);
         instances.set(19, new ModelInstance(r_elbow_model));
@@ -294,7 +294,7 @@ public class Body {
 
         float l_wrist_length = HelperClass.PythagorasTheorem(l_elbowCoords.x * data_scale, l_elbowCoords.y * data_scale, l_wristCoords.x * data_scale, l_wristCoords.y * data_scale);
         float l_wrist_rotation = HelperClass.getAngle(l_elbowCoords.x * data_scale, l_elbowCoords.y * data_scale, l_wristCoords.x * data_scale, l_wristCoords.y * data_scale);
-        Model l_wrist_model = modelBuilder.createCylinder(limbDiameter, l_wrist_length, limbDiameter, 20,
+        Model l_wrist_model = modelBuilder.createCylinder(limbDiameter * scale, l_wrist_length, limbDiameter * scale, 20,
                 new Material(),
                 VertexAttributes.Usage.Position | VertexAttributes.Usage.Normal | VertexAttributes.Usage.TextureCoordinates);
         instances.set(20, new ModelInstance(l_wrist_model));
@@ -304,7 +304,7 @@ public class Body {
 
         float r_wrist_length = HelperClass.PythagorasTheorem(r_elbowCoords.x * data_scale, r_elbowCoords.y * data_scale, r_wristCoords.x * data_scale, r_wristCoords.y * data_scale);
         float r_wrist_rotation = HelperClass.getAngle(r_elbowCoords.x * data_scale, r_elbowCoords.y * data_scale, r_wristCoords.x * data_scale, r_wristCoords.y * data_scale);
-        Model r_wrist_model = modelBuilder.createCylinder(limbDiameter, r_wrist_length, limbDiameter, 20,
+        Model r_wrist_model = modelBuilder.createCylinder(limbDiameter * scale, r_wrist_length, limbDiameter * scale, 20,
                 new Material(),
                 VertexAttributes.Usage.Position | VertexAttributes.Usage.Normal | VertexAttributes.Usage.TextureCoordinates);
         instances.set(21, new ModelInstance(r_wrist_model));
@@ -313,7 +313,7 @@ public class Body {
 
         float waist_length = HelperClass.PythagorasTheorem(neckCoords.x * data_scale, neckCoords.y * data_scale, waistCoords.x * data_scale, waistCoords.y * data_scale);
         float waist_rotation = HelperClass.getAngle(neckCoords.x * data_scale, neckCoords.y * data_scale, waistCoords.x * data_scale, waistCoords.y * data_scale);
-        Model waist_model = modelBuilder.createCylinder(limbDiameter, waist_length, limbDiameter, 20,
+        Model waist_model = modelBuilder.createCylinder(limbDiameter * scale, waist_length, limbDiameter * scale, 20,
                 new Material(),
                 VertexAttributes.Usage.Position | VertexAttributes.Usage.Normal | VertexAttributes.Usage.TextureCoordinates);
         instances.set(22, new ModelInstance(waist_model));
@@ -322,7 +322,7 @@ public class Body {
 
         float l_hip_length = HelperClass.PythagorasTheorem(l_hipCoords.x * data_scale, l_hipCoords.y * data_scale, waistCoords.x * data_scale, waistCoords.y * data_scale);
         float l_hip_rotation = HelperClass.getAngle(l_hipCoords.x * data_scale, l_hipCoords.y * data_scale, waistCoords.x * data_scale, waistCoords.y * data_scale);
-        Model l_hip_model = modelBuilder.createCylinder(limbDiameter, l_hip_length, limbDiameter, 20,
+        Model l_hip_model = modelBuilder.createCylinder(limbDiameter * scale, l_hip_length, limbDiameter * scale, 20,
                 new Material(),
                 VertexAttributes.Usage.Position | VertexAttributes.Usage.Normal | VertexAttributes.Usage.TextureCoordinates);
         instances.set(23, new ModelInstance(l_hip_model));
@@ -331,7 +331,7 @@ public class Body {
 
         float r_hip_length = HelperClass.PythagorasTheorem(r_hipCoords.x * data_scale, r_hipCoords.y * data_scale, waistCoords.x * data_scale, waistCoords.y * data_scale);
         float r_hip_rotation = HelperClass.getAngle(r_hipCoords.x * data_scale, r_hipCoords.y * data_scale, waistCoords.x * data_scale, waistCoords.y * data_scale);
-        Model r_hip_model = modelBuilder.createCylinder(limbDiameter, r_hip_length, limbDiameter, 20,
+        Model r_hip_model = modelBuilder.createCylinder(limbDiameter * scale, r_hip_length, limbDiameter * scale, 20,
                 new Material(),
                 VertexAttributes.Usage.Position | VertexAttributes.Usage.Normal | VertexAttributes.Usage.TextureCoordinates);
         instances.set(24, new ModelInstance(r_hip_model));
@@ -340,7 +340,7 @@ public class Body {
 
         float l_knee_length = HelperClass.PythagorasTheorem(l_hipCoords.x * data_scale, l_hipCoords.y * data_scale, l_kneeCoords.x * data_scale, l_kneeCoords.y * data_scale);
         float l_knee_rotation = HelperClass.getAngle(l_hipCoords.x * data_scale, l_hipCoords.y * data_scale, l_kneeCoords.x * data_scale, l_kneeCoords.y * data_scale);
-        Model l_knee_model = modelBuilder.createCylinder(limbDiameter, l_knee_length, limbDiameter, 20,
+        Model l_knee_model = modelBuilder.createCylinder(limbDiameter * scale, l_knee_length, limbDiameter * scale, 20,
                 new Material(),
                 VertexAttributes.Usage.Position | VertexAttributes.Usage.Normal | VertexAttributes.Usage.TextureCoordinates);
         instances.set(25, new ModelInstance(l_knee_model));
@@ -349,7 +349,7 @@ public class Body {
 
         float r_knee_length = HelperClass.PythagorasTheorem(r_hipCoords.x * data_scale, r_hipCoords.y * data_scale, r_kneeCoords.x * data_scale, r_kneeCoords.y * data_scale);
         float r_knee_rotation = HelperClass.getAngle(r_hipCoords.x * data_scale, r_hipCoords.y * data_scale, r_kneeCoords.x * data_scale, r_kneeCoords.y * data_scale);
-        Model r_knee_model = modelBuilder.createCylinder(limbDiameter, r_knee_length, limbDiameter, 20,
+        Model r_knee_model = modelBuilder.createCylinder(limbDiameter * scale, r_knee_length, limbDiameter * scale, 20,
                 new Material(),
                 VertexAttributes.Usage.Position | VertexAttributes.Usage.Normal | VertexAttributes.Usage.TextureCoordinates);
         instances.set(26, new ModelInstance(r_knee_model));
@@ -358,7 +358,7 @@ public class Body {
 
         float l_foot_length = HelperClass.PythagorasTheorem(l_footCoords.x * data_scale, l_footCoords.y * data_scale, l_kneeCoords.x * data_scale, l_kneeCoords.y * data_scale);
         float l_foot_rotation = HelperClass.getAngle(l_footCoords.x * data_scale, l_footCoords.y * data_scale, l_kneeCoords.x * data_scale, l_kneeCoords.y * data_scale);
-        Model l_foot_model = modelBuilder.createCylinder(limbDiameter, l_foot_length, limbDiameter, 20,
+        Model l_foot_model = modelBuilder.createCylinder(limbDiameter * scale, l_foot_length, limbDiameter * scale, 20,
                 new Material(),
                 VertexAttributes.Usage.Position | VertexAttributes.Usage.Normal | VertexAttributes.Usage.TextureCoordinates);
         instances.set(27, new ModelInstance(l_foot_model));
@@ -367,7 +367,7 @@ public class Body {
 
         float r_foot_length = HelperClass.PythagorasTheorem(r_footCoords.x * data_scale, r_footCoords.y * data_scale, r_kneeCoords.x * data_scale, r_kneeCoords.y * data_scale);
         float r_foot_rotation = HelperClass.getAngle(r_footCoords.x * data_scale, r_footCoords.y * data_scale, r_kneeCoords.x * data_scale, r_kneeCoords.y * data_scale);
-        Model r_foot_model = modelBuilder.createCylinder(limbDiameter, r_foot_length, limbDiameter, 20,
+        Model r_foot_model = modelBuilder.createCylinder(limbDiameter * scale, r_foot_length, limbDiameter * scale, 20,
                 new Material(),
                 VertexAttributes.Usage.Position | VertexAttributes.Usage.Normal | VertexAttributes.Usage.TextureCoordinates);
         instances.set(28, new ModelInstance(r_foot_model));

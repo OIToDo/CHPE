@@ -128,16 +128,15 @@ public class MyGdxGame implements ApplicationListener {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
 
 		// |-------------- test environment ------------|
-		body.update(98, instances, data);
-//		tick ++;
-//		if(tick >= 60 / 24){
-//			body.update(98, instances, data);
-//			frame++;
-//			tick = 0;
-//		}
-//		if(frame >= data.getFrameCount()-1){
-//			frame = 0;
-//		}
+		tick ++;
+		if(tick >= 60 / 24){
+			body.update(frame, instances, data);
+			frame++;
+			tick = 0;
+		}
+		if(frame >= data.getFrameCount()-1){
+			frame = 0;
+		}
 		// |--------------------------------------------|
 		modelBatch.begin(gameCam);
 		modelBatch.render(instances, environment);
