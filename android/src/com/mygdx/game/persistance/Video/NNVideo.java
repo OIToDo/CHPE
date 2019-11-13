@@ -11,5 +11,7 @@ public class NNVideo {
     //public long  creation_date; TODO: Create date field
     public float frames_per_second;
     public int frame_count;
+    public int width;
+    public int height;
 
 }
