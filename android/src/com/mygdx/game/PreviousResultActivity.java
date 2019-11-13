@@ -2,18 +2,19 @@ package com.mygdx.game;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.util.HashMap;
+
+import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextSwitcher;
-import android.widget.TextView;
-import android.widget.ViewSwitcher;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
+import com.mygdx.game.Analysis.Data;
+import com.mygdx.game.Analysis.Action;
+import com.mygdx.game.Analysis.Analysis;
+import com.mygdx.game.Analysis.DatabaseData;
+import com.mygdx.game.persistance.PersistenceClient;
 
 public class PreviousResultActivity extends AppCompatActivity {
 //  Button to return the user to the home screen.
