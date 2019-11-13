@@ -87,7 +87,7 @@ public class MyGdxGame implements ApplicationListener {
 		camController = new CameraInputController(gameCam);
 		Gdx.input.setInputProcessor(camController);
 
-		Array<ModelInstance> bodyInstances = body.create(0,0,0,0.75f);
+		Array<ModelInstance> bodyInstances = body.create(0,0,0,0.25f);
 		instances = bodyInstances;
 
 		assets = new AssetManager();
