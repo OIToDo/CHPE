@@ -25,6 +25,7 @@ import com.mygdx.game.persistance.Video.NNVideoDAO;
                 NNVideoFrame.class,
                 NNFrameCoordinate.class,
         },
+
         version = 2,
         exportSchema = false)
 

@@ -1,6 +1,5 @@
 package com.mygdx.game.persistance.Video;
 
-
 import com.mygdx.game.persistance.Coordinate.NNCoordinate;
 
 import java.util.List;
@@ -31,8 +30,14 @@ public interface NNVideoDAO {
     @Query("SELECT frame_count from video WHERE :id")
     int getFrameCount(int id);
 
+    @Query("SELECT width from video WHERE :id")
+    int getWidth(int id);
+
+    @Query("SELECT height from video WHERE :id")
+    int getHeight(int id);
+
     @Query("SELECT coordinate.id, coordinate.x, coordinate.y from coordinate, frame, frame_coordinate, video_frame, video WHERE video.id = :videoId AND video.id = video_frame.video_id AND video_frame.frame_id = frame.id AND frame.frame_count = :frameCount AND frame_coordinate.frame_id = frame.id LIMIT 1 OFFSET :bodyPart")
-    NNCoordinate get_coordinates(int frameCount, int bodyPart, long videoId);  // TODO: Vec2
+    NNCoordinate get_coordinates(int frameCount, int bodyPart, long videoId);
 
     @Query("DELETE FROM video")
     void nukeTable();
