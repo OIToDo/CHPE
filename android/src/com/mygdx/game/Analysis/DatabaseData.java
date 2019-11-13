@@ -32,10 +32,9 @@ public class DatabaseData implements Data {
         NNCoordinate nnCoordinate = this.nnVideoDAO.get_coordinates(frame,bp.ordinal(),
                 this.currentSession.id);
 
-        DebugLog.log(bp.toString());
-        DebugLog.log(String.valueOf(nnCoordinate.x));
-        DebugLog.log(String.valueOf(nnCoordinate.y));
-
+        if(bp.ordinal() == 4) {
+            DebugLog.log("DB:TEST" + nnCoordinate.x + nnCoordinate.y);
+        }
         return new Vector3(nnCoordinate.x, nnCoordinate.y, 0);
     }
 

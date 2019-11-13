@@ -25,6 +25,7 @@ import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.Analysis.Data;
 import com.mygdx.game.Analysis.DatabaseData;
+import com.mygdx.game.DebugLog;
 import com.mygdx.game.HomeScreen;
 import com.mygdx.game.persistance.PersistenceClient;
 
@@ -45,15 +46,20 @@ public class MyGdxGame implements ApplicationListener {
 	public BodyPart bodyPart;
 	public BodyLimb bodyLimb;
 	public Body body;
+	public Context context;
+	public Data data;
 
 	public int fieldOfView = 67;
+	private int frame = 0;
+	private int tick = 0;
 	public boolean loading;
 
 	@Override
 	public void create(){
+
 		//Data object
-		Context context = HomeScreen.getAppContext();
-		Data data = new DatabaseData(PersistenceClient.getInstance(context).getAppDatabase());
+		context = HomeScreen.getAppContext();
+		data = new DatabaseData(PersistenceClient.getInstance(context).getAppDatabase());
 
 		modelBatch = new ModelBatch();
 		modelBuilder = new ModelBuilder();
@@ -121,6 +127,18 @@ public class MyGdxGame implements ApplicationListener {
 		Gdx.gl.glClearColor(0f, 0f, 0f, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
 
+		// |-------------- test environment ------------|
+		body.update(98, instances, data);
+//		tick ++;
+//		if(tick >= 60 / 24){
+//			body.update(98, instances, data);
+//			frame++;
+//			tick = 0;
+//		}
+//		if(frame >= data.getFrameCount()-1){
+//			frame = 0;
+//		}
+		// |--------------------------------------------|
 		modelBatch.begin(gameCam);
 		modelBatch.render(instances, environment);
 		modelBatch.end();
