@@ -1,17 +1,17 @@
 package com.mygdx.game;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import androidx.room.Room;
-
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
-import com.mygdx.game.persistance.AppDatabase;
 import com.mygdx.game.persistance.PersistenceClient;
+
+import com.mygdx.game.Simulation.MyGdxGame;
 
 public class HomeScreen extends AndroidApplication {
     //Button declaration of on-screen buttons.
@@ -22,12 +22,14 @@ public class HomeScreen extends AndroidApplication {
     View libGDXView;
     View embeddedView;
 
+    private static Context context;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         PersistenceClient.getInstance(getApplicationContext());
-
-        MockData mockData = new MockData(PersistenceClient.getInstance(getApplicationContext()).getAppDatabase());
+        String content = getApplicationContext().getResources().getString(R.string.norm_string_test);
+        MockData mockData = new MockData(PersistenceClient.getInstance(getApplicationContext()).getAppDatabase(), content);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_screen);
         AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();
@@ -61,6 +63,11 @@ public class HomeScreen extends AndroidApplication {
         });
 
         replaceView(embeddedView, libGDXView);
+        HomeScreen.context = getApplicationContext();
+    }
+
+    public static Context getAppContext(){
+        return HomeScreen.context;
     }
 
     public void openPreviousResultScreen(){

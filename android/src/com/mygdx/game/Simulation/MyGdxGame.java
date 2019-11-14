@@ -1,4 +1,6 @@
-package com.mygdx.game;
+package com.mygdx.game.Simulation;
+
+import android.content.Context;
 
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
@@ -21,6 +23,10 @@ import com.badlogic.gdx.graphics.g3d.utils.ModelBuilder;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
+import com.mygdx.game.Analysis.Data;
+import com.mygdx.game.Analysis.DatabaseData;
+import com.mygdx.game.HomeScreen;
+import com.mygdx.game.persistance.PersistenceClient;
 
 public class MyGdxGame implements ApplicationListener {
 	public PerspectiveCamera gameCam;
@@ -37,12 +43,21 @@ public class MyGdxGame implements ApplicationListener {
 	public BodyPart bodyPart;
 	public BodyLimb bodyLimb;
 	public Body body;
+	public Context context;
+	public Data data;
 
 	public int fieldOfView = 67;
+	private int frame = 0;
+	private int tick = 0;
 	public boolean loading;
 
 	@Override
 	public void create(){
+
+		//Data object
+		context = HomeScreen.getAppContext();
+		data = new DatabaseData(PersistenceClient.getInstance(context).getAppDatabase());
+
 		modelBatch = new ModelBatch();
 		modelBuilder = new ModelBuilder();
 		bodyPart = new BodyPart();
@@ -52,7 +67,7 @@ public class MyGdxGame implements ApplicationListener {
 		environment.set(new ColorAttribute(ColorAttribute.AmbientLight, 0.4f, 0.4f, 0.4f, 1f));
 		environment.add(new DirectionalLight().set(0.8f, 0.8f, 0.8f, -1f, -0.8f, -0.2f));
 
-		gameCam = new PerspectiveCamera(fieldOfView, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+		gameCam = new PerspectiveCamera(fieldOfView, 1, 1);
 		gameCam.position.set(1f, 1f, 20f);
 		gameCam.lookAt(0,0,0);
 		gameCam.near = 1f;
@@ -69,7 +84,7 @@ public class MyGdxGame implements ApplicationListener {
 		camController = new CameraInputController(gameCam);
 		Gdx.input.setInputProcessor(camController);
 
-		Array<ModelInstance> bodyInstances = body.create(0,0,0,0.75f);
+		Array<ModelInstance> bodyInstances = body.create(0,0,0,0.25f);
 		instances = bodyInstances;
 
 		assets = new AssetManager();
@@ -109,6 +124,17 @@ public class MyGdxGame implements ApplicationListener {
 		Gdx.gl.glClearColor(0f, 0f, 0f, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
 
+		// |-------------- test environment ------------|
+		tick ++;
+		if(tick >= 60 / 24){
+			body.update(frame, instances, data);
+			frame++;
+			tick = 0;
+		}
+		if(frame >= data.getFrameCount()-1){
+			frame = 0;
+		}
+		// |--------------------------------------------|
 		modelBatch.begin(gameCam);
 		modelBatch.render(instances, environment);
 		modelBatch.end();
