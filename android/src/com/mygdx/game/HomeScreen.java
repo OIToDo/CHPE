@@ -30,8 +30,8 @@ public class HomeScreen extends AndroidApplication {
     protected void onCreate(Bundle savedInstanceState) {
 
         PersistenceClient.getInstance(getApplicationContext());
-
         MockData mockData = new MockData(PersistenceClient.getInstance(getApplicationContext()).getAppDatabase());
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_screen);
         AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();
@@ -41,8 +41,10 @@ public class HomeScreen extends AndroidApplication {
 
         previousResultScreenButton = findViewById(R.id.previousResults);
         galleryScreenButton = findViewById(R.id.galleryScreenButton);
+
         JUMP = findViewById(R.id.JUMP);
         processWindow = findViewById(R.id.WindowProcess);
+
         previousResultScreenButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -63,12 +65,14 @@ public class HomeScreen extends AndroidApplication {
                 openJUMP();
             }
         });
+
         processWindow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 openProcess();
             }
         });
+
         replaceView(embeddedView, libGDXView);
     }
 
@@ -78,7 +82,7 @@ public class HomeScreen extends AndroidApplication {
     }
 
     public void openJUMP(){
-        Intent intent = new Intent(HomeScreen.this, CurrentResultActivity.class);
+        Intent intent = new Intent(this, CurrentResultActivity.class);
         startActivity(intent);
     }
 

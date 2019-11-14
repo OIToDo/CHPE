@@ -19,9 +19,6 @@
             android:required="false" />
         <uses-library android:name="android.test.mock"
             android:required="false" />
-
-<!--        <service android:name="NeuralNetworkingService"
-            android:description="Processing video presentation for analysis."></service>-->
         <activity android:name=".ProcessingScreenActivity"></activity>
         <activity android:name=".CurrentResultActivity" ></activity>
         <activity android:name=".PreviousResultActivity"></activity>

@@ -7,8 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".HomeScreen">
-<!--    android:background="@android:color/black"
-    tools:context=".HomeScreen">-->
+
     <View
         android:id="@+id/game"
         android:layout_width="wrap_content"
@@ -18,14 +17,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-
     <Button
         android:id="@+id/galleryScreenButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="15sp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
         android:layout_marginBottom="25dp"
-        android:text="Load Video"
+        android:text="@string/Load_Video_Button"
         android:textColor="@android:color/holo_orange_light"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -36,9 +35,10 @@
         android:id="@+id/previousResults"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="15sp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
         android:layout_marginBottom="15dp"
-        android:text="Previous Results"
+        android:text="@string/Previous_Results"
         android:textColor="@android:color/holo_orange_light"
         app:layout_constraintBottom_toTopOf="@+id/galleryScreenButton"
         app:layout_constraintEnd_toEndOf="parent"
@@ -47,20 +47,24 @@
 
 
     <Button
+        android:id="@+id/WindowProcess"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginBottom="15dp"
         android:text="Processing window"
-        android:id="@+id/WindowProcess"
         android:textColor="@android:color/holo_orange_light"
         app:layout_constraintBottom_toTopOf="@+id/JUMP"
-        app:layout_constraintTop_toBottomOf="@+id/gameView"
-        tools:layout_editor_absoluteX="0dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/JUMP"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="15sp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
         android:layout_marginBottom="15dp"
         android:text="Naar Resulaten"
         android:textColor="@android:color/holo_orange_light"
