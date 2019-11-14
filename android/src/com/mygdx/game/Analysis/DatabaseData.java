@@ -33,7 +33,7 @@ public class DatabaseData implements Data {
 
         if(bp.ordinal() == 4) {
         }
-        return new Vector3(nnCoordinate.x, nnCoordinate.y, 0);
+        return new Vector3((float) nnCoordinate.x, (float) nnCoordinate.y, 0);
     }
 
     /**

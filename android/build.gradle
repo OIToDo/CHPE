@@ -24,7 +24,11 @@ android {
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
+
     buildTypes {
+        def DEBUG_DB = "SERVER_URL"
+        def DB = "SERVER_URL"
+
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
@@ -110,16 +114,16 @@ dependencies {
 
     annotationProcessor 'androidx.room:room-compiler:2.2.1'
     // Core library
-    implementation  'androidx.test:core:1.2.0'
+    implementation 'androidx.test:core:1.2.0'
 
     // AndroidJUnitRunner and JUnit Rules
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test:rules:1.2.0'
 
     // Assertions
-    implementation  'androidx.test.ext:junit:1.1.1'
-    implementation  'androidx.test.ext:truth:1.2.0'
-    implementation  'com.google.truth:truth:0.42'
+    implementation 'androidx.test.ext:junit:1.1.1'
+    implementation 'androidx.test.ext:truth:1.2.0'
+    implementation 'com.google.truth:truth:0.42'
 
     // Espresso dependencies
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0'
