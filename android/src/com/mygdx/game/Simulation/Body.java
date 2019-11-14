@@ -12,7 +12,6 @@ import com.badlogic.gdx.graphics.g3d.utils.ModelBuilder;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.Analysis.Data;
-import com.mygdx.game.DebugLog;
 import com.mygdx.game.PoseEstimation.nn.MPI.body_part;
 
 public class Body {
@@ -198,7 +197,6 @@ public class Body {
         float data_scale = -0.015f;
         // todo enum for instances. =)
 
-        DebugLog.log("FrameNumber" + frame);
         //update joints -------------------------------------------------------------------------------------------------|
         headCoords = data.getCoord(frame, body_part.head);
         instances.get(0).transform.setToTranslation(headCoords.x * data_scale, headCoords.y * data_scale, headCoords.z * data_scale);
@@ -300,7 +298,6 @@ public class Body {
         instances.set(20, new ModelInstance(l_wrist_model));
         instances.get(20).transform.setToTranslation(l_elbowCoords.x * data_scale - (0.5f * (l_elbowCoords.x * data_scale - l_wristCoords.x * data_scale)), l_elbowCoords.y * data_scale - (0.5f * (l_elbowCoords.y * data_scale - l_wristCoords.y * data_scale)), 0f);
         instances.get(20).transform.rotate(Vector3.Z, l_wrist_rotation - 90);
-        DebugLog.log("l_wrist_x: " + l_wristCoords.x + "l_wrist_y: " + l_wristCoords.y);
 
         float r_wrist_length = HelperClass.PythagorasTheorem(r_elbowCoords.x * data_scale, r_elbowCoords.y * data_scale, r_wristCoords.x * data_scale, r_wristCoords.y * data_scale);
         float r_wrist_rotation = HelperClass.getAngle(r_elbowCoords.x * data_scale, r_elbowCoords.y * data_scale, r_wristCoords.x * data_scale, r_wristCoords.y * data_scale);

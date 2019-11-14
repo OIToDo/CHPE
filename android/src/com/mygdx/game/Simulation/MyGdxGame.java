@@ -25,11 +25,8 @@ import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.Analysis.Data;
 import com.mygdx.game.Analysis.DatabaseData;
-import com.mygdx.game.DebugLog;
 import com.mygdx.game.HomeScreen;
 import com.mygdx.game.persistance.PersistenceClient;
-
-import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
 
 public class MyGdxGame implements ApplicationListener {
 	public PerspectiveCamera gameCam;
