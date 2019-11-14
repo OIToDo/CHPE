@@ -1,9 +1,11 @@
 package com.mygdx.game.Simulation;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.VertexAttributes;
 import com.badlogic.gdx.graphics.g3d.Material;
 import com.badlogic.gdx.graphics.g3d.Model;
 import com.badlogic.gdx.graphics.g3d.ModelInstance;
+import com.badlogic.gdx.graphics.g3d.attributes.ColorAttribute;
 import com.badlogic.gdx.graphics.g3d.utils.ModelBuilder;
 import com.badlogic.gdx.math.Vector3;
 
@@ -13,7 +15,7 @@ public class BodyPart {
     Vector3 axis_;
     ModelInstance sphere;
     ModelBuilder modelBuilder = new ModelBuilder();
-    public ModelInstance create(float x, float y, float z, float size, Vector3 axis, float rotation){
+    public ModelInstance create(float x, float y, float z, float size, Vector3 axis, float rotation, Color color){
         x_ = x;
         y_ = y;
         z_ = z;
@@ -26,6 +28,7 @@ public class BodyPart {
         sphere = new ModelInstance(model);
         sphere.transform.setToTranslation(x, y, z);
         sphere.transform.rotate(axis, rotation);
+        sphere.materials.get(0).set(ColorAttribute.createDiffuse(color));
 
         return sphere;
     }

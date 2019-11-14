@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 
 public class HelperClass {
     private static ShapeRenderer debugRenderer = new ShapeRenderer();
@@ -35,5 +36,13 @@ public class HelperClass {
         }
 
         return angle;
+    }
+
+    public static Vector3 vec3Subtraction(Vector3 vec_1, Vector3 vec_2){
+        Vector3 result = new Vector3();
+        result.x = vec_1.x - vec_2.x;
+        result.y = vec_1.y - vec_2.y;
+        result.z = vec_1.z - vec_2.z;
+        return result;
     }
 }
