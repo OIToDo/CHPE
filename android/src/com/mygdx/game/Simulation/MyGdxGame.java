@@ -67,7 +67,7 @@ public class MyGdxGame implements ApplicationListener {
 		environment.set(new ColorAttribute(ColorAttribute.AmbientLight, 0.4f, 0.4f, 0.4f, 1f));
 		environment.add(new DirectionalLight().set(0.8f, 0.8f, 0.8f, -1f, -0.8f, -0.2f));
 
-		gameCam = new PerspectiveCamera(fieldOfView, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+		gameCam = new PerspectiveCamera(fieldOfView, 1, 1);
 		gameCam.position.set(1f, 1f, 20f);
 		gameCam.lookAt(0,0,0);
 		gameCam.near = 1f;

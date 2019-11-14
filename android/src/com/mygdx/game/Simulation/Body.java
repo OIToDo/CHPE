@@ -1,7 +1,5 @@
 package com.mygdx.game.Simulation;
 
-import android.os.Debug;
-
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.VertexAttributes;
 import com.badlogic.gdx.graphics.g3d.Material;
@@ -194,7 +192,8 @@ public class Body {
     }
 
     public void update(int frame, Array<ModelInstance> instances, Data data){
-        float data_scale = -0.015f;
+        float data_scale = -10f;
+//        600 * -0.015 =
         // todo enum for instances. =)
 
         //update joints -------------------------------------------------------------------------------------------------|
