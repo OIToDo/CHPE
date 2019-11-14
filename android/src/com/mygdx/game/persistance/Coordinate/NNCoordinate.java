@@ -7,6 +7,6 @@ import androidx.room.PrimaryKey;
 public class NNCoordinate {
     @PrimaryKey(autoGenerate = true)
     public long  id;
-    public int  x;
-    public int  y;
+    public double  x;
+    public double y;
 }
