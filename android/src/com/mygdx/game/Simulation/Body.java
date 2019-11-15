@@ -62,8 +62,8 @@ public class Body {
         // Create the joints and give them color
         for(body_part bp : body_part.values()){
             jointMap.put(bp, bodyPart.create(0f,0f,0f, jointDiameter * scale, Vector3.Z, 0, Color.YELLOW));
-
         }
+        jointMap.get(body_part.head).materials.get(0).set(ColorAttribute.createDiffuse(Color.GREEN));
 
         //Fill JointCoords with al the needed arrays for the separate joints
         for(int i = 0; i < body_part_size; i++){
@@ -88,7 +88,7 @@ public class Body {
         return result;
     }
 
-    public void joint_coord_limb(Vector3 joint_1, Vector3 joint_2, float ds, int index){
+    public void create_limb(Vector3 joint_1, Vector3 joint_2, float ds, int index){
         float data_scale = ds;
         float length = HelperClass.PythagorasTheorem(joint_1.x * data_scale, joint_1.y * data_scale, joint_2.x * data_scale, joint_2.y * data_scale);
         float rotation = HelperClass.getAngle(joint_1.x * data_scale, joint_1.y * data_scale, joint_2.x * data_scale, joint_2.y * data_scale);
@@ -116,11 +116,11 @@ public class Body {
         }
 
         //update limbs --------------------------------------------------------------------------------------------------|
-        // todo if something terribly messes up here, look at the math order (1st for the neck limb should be in the correct order)!
         int limbAmount = 0;
         for (int[] pp : POSE_PAIRS){
-            joint_coord_limb(jointCoords.get(pp[0]), jointCoords.get(pp[1]),-25,limbAmount);
+            create_limb(jointCoords.get(pp[0]), jointCoords.get(pp[1]),-25,limbAmount);
             limbAmount++;
         }
+        jointMap.get(body_part.head).transform.scale(3f,3f,3f);
     }
 }
