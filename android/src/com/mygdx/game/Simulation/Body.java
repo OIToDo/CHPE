@@ -24,6 +24,8 @@ public class Body {
     public float scale;
     public float limbDiameter = 1f;
     public float jointDiameter = 1f;
+    private boolean scaled = false;
+    private float head_scale = 1;
 
     public HashMap<body_part, ModelInstance> jointMap = new HashMap();
     public Array<ModelInstance> limbArray = new Array<>();
@@ -58,7 +60,7 @@ public class Body {
 
         // Create the joints and give them color
         for(body_part bp : body_part.values()){
-            jointMap.put(bp, bodyPart.create(0f,0f,0f, jointDiameter * scale, Vector3.Z, 0, Color.YELLOW));
+            jointMap.put(bp, bodyPart.create(0f,0f,0f, jointDiameter * scale, Vector3.Z, 0, Color.ORANGE));
         }
         jointMap.get(body_part.head).materials.get(0).set(ColorAttribute.createDiffuse(Color.GREEN));
 
@@ -97,7 +99,7 @@ public class Body {
                 joint_1.y * data_scale - (0.5f * (joint_1.y * data_scale - joint_2.y * data_scale)),
                 0f);
         limbArray.get(index).transform.rotate(Vector3.Z, -rotation - 90);
-        limbArray.get(index).materials.get(0).set(ColorAttribute.createDiffuse(Color.YELLOW));
+        limbArray.get(index).materials.get(0).set(ColorAttribute.createDiffuse(Color.ORANGE));
     }
 
     public void update(int frame, Data data){
@@ -118,6 +120,12 @@ public class Body {
             create_limb(jointCoords.get(pp[0]), jointCoords.get(pp[1]),-25,limbAmount);
             limbAmount++;
         }
-        jointMap.get(body_part.head).transform.scale(3f,3f,3f);
+        if(scaled == false){
+            head_scale = (jointCoords.get(body_part.waist.ordinal()).y - jointCoords.get(body_part.neck.ordinal()).y);
+            scaled = true;
+            limbDiameter = limbDiameter * 0.7f;
+        }
+        jointMap.get(body_part.head).transform.scale(30 * head_scale,30 * head_scale, 30 * head_scale);
+
     }
 }
