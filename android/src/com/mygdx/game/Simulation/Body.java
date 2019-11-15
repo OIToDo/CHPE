@@ -1,7 +1,5 @@
 package com.mygdx.game.Simulation;
 
-import android.view.Display;
-
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.VertexAttributes;
 import com.badlogic.gdx.graphics.g3d.Material;
@@ -41,7 +39,6 @@ public class Body {
 
     public void create(float x, float y, float z, float scaleInstance){
         scale = scaleInstance;
-        Array<ModelInstance> BodyPartInstances = new Array<>();
         bodyPart = new BodyPart();
         bodyLimb = new BodyLimb();
 
