@@ -1,8 +1,7 @@
 package com.mygdx.game;
 
-import android.content.Context;
-
-import org.json.*;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 
 import com.mygdx.game.PoseEstimation.nn.MPI;
 import com.mygdx.game.persistance.AppDatabase;
@@ -16,6 +15,7 @@ import com.mygdx.game.persistance.Relations.NNVideoFrame;
 import com.mygdx.game.persistance.Relations.NNVideoFrameDAO;
 import com.mygdx.game.persistance.Video.NNVideo;
 import com.mygdx.game.persistance.Video.NNVideoDAO;
+
 
 public class MockData {
 
@@ -73,10 +73,9 @@ public class MockData {
 
     public MockData(AppDatabase appDatabase) {
         this.appDatabase = appDatabase;
-        String content = "";
         try {
-            this.entries = new JSONArray(content);
-        } catch (JSONException ex) {
+            this.entries = new JSONArray();
+        } catch (Exception ex) {
             DebugLog.log(ex.getMessage());
         }
 
@@ -85,12 +84,13 @@ public class MockData {
     }
 
     public void executeInserts() {
-        long sessionId = insertSession(this.entries.length());
+        DebugLog.log(String.valueOf(entries .size()));
+        long sessionId = insertSession(this.entries.size());
         long insertId = 0;
         MPI poseModel = new MPI();
-        for (int i = 0; i < this.entries.length(); i++) {
+        for (int i = 0; i < this.entries.size(); i++) {
             try {
-                JSONObject jsonObject = this.entries.getJSONObject(i);
+                JSONObject jsonObject =  (JSONObject) this.entries.get(i);
                 long frameId = insertFrame(i);
                 insertSessionFrame(frameId, sessionId);
                 for (String spart : poseModel.body_parts) {
@@ -105,7 +105,7 @@ public class MockData {
                     long recordInsertID = insertCoordinate(coordinates[0], coordinates[1]);
                     insertFrameCoordinate(frameId, recordInsertID);
                 }
-            } catch (JSONException ex) {
+            } catch (Exception ex) {
                 DebugLog.log(ex.getMessage());
             }
         }
@@ -118,11 +118,11 @@ public class MockData {
          */
     }
 
-    public MockData(AppDatabase appDatabase, String content) {
+    public MockData(AppDatabase appDatabase, JSONArray content) {
         this.appDatabase = appDatabase;
         try {
-            this.entries = new JSONArray(content);
-        } catch (JSONException ex) {
+            this.entries = content;
+        } catch (Exception ex) {
             DebugLog.log(ex.getMessage());
         }
     }
