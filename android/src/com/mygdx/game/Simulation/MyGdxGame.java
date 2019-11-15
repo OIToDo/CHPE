@@ -35,7 +35,6 @@ public class MyGdxGame implements ApplicationListener {
 	public Shader shader;
 	public ModelBuilder modelBuilder;
 	public AssetManager assets;
-	public Array<ModelInstance> instances = new Array<>();
 	public ModelBatch modelBatch;
 	public Batch batch;
 	public Environment environment;
@@ -84,8 +83,7 @@ public class MyGdxGame implements ApplicationListener {
 		camController = new CameraInputController(gameCam);
 		Gdx.input.setInputProcessor(camController);
 
-		Array<ModelInstance> bodyInstances = body.create(0,0,0,0.25f);
-		instances = bodyInstances;
+		body.create(0,0,0,1f);
 
 		assets = new AssetManager();
 		assets.load("data/human.obj", Model.class);
@@ -127,7 +125,7 @@ public class MyGdxGame implements ApplicationListener {
 		// |-------------- test environment ------------|
 		tick ++;
 		if(tick >= 60 / 24){
-			body.update(frame, instances, data);
+			body.update(frame, data);
 			frame++;
 			tick = 0;
 		}
@@ -136,15 +134,15 @@ public class MyGdxGame implements ApplicationListener {
 		}
 		// |--------------------------------------------|
 		modelBatch.begin(gameCam);
-		modelBatch.render(instances, environment);
+		modelBatch.render(body.getJointArray(), environment);
+		modelBatch.render(body.getLimbArray(), environment);
 		modelBatch.end();
 
 		batch.begin();
 
 		// Render GUI items
-		HelperClass.DrawDebugLine(new Vector2(0,-200), new Vector2(0,200), 4, Color.RED, guiCam.combined);
-		HelperClass.DrawDebugLine(new Vector2(-200,0), new Vector2(200,0), 4, Color.BLUE, guiCam.combined);
-		font.draw(batch, "debug line here", 200, 200);
+//		HelperClass.DrawDebugLine(new Vector2(0,-200), new Vector2(0,200), 4, Color.RED, guiCam.combined);
+//		HelperClass.DrawDebugLine(new Vector2(-200,0), new Vector2(200,0), 4, Color.BLUE, guiCam.combined);
 		batch.end();
 	}
 
@@ -153,7 +151,8 @@ public class MyGdxGame implements ApplicationListener {
 		shader.dispose();
 		modelBatch.dispose();
 		batch.dispose();
-		instances.clear();
+		body.getJointArray().clear();
+		body.getLimbArray().clear();
 		assets.dispose();
 		font.dispose();
 	}
