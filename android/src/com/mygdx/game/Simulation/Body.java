@@ -125,7 +125,7 @@ public class Body {
             scaled = true;
             limbDiameter = limbDiameter * 0.7f;
         }
-        jointMap.get(body_part.head).transform.scale(30 * head_scale,30 * head_scale, 30 * head_scale);
+        jointMap.get(body_part.head).transform.scale(20f * head_scale,20f * head_scale, 20f * head_scale);
 
     }
 }
