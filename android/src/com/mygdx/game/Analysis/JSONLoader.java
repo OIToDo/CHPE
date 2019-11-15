@@ -32,7 +32,7 @@ public class JSONLoader {
     public JSONLoader(String fp) {
         filepath = fp;
         JSONParser jsonParser = new JSONParser();
-         
+
         try (FileReader reader = new FileReader(filepath))
         {
             //Read JSON file
@@ -69,5 +69,7 @@ public class JSONLoader {
     public String toString() {
         return frames.toString();
     }
+    public int getFrameCount() { return frames.size(); }
+    public JSONArray getArray() { return frames; }
 
 }

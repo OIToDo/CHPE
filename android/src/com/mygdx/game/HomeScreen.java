@@ -17,6 +17,8 @@ import com.mygdx.game.persistance.PersistenceClient;
 
 import com.mygdx.game.Simulation.MyGdxGame;
 
+import org.json.JSONArray;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -32,6 +34,7 @@ public class HomeScreen extends AndroidApplication {
     //View Declaration of embedded on-screen libGDX views.
     View libGDXView;
     View embeddedView;
+    JSONLoader loader;
 
     private static Context context;
 
@@ -42,17 +45,18 @@ public class HomeScreen extends AndroidApplication {
         AssetManager am = getApplicationContext().getAssets();
         InputStream is = null;
         try {
-            is = am.open("data/norm.json");
+            is = am.open("data/wave.json");
         } catch (IOException e) {
             DebugLog.log("Unable to load asset norm json");
         }
         Reader r = new InputStreamReader(is);
 
-        JSONLoader loader = new JSONLoader(r);
+        loader = new JSONLoader(r);
         DebugLog.log(loader.toString());
-        DebugLog.log(String.valueOf(loader.toString().length()));
+        DebugLog.log(String.valueOf(loader.getFrameCount()));
 
-        MockData mockData = new MockData(PersistenceClient.getInstance(getApplicationContext()).getAppDatabase(), loader.toString());
+        MockData mockData = new MockData(PersistenceClient.getInstance(getApplicationContext()).getAppDatabase(), loader.getArray());
+        mockData.executeInserts();
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_screen);
