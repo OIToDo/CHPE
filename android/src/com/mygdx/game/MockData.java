@@ -30,8 +30,6 @@ public class MockData {
         return result;
     }
 
-    // TODO: Insert wrapper for inserting frames would be useful
-
     private long insertFrame(int frameCount) {
         NNFrame nnFrame = new NNFrame();
         nnFrame.frame_count = frameCount;

@@ -2,61 +2,46 @@ package com.mygdx.game.PoseEstimation;
 
 
 import android.content.Context;
-import android.content.res.AssetManager;
-import android.util.Log;
-
-
-import java.io.BufferedInputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.util.ArrayList;
-
+import android.graphics.Bitmap;
 
 import com.mygdx.game.PoseEstimation.nn.PoseModel;
 import com.mygdx.game.persistance.AppDatabase;
-import com.mygdx.game.persistance.Coordinate.NNCoordinateDAO;
-import com.mygdx.game.persistance.Relations.NNFrameCoordinateDAO;
 
 
 public class CHPE {
-    private Context context;
     private AppDatabase db;
     private PoseModel model;
     private String points;
-    //private Net net;
+    public Resolution resolution;
+    private Context context;
 
-
-    public CHPE(Context context, AppDatabase db, PoseModel model) {
+    public CHPE(Context context, Resolution resolution) {
         this.context = context;
-        this.db = db;
-        this.model = model;
-
+        this.resolution = resolution;
     }
 
-
-
-
-    public void ProcessFrame() {
-
+    public Person ProcessFrame(Bitmap image) {
+        Bitmap scaledBitmap = Bitmap.createScaledBitmap(image, this.resolution.modelWidth,
+                this.resolution.modelHeight,
+                true);
+        // Perform inference.
+        Posenet posenet = new Posenet(this.context,
+                "posenet_model.tflite",
+                // TODO: Benchmark function to check which device type will have the fastest execution type
+                Device.GPU,
+                this.resolution);
+        return posenet.estimateSinglePose(scaledBitmap);
     }
-
-    public void StoreFrame() {
-
-
-        // Creating the point amount of Frame Frame
-        for (int i = 0; i < this.model.points; i++) {
-
-            NNCoordinateDAO nnCoordinateDAO = this.db.nnCoordinateDAO();
-            NNFrameCoordinateDAO nnFrameCoordinateDAO = this.db.nnFrameCoordinateDAO();
-        }
-        // Creating
-
+    public Person ProcessFrame(Bitmap image, Device device) {
+        Bitmap scaledBitmap = Bitmap.createScaledBitmap(image, this.resolution.modelWidth,
+                this.resolution.modelHeight,
+                true);
+        // Perform inference.
+        Posenet posenet = new Posenet(this.context,
+                "posenet_model.tflite",
+                device,
+                this.resolution);
+        return posenet.estimateSinglePose(scaledBitmap);
     }
-
-    public void execute() {
-
-    }
-
 
 }

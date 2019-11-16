@@ -77,7 +77,7 @@ enum class Device {
 class Posenet(
         val context: Context,
         val filename: String,
-        val device: Device = Device.CPU,
+        val device: Device,
         val resolution: Resolution
 ) : AutoCloseable {
     var lastInferenceTimeNanos: Long = -1
