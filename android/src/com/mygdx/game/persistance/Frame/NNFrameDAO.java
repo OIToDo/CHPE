@@ -23,4 +23,7 @@ public interface NNFrameDAO {
     @Query("DELETE FROM frame")
     void nukeTable(); // Naming is about as clear as it can be.
 
+    @Query("SELECT * FROM frame where id=:id")
+    NNFrame getById(long id);
+
 }

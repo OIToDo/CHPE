@@ -1,5 +1,4 @@
-package com.mygdx.game.persistance.Session;
-
+package com.mygdx.game.persistance.Video;
 
 import com.mygdx.game.persistance.Coordinate.NNCoordinate;
 
@@ -12,28 +11,34 @@ import androidx.room.Query;
 import androidx.room.Update;
 
 @Dao
-public interface NNSessionDAO {
+public interface NNVideoDAO {
     @Insert
-    long insert(NNSession nnSession);
+    long insert(NNVideo nnSession);
 
     @Update
-    void update(NNSession nnSession);
+    void update(NNVideo nnSession);
 
     @Delete
-    void delete(NNSession nnSession);
+    void delete(NNVideo nnSession);
     
-    @Query("SELECT * FROM session ORDER BY id DESC LIMIT 1")
-    NNSession getLastSession();
+    @Query("SELECT * FROM video ORDER BY id DESC LIMIT 1")
+    NNVideo getLastSession();
 
-    @Query("SELECT frames_per_second FROM session WHERE :id")
+    @Query("SELECT frames_per_second FROM video WHERE :id")
     float getFramesPerSecond(int id);
 
-    @Query("SELECT frame_count from session WHERE :id")
+    @Query("SELECT frame_count from video WHERE :id")
     int getFrameCount(int id);
 
-    @Query("SELECT coordinate.id, coordinate.x, coordinate.y from coordinate, frame, frame_coordinate, session_frame WHERE session_frame.session_id = :sessionId and frame.frame_count = :frameCount LIMIT 1 OFFSET :bodyPart;")
-    NNCoordinate get_coordinates(int frameCount, int bodyPart, int sessionId);  // TODO: Vec2
+    @Query("SELECT width from video WHERE :id")
+    int getWidth(int id);
 
-    @Query("DELETE FROM session_frame")
+    @Query("SELECT height from video WHERE :id")
+    int getHeight(int id);
+
+    @Query("SELECT coordinate.id, coordinate.x, coordinate.y from coordinate, frame, frame_coordinate, video_frame, video WHERE video.id = :videoId AND video.id = video_frame.video_id AND video_frame.frame_id = frame.id AND frame.frame_count = :frameCount AND frame_coordinate.frame_id = frame.id AND frame_coordinate.coordinate_id = coordinate.id LIMIT 1 OFFSET :bodyPart")
+    NNCoordinate get_coordinates(int frameCount, int bodyPart, long videoId);
+    
+  @Query("DELETE FROM video")
     void nukeTable();
 }

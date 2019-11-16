@@ -1,13 +1,13 @@
 package com.mygdx.game;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
+
+import com.mygdx.game.Simulation.MyGdxGame;
 
 public class ProcessingScreenActivity extends AndroidApplication {
     //Declaration of Views to use in processing screen.

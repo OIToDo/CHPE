@@ -9,22 +9,23 @@ import com.mygdx.game.persistance.Frame.NNFrame;
 import com.mygdx.game.persistance.Frame.NNFrameDAO;
 import com.mygdx.game.persistance.Relations.NNFrameCoordinate;
 import com.mygdx.game.persistance.Relations.NNFrameCoordinateDAO;
-import com.mygdx.game.persistance.Relations.NNSessionFrame;
-import com.mygdx.game.persistance.Relations.NNSessionFrameDAO;
-import com.mygdx.game.persistance.Session.NNSession;
-import com.mygdx.game.persistance.Session.NNSessionDAO;
+import com.mygdx.game.persistance.Relations.NNVideoFrame;
+import com.mygdx.game.persistance.Relations.NNVideoFrameDAO;
+import com.mygdx.game.persistance.Video.NNVideo;
+import com.mygdx.game.persistance.Video.NNVideoDAO;
 
 
 @Database(
         entities = {
                 NNFrame.class,
-                NNSession.class,
+                NNVideo.class,
                 NNCoordinate.class,
 
                 // Many-to-many
-                NNSessionFrame.class,
+                NNVideoFrame.class,
                 NNFrameCoordinate.class,
         },
+
         version = 2,
         exportSchema = false)
 
@@ -33,11 +34,11 @@ public abstract class AppDatabase extends RoomDatabase {
 
     public abstract NNFrameDAO nnFrameDAO();
 
-    public abstract NNSessionDAO nnSessionDAO();
+    public abstract NNVideoDAO nnVideoDAO();
 
     public abstract NNCoordinateDAO nnCoordinateDAO();
 
-    public abstract NNSessionFrameDAO nnSessionFrameDAO();
+    public abstract NNVideoFrameDAO nnSessionFrameDAO();
 
     public abstract NNFrameCoordinateDAO nnFrameCoordinateDAO();
 }
