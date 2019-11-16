@@ -6,9 +6,9 @@ import androidx.room.PrimaryKey;
 @Entity(tableName = "coordinate")
 public class NNCoordinate {
     @PrimaryKey(autoGenerate = true)
-    public long  id;
-    public double raw_x;
-    public double raw_y;
-    public int x;
-    public int y;
+    public long id;
+    public int raw_x;
+    public int raw_y;
+    public double x;
+    public double y;
 }

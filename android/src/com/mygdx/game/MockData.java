@@ -46,6 +46,15 @@ public class MockData {
         NNVideoDAO nnVideoDAO = this.appDatabase.nnVideoDAO();
         return nnVideoDAO.insert(nnSession);
     }
+
+    private long insertRawCoordinate(int x, int y){
+        NNCoordinateDAO nnCoordinateDAO = appDatabase.nnCoordinateDAO();
+        NNCoordinate coordinate = new NNCoordinate();
+        coordinate.raw_x = x;
+        coordinate.raw_y = y;
+        return nnCoordinateDAO.insert(coordinate);
+    }
+
     private long insertCoordinate(double x, double y){
 
         NNCoordinateDAO nnCoordinateDAO = appDatabase.nnCoordinateDAO();
