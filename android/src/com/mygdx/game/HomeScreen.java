@@ -54,8 +54,8 @@ public class HomeScreen extends AndroidApplication {
         loader = new JSONLoader(r);
         DebugLog.log(loader.toString());
         DebugLog.log(String.valueOf(loader.getFrameCount()));
-
-        MockData mockData = new MockData(PersistenceClient.getInstance(getApplicationContext()).getAppDatabase(), loader.getArray());
+        JSONArray jsonArray = new JSONArray(loader.getArray());
+        MockData mockData = new MockData(PersistenceClient.getInstance(getApplicationContext()).getAppDatabase(),jsonArray);
         mockData.executeInserts();
 
         super.onCreate(savedInstanceState);

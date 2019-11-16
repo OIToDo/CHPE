@@ -37,15 +37,15 @@ public class NNCoordinateTest {
     @Test
     public void InsertAmountCounter() {
         NNCoordinate nnCoordinate = new NNCoordinate();
-        nnCoordinate.x = 2;
-        nnCoordinate.y = 20;
+        nnCoordinate.raw_x = 2;
+        nnCoordinate.raw_y = 20;
 
         NNCoordinate nnCoordinateInserted = nnCoordinateDAO.getById(
                 nnCoordinateDAO.insert(nnCoordinate));
 
         assertEquals(1, nnCoordinateDAO.getCount());
-        assertEquals(nnCoordinateInserted.x, nnCoordinate.x, 0.0);
-        assertEquals(nnCoordinateInserted.y, nnCoordinate.y, 0.0);
+        assertEquals(nnCoordinateInserted.raw_x, nnCoordinate.raw_x, 0.0);
+        assertEquals(nnCoordinateInserted.raw_y, nnCoordinate.raw_y, 0.0);
     }
 }
 
