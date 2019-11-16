@@ -2,8 +2,6 @@ package com.mygdx.game.persistance.Video;
 
 import com.mygdx.game.persistance.Coordinate.NNCoordinate;
 
-import java.util.List;
-
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
@@ -20,7 +18,7 @@ public interface NNVideoDAO {
 
     @Delete
     void delete(NNVideo nnSession);
-    
+
     @Query("SELECT * FROM video ORDER BY id DESC LIMIT 1")
     NNVideo getLastSession();
 
@@ -36,9 +34,9 @@ public interface NNVideoDAO {
     @Query("SELECT height from video WHERE :id")
     int getHeight(int id);
 
-    @Query("SELECT coordinate.id, coordinate.x, coordinate.y from coordinate, frame, frame_coordinate, video_frame, video WHERE video.id = :videoId AND video.id = video_frame.video_id AND video_frame.frame_id = frame.id AND frame.frame_count = :frameCount AND frame_coordinate.frame_id = frame.id AND frame_coordinate.coordinate_id = coordinate.id LIMIT 1 OFFSET :bodyPart")
+    @Query("SELECT coordinate.id, coordinate.x, coordinate.y, coordinate.raw_x, coordinate.raw_y from coordinate, frame, frame_coordinate, video_frame, video WHERE video.id = :videoId AND video.id = video_frame.video_id AND video_frame.frame_id = frame.id AND frame.frame_count = :frameCount AND frame_coordinate.frame_id = frame.id AND frame_coordinate.coordinate_id = coordinate.id LIMIT 1 OFFSET :bodyPart")
     NNCoordinate get_coordinates(int frameCount, int bodyPart, long videoId);
-    
-  @Query("DELETE FROM video")
+
+    @Query("DELETE FROM video")
     void nukeTable();
 }
