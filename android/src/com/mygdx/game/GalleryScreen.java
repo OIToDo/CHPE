@@ -52,21 +52,21 @@ public class GalleryScreen extends AppCompatActivity implements Serializable {
         mediaController = new MediaController(this);
         videoView.setMediaController(mediaController);
         mediaController.setAnchorView(videoView);
-        //Instantiates homeScreenButton with the correct funtion.
+        //Instantiates homeScreenButton with the correct function.
         homeScreenButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 openHomeScreen();
             }
         });
-
+        //Instantiates videoSelectButton with the correct function.
         videoSelectButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 openVideoGallery();
             }
         });
-
+        //Instantiates startAnalysisButton with the correct function.
         startAnalysis.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -75,11 +75,12 @@ public class GalleryScreen extends AppCompatActivity implements Serializable {
         });
     }
 
+    //Starts a new Intent to open up the home-screen.
     public void openHomeScreen() {
         Intent intent = new Intent(this, HomeScreen.class);
         startActivity(intent);
     }
-
+    //Starts a new Intent to open up the default Android Gallery.
     public void openVideoGallery() {
         Intent intent;
         if (android.os.Environment.getExternalStorageState().equals(android.os.Environment.MEDIA_MOUNTED)) {
@@ -92,18 +93,20 @@ public class GalleryScreen extends AppCompatActivity implements Serializable {
         intent.putExtra("return-data", true);
         startActivityForResult(intent, SELECT_VIDEO_REQUEST);
     }
-
+    //NOT FINISHED
     public void startNeuralNetwork(Uri uri) {
         if(videoIsSelected) {
             toast = Toast.makeText(getApplicationContext(), "Started video analysis, this could take a while", Toast.LENGTH_LONG);
             toast.show();
+            enqueueWork();
         }
         else {
             toast = Toast.makeText(getApplicationContext(), "Failed to load video path", Toast.LENGTH_LONG);
             toast.show();
         }
     }
-
+    //Initializes the VideoView player with the selected video.
+    //@param String name
     public void initializePlayer(String name ) {
         videoUri = Uri.parse(name);
         videoView.setVideoURI(videoUri);
@@ -121,4 +124,12 @@ public class GalleryScreen extends AppCompatActivity implements Serializable {
             }
         }
     }
+
+    public void enqueueWork() {
+        String input = selectedVideoPath;
+        Intent serviceIntent = new Intent(this, AnalysisService.class);
+        serviceIntent.putExtra("inputExtra", input);
+        AnalysisService.enqueueWork(this, serviceIntent);
+    }
+
 }
