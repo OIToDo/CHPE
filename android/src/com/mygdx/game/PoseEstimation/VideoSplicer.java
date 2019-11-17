@@ -36,6 +36,23 @@ public class VideoSplicer {
 
     }
 
+    public long getIterTimeUs() {
+        return iterTimeUs;
+    }
+
+    public int getFrameCount() {
+        return frameCount;
+    }
+
+    public int getFramesProcessed() {
+        return framesProcessed;
+    }
+
+    public float getFramesPerSecond(){
+        return Float.parseFloat(Long.toString(this.iterTimeUs));
+    }
+
+
     private void getVideoDuration() {
         try {
             String sTotalTime = this.mediaMetadataRetriever.extractMetadata(VIDEO_DURATION);

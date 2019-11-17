@@ -5,8 +5,8 @@ import android.graphics.Bitmap;
 public class Resolution {
     public int modelWidth = 257;
     public int modelHeight = 257;
-    private int screenWidth;
-    private int screenHeight;
+    public int screenWidth;
+    public int screenHeight;
 
 
     public Resolution(Bitmap bitmap) {
