@@ -1,6 +1,5 @@
 package com.mygdx.game.Analysis;
 
-import com.mygdx.game.DebugLog;
 import com.mygdx.game.persistance.*;
 import com.badlogic.gdx.math.Vector3;
 import com.mygdx.game.persistance.Video.NNVideo;
@@ -32,11 +31,9 @@ public class DatabaseData implements Data {
         NNCoordinate nnCoordinate = this.nnVideoDAO.get_coordinates(frame,bp.ordinal(),
                 this.currentSession.id);
 
-        DebugLog.log(bp.toString());
-        DebugLog.log(String.valueOf(nnCoordinate.x));
-        DebugLog.log(String.valueOf(nnCoordinate.y));
-
-        return new Vector3(nnCoordinate.x, nnCoordinate.y, 0);
+        if(bp.ordinal() == 4) {
+        }
+        return new Vector3((float) nnCoordinate.x, (float) nnCoordinate.y, 0);
     }
 
     /**

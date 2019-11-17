@@ -9,7 +9,7 @@ buildscript {
         google()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.5.1'
+        classpath 'com.android.tools.build:gradle:3.5.2'
 
     }
 }
@@ -53,6 +53,7 @@ project(":android") {
         implementation project(":core")
         debugImplementation 'com.amitshekhar.android:debug-db:1.0.6'
         api "com.badlogicgames.gdx:gdx-backend-android:$gdxVersion"
+        implementation 'com.googlecode.json-simple:json-simple:1.1.1'
         natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-armeabi"
         natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-armeabi-v7a"
         natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-arm64-v8a"

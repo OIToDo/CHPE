@@ -1,11 +1,9 @@
 package com.mygdx.game;
 
-import android.util.Log;
-
-import org.json.*;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 
 import com.mygdx.game.PoseEstimation.nn.MPI;
-import com.mygdx.game.PoseEstimation.nn.PoseModel;
 import com.mygdx.game.persistance.AppDatabase;
 import com.mygdx.game.persistance.Coordinate.NNCoordinate;
 import com.mygdx.game.persistance.Coordinate.NNCoordinateDAO;
@@ -18,23 +16,16 @@ import com.mygdx.game.persistance.Relations.NNVideoFrameDAO;
 import com.mygdx.game.persistance.Video.NNVideo;
 import com.mygdx.game.persistance.Video.NNVideoDAO;
 
-import java.lang.reflect.Array;
-import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Stream;
-
 
 public class MockData {
 
     private AppDatabase appDatabase;
     private JSONArray entries;
 
-    public static int[] StringArrToIntArr(String[] s) {
-        int[] result = new int[s.length];
+    public static double[] StringArrToDoubleArr(String[] s) {
+        double[] result = new double[s.length];
         for (int i = 0; i < s.length; i++) {
-            result[i] = Integer.parseInt(s[i]);
+            result[i] = Double.parseDouble(s[i]);
         }
         return result;
     }
@@ -55,7 +46,7 @@ public class MockData {
         NNVideoDAO nnVideoDAO = this.appDatabase.nnVideoDAO();
         return nnVideoDAO.insert(nnSession);
     }
-    private long insertCoordinate(int x, int y){
+    private long insertCoordinate(double x, double y){
 
         NNCoordinateDAO nnCoordinateDAO = appDatabase.nnCoordinateDAO();
         NNCoordinate coordinate = new NNCoordinate();
@@ -82,11 +73,9 @@ public class MockData {
 
     public MockData(AppDatabase appDatabase) {
         this.appDatabase = appDatabase;
-
-        String content = "[{\"head\": [667,78],\"neck\": [667,187],\"l_shoulder\": [528,234],\"l_elbow\": [445,234],\"l_wrist\": [528,125],\"r_shoulder\": [779,250],\"r_elbow\": [806,422],\"r_wrist\": [779,516],\"l_hip\": [584,500],\"l_knee\": [556,657],\"l_foot\": [0,0],\"r_hip\": [695,500],\"r_knee\": [723,673],\"r_foot\": [0,0],\"waist\": [640,375]},{\"head\": [667,78],\"neck\": [667,187],\"l_shoulder\": [528,234],\"l_elbow\": [445,234],\"l_wrist\": [528,125],\"r_shoulder\": [779,250],\"r_elbow\": [806,422],\"r_wrist\": [779,516],\"l_hip\": [584,500],\"l_knee\": [556,657],\"l_foot\": [0,0],\"r_hip\": [695,500],\"r_knee\": [723,673],\"r_foot\": [0,0],\"waist\": [640,375]},{\"head\": [667,78],\"neck\": [667,187],\"l_shoulder\": [528,234],\"l_elbow\": [445,234],\"l_wrist\": [528,125],\"r_shoulder\": [779,250],\"r_elbow\": [806,422],\"r_wrist\": [779,516],\"l_hip\": [584,500],\"l_knee\": [556,657],\"l_foot\": [0,0],\"r_hip\": [695,500],\"r_knee\": [723,673],\"r_foot\": [0,0],\"waist\": [640,375]},{\"head\": [667,78],\"neck\": [667,187],\"l_shoulder\": [528,234],\"l_elbow\": [445,234],\"l_wrist\": [528,125],\"r_shoulder\": [779,250],\"r_elbow\": [806,422],\"r_wrist\": [779,516],\"l_hip\": [584,500],\"l_knee\": [556,657],\"l_foot\": [0,0],\"r_hip\": [695,500],\"r_knee\": [723,673],\"r_foot\": [0,0],\"waist\": [640,375]},{\"head\": [667,78],\"neck\": [667,187],\"l_shoulder\": [528,234],\"l_elbow\": [445,234],\"l_wrist\": [528,125],\"r_shoulder\": [779,250],\"r_elbow\": [806,422],\"r_wrist\": [779,516],\"l_hip\": [584,500],\"l_knee\": [556,657],\"l_foot\": [0,0],\"r_hip\": [695,500],\"r_knee\": [695,688],\"r_foot\": [0,0],\"waist\": [640,375]},{\"head\": [667,78],\"neck\": [667,187],\"l_shoulder\": [528,234],\"l_elbow\": [445,234],\"l_wrist\": [528,125],\"r_shoulder\": [779,250],\"r_elbow\": [806,422],\"r_wrist\": [779,516],\"l_hip\": [584,500],\"l_knee\": [556,657],\"l_foot\": [0,0],\"r_hip\": [695,500],\"r_knee\": [695,688],\"r_foot\": [0,0],\"waist\": [640,375]},{\"head\": [667,78],\"neck\": [667,187],\"l_shoulder\": [528,234],\"l_elbow\": [445,234],\"l_wrist\": [528,125],\"r_shoulder\": [779,250],\"r_elbow\": [806,422],\"r_wrist\": [779,516],\"l_hip\": [584,500],\"l_knee\": [556,657],\"l_foot\": [0,0],\"r_hip\": [695,500],\"r_knee\": [695,688],\"r_foot\": [0,0],\"waist\": [640,375]},{\"head\": [667,78],\"neck\": [667,187],\"l_shoulder\": [528,234],\"l_elbow\": [445,234],\"l_wrist\": [528,125],\"r_shoulder\": [779,250],\"r_elbow\": [806,422],\"r_wrist\": [779,516],\"l_hip\": [584,500],\"l_knee\": [556,657],\"l_foot\": [0,0],\"r_hip\": [695,500],\"r_knee\": [695,688],\"r_foot\": [0,0],\"waist\": [640,375]},{\"head\": [667,78],\"neck\": [667,187],\"l_shoulder\": [528,234],\"l_elbow\": [445,234],\"l_wrist\": [528,125],\"r_shoulder\": [779,250],\"r_elbow\": [806,422],\"r_wrist\": [779,516],\"l_hip\": [584,500],\"l_knee\": [556,657],\"l_foot\": [0,0],\"r_hip\": [695,500],\"r_knee\": [695,688],\"r_foot\": [0,0],\"waist\": [640,375]},{\"head\": [667,78],\"neck\": [667,187],\"l_shoulder\": [528,234],\"l_elbow\": [445,234],\"l_wrist\": [528,125],\"r_shoulder\": [779,250],\"r_elbow\": [806,422],\"r_wrist\": [779,516],\"l_hip\": [584,500],\"l_knee\": [556,657],\"l_foot\": [0,0],\"r_hip\": [695,500],\"r_knee\": [695,688],\"r_foot\": [0,0],\"waist\": [640,375]},{\"head\": [667,78],\"neck\": [667,187],\"l_shoulder\": [528,234],\"l_elbow\": [445,234],\"l_wrist\": [528,125],\"r_shoulder\": [779,250],\"r_elbow\": [806,422],\"r_wrist\": [779,516],\"l_hip\": [584,500],\"l_knee\": [556,657],\"l_foot\": [0,0],\"r_hip\": [695,500],\"r_knee\": [695,688],\"r_foot\": [0,0],\"waist\": [640,375]},{\"head\": [667,78],\"neck\": [667,187],\"l_shoulder\": [528,234],\"l_elbow\": [445,234],\"l_wrist\": [528,125],\"r_shoulder\": [779,250],\"r_elbow\": [806,422],\"r_wrist\": [779,516],\"l_hip\": [584,500],\"l_knee\": [556,657],\"l_foot\": [0,0],\"r_hip\": [695,500],\"r_knee\": [695,688],\"r_foot\": [0,0],\"waist\": [640,375]},{\"head\": [667,78],\"neck\": [667,187],\"l_shoulder\": [528,234],\"l_elbow\": [445,234],\"l_wrist\": [528,125],\"r_shoulder\": [779,250],\"r_elbow\": [806,422],\"r_wrist\": [779,516],\"l_hip\": [584,500],\"l_knee\": [584,657],\"l_foot\": [0,0],\"r_hip\": [695,500],\"r_knee\": [695,688],\"r_foot\": [0,0],\"waist\": [640,375]},{\"head\": [667,78],\"neck\": [667,187],\"l_shoulder\": [528,234],\"l_elbow\": [445,234],\"l_wrist\": [528,125],\"r_shoulder\": [779,250],\"r_elbow\": [806,422],\"r_wrist\": [779,516],\"l_hip\": [584,500],\"l_knee\": [584,657],\"l_foot\": [0,0],\"r_hip\": [695,500],\"r_knee\": [695,688],\"r_foot\": [0,0],\"waist\": [640,375]},{\"head\": [667,78],\"neck\": [667,187],\"l_shoulder\": [528,234],\"l_elbow\": [445,234],\"l_wrist\": [528,125],\"r_shoulder\": [779,250],\"r_elbow\": [806,422],\"r_wrist\": [779,516],\"l_hip\": [584,500],\"l_knee\": [584,657],\"l_foot\": [0,0],\"r_hip\": [695,500],\"r_knee\": [695,688],\"r_foot\": [0,0],\"waist\": [640,375]},{\"head\": [667,78],\"neck\": [667,187],\"l_shoulder\": [528,234],\"l_elbow\": [445,234],\"l_wrist\": [528,125],\"r_shoulder\": [779,250],\"r_elbow\": [806,422],\"r_wrist\": [779,516],\"l_hip\": [584,500],\"l_knee\": [584,657],\"l_foot\": [0,0],\"r_hip\": [695,500],\"r_knee\": [695,688],\"r_foot\": [0,0],\"waist\": [640,375]},{\"head\": [667,78],\"neck\": [667,187],\"l_shoulder\": [528,234],\"l_elbow\": [445,234],\"l_wrist\": [528,125],\"r_shoulder\": [779,250],\"r_elbow\": [806,422],\"r_wrist\": [779,516],\"l_hip\": [584,500],\"l_knee\": [584,657],\"l_foot\": [0,0],\"r_hip\": [695,500],\"r_knee\": [695,688],\"r_foot\": [0,0],\"waist\": [640,375]},{\"head\": [667,78],\"neck\": [667,187],\"l_shoulder\": [528,234],\"l_elbow\": [445,234],\"l_wrist\": [528,125],\"r_shoulder\": [779,250],\"r_elbow\": [806,422],\"r_wrist\": [779,516],\"l_hip\": [584,500],\"l_knee\": [584,657],\"l_foot\": [0,0],\"r_hip\": [695,500],\"r_knee\": [695,688],\"r_foot\": [0,0],\"waist\": [640,375]},{\"head\": [667,78],\"neck\": [667,187],\"l_shoulder\": [528,234],\"l_elbow\": [445,234],\"l_wrist\": [528,125],\"r_shoulder\": [779,250],\"r_elbow\": [806,422],\"r_wrist\": [779,516],\"l_hip\": [584,500],\"l_knee\": [584,657],\"l_foot\": [0,0],\"r_hip\": [695,500],\"r_knee\": [695,688],\"r_foot\": [0,0],\"waist\": [640,375]},{\"head\": [667,78],\"neck\": [667,187],\"l_shoulder\": [528,234],\"l_elbow\": [445,234],\"l_wrist\": [528,125],\"r_shoulder\": [779,250],\"r_elbow\": [806,422],\"r_wrist\": [779,516],\"l_hip\": [584,500],\"l_knee\": [584,657],\"l_foot\": [0,0],\"r_hip\": [695,500],\"r_knee\": [695,688],\"r_foot\": [0,0],\"waist\": [640,375]},{\"head\": [667,78],\"neck\": [667,187],\"l_shoulder\": [528,234],\"l_elbow\": [445,234],\"l_wrist\": [528,125],\"r_shoulder\": [779,250],\"r_elbow\": [806,422],\"r_wrist\": [779,516],\"l_hip\": [584,500],\"l_knee\": [584,657],\"l_foot\": [0,0],\"r_hip\": [695,500],\"r_knee\": [695,688],\"r_foot\": [0,0],\"waist\": [640,375]},{\"head\": [667,78],\"neck\": [667,187],\"l_shoulder\": [528,234],\"l_elbow\": [445,234],\"l_wrist\": [528,125],\"r_shoulder\": [779,250],\"r_elbow\": [806,422],\"r_wrist\": [779,516],\"l_hip\": [584,500],\"l_knee\": [584,657],\"l_foot\": [0,0],\"r_hip\": [695,500],\"r_knee\": [695,688],\"r_foot\": [0,0],\"waist\": [640,375]},{\"head\": [667,78],\"neck\": [667,187],\"l_shoulder\": [528,234],\"l_elbow\": [445,234],\"l_wrist\": [528,125],\"r_shoulder\": [779,250],\"r_elbow\": [806,422],\"r_wrist\": [779,516],\"l_hip\": [584,500],\"l_knee\": [584,657],\"l_foot\": [0,0],\"r_hip\": [695,500],\"r_knee\": [695,688],\"r_foot\": [0,0],\"waist\": [640,375]},{\"head\": [667,78],\"neck\": [667,187],\"l_shoulder\": [528,234],\"l_elbow\": [445,234],\"l_wrist\": [528,125],\"r_shoulder\": [779,250],\"r_elbow\": [806,422],\"r_wrist\": [779,516],\"l_hip\": [584,500],\"l_knee\": [556,657],\"l_foot\": [0,0],\"r_hip\": [695,500],\"r_knee\": [695,688],\"r_foot\": [0,0],\"waist\": [640,375]},{\"head\": [667,78],\"neck\": [667,187],\"l_shoulder\": [528,234],\"l_elbow\": [445,234],\"l_wrist\": [528,125],\"r_shoulder\": [779,250],\"r_elbow\": [806,422],\"r_wrist\": [779,516],\"l_hip\": [584,500],\"l_knee\": [584,657],\"l_foot\": [0,0],\"r_hip\": [695,500],\"r_knee\": [695,688],\"r_foot\": [0,0],\"waist\": [640,375]},{\"head\": [667,78],\"neck\": [667,187],\"l_shoulder\": [528,234],\"l_elbow\": [445,234],\"l_wrist\": [528,125],\"r_shoulder\": [779,250],\"r_elbow\": [806,422],\"r_wrist\": [779,516],\"l_hip\": [584,500],\"l_knee\": [584,657],\"l_foot\": [0,0],\"r_hip\": [695,500],\"r_knee\": [695,688],\"r_foot\": [0,0],\"waist\": [640,375]},{\"head\": [667,78],\"neck\": [667,187],\"l_shoulder\": [528,234],\"l_elbow\": [445,234],\"l_wrist\": [528,125],\"r_shoulder\": [779,250],\"r_elbow\": [806,422],\"r_wrist\": [779,516],\"l_hip\": [584,500],\"l_knee\": [584,657],\"l_foot\": [0,0],\"r_hip\": [695,500],\"r_knee\": [695,688],\"r_foot\": [0,0],\"waist\": [640,375]},{\"head\": [667,78],\"neck\": [667,187],\"l_shoulder\": [528,234],\"l_elbow\": [445,234],\"l_wrist\": [528,125],\"r_shoulder\": [779,250],\"r_elbow\": [806,422],\"r_wrist\": [779,516],\"l_hip\": [584,500],\"l_knee\": [584,657],\"l_foot\": [0,0],\"r_hip\": [695,500],\"r_knee\": [695,688],\"r_foot\": [0,0],\"waist\": [640,375]},{\"head\": [667,78],\"neck\": [667,187],\"l_shoulder\": [528,234],\"l_elbow\": [445,234],\"l_wrist\": [528,125],\"r_shoulder\": [779,250],\"r_elbow\": [806,422],\"r_wrist\": [779,516],\"l_hip\": [584,500],\"l_knee\": [584,657],\"l_foot\": [0,0],\"r_hip\": [695,500],\"r_knee\": [695,688],\"r_foot\": [0,0],\"waist\": [640,375]},{\"head\": [667,78],\"neck\": [667,187],\"l_shoulder\": [528,234],\"l_elbow\": [445,234],\"l_wrist\": [528,125],\"r_shoulder\": [779,250],\"r_elbow\": [806,422],\"r_wrist\": [779,516],\"l_hip\": [584,500],\"l_knee\": [584,657],\"l_foot\": [0,0],\"r_hip\": [695,500],\"r_knee\": [695,688],\"r_foot\": [0,0],\"waist\": [640,375]},{\"head\": [667,78],\"neck\": [667,187],\"l_shoulder\": [528,234],\"l_elbow\": [445,234],\"l_wrist\": [528,125],\"r_shoulder\": [779,250],\"r_elbow\": [806,422],\"r_wrist\": [779,516],\"l_hip\": [584,500],\"l_knee\": [584,657],\"l_foot\": [0,0],\"r_hip\": [695,500],\"r_knee\": [695,688],\"r_foot\": [0,0],\"waist\": [640,375]},{\"head\": [667,78],\"neck\": [667,187],\"l_shoulder\": [528,234],\"l_elbow\": [445,234],\"l_wrist\": [528,125],\"r_shoulder\": [779,250],\"r_elbow\": [806,422],\"r_wrist\": [779,516],\"l_hip\": [584,500],\"l_knee\": [584,657],\"l_foot\": [0,0],\"r_hip\": [695,500],\"r_knee\": [695,688],\"r_foot\": [0,0],\"waist\": [640,375]},{\"head\": [667,78],\"neck\": [667,187],\"l_shoulder\": [528,234],\"l_elbow\": [445,234],\"l_wrist\": [528,125],\"r_shoulder\": [779,250],\"r_elbow\": [806,422],\"r_wrist\": [779,516],\"l_hip\": [584,500],\"l_knee\": [584,657],\"l_foot\": [0,0],\"r_hip\": [695,500],\"r_knee\": [695,688],\"r_foot\": [0,0],\"waist\": [640,375]},{\"head\": [667,78],\"neck\": [667,187],\"l_shoulder\": [528,234],\"l_elbow\": [445,234],\"l_wrist\": [528,125],\"r_shoulder\": [779,250],\"r_elbow\": [806,422],\"r_wrist\": [779,516],\"l_hip\": [584,500],\"l_knee\": [584,657],\"l_foot\": [0,0],\"r_hip\": [695,500],\"r_knee\": [695,688],\"r_foot\": [0,0],\"waist\": [640,375]},{\"head\": [667,78],\"neck\": [667,187],\"l_shoulder\": [528,234],\"l_elbow\": [445,234],\"l_wrist\": [528,125],\"r_shoulder\": [779,250],\"r_elbow\": [806,422],\"r_wrist\": [779,516],\"l_hip\": [584,500],\"l_knee\": [584,657],\"l_foot\": [0,0],\"r_hip\": [695,500],\"r_knee\": [695,688],\"r_foot\": [0,0],\"waist\": [640,375]},{\"head\": [667,78],\"neck\": [667,187],\"l_shoulder\": [528,234],\"l_elbow\": [445,234],\"l_wrist\": [528,125],\"r_shoulder\": [779,250],\"r_elbow\": [806,422],\"r_wrist\": [779,516],\"l_hip\": [584,500],\"l_knee\": [556,657],\"l_foot\": [0,0],\"r_hip\": [695,500],\"r_knee\": [695,688],\"r_foot\": [0,0],\"waist\": [640,375]},{\"head\": [667,78],\"neck\": [667,187],\"l_shoulder\": [528,234],\"l_elbow\": [445,234],\"l_wrist\": [528,125],\"r_shoulder\": [779,250],\"r_elbow\": [806,422],\"r_wrist\": [779,516],\"l_hip\": [584,500],\"l_knee\": [584,657],\"l_foot\": [0,0],\"r_hip\": [695,500],\"r_knee\": [695,688],\"r_foot\": [0,0],\"waist\": [640,375]},{\"head\": [667,78],\"neck\": [667,187],\"l_shoulder\": [528,234],\"l_elbow\": [445,234],\"l_wrist\": [528,125],\"r_shoulder\": [779,250],\"r_elbow\": [806,422],\"r_wrist\": [779,516],\"l_hip\": [584,500],\"l_knee\": [584,657],\"l_foot\": [0,0],\"r_hip\": [695,500],\"r_knee\": [695,688],\"r_foot\": [0,0],\"waist\": [640,375]},{\"head\": [667,78],\"neck\": [667,187],\"l_shoulder\": [528,234],\"l_elbow\": [445,234],\"l_wrist\": [528,125],\"r_shoulder\": [779,250],\"r_elbow\": [806,422],\"r_wrist\": [779,516],\"l_hip\": [584,500],\"l_knee\": [584,657],\"l_foot\": [0,0],\"r_hip\": [695,500],\"r_knee\": [695,688],\"r_foot\": [0,0],\"waist\": [640,375]},{\"head\": [667,78],\"neck\": [667,187],\"l_shoulder\": [528,234],\"l_elbow\": [445,234],\"l_wrist\": [528,125],\"r_shoulder\": [779,250],\"r_elbow\": [806,422],\"r_wrist\": [779,516],\"l_hip\": [584,500],\"l_knee\": [584,657],\"l_foot\": [0,0],\"r_hip\": [695,500],\"r_knee\": [695,688],\"r_foot\": [0,0],\"waist\": [640,375]},{\"head\": [667,78],\"neck\": [667,187],\"l_shoulder\": [528,234],\"l_elbow\": [445,234],\"l_wrist\": [528,125],\"r_shoulder\": [779,250],\"r_elbow\": [806,422],\"r_wrist\": [779,516],\"l_hip\": [584,500],\"l_knee\": [584,657],\"l_foot\": [0,0],\"r_hip\": [695,500],\"r_knee\": [695,688],\"r_foot\": [0,0],\"waist\": [640,375]},{\"head\": [667,78],\"neck\": [667,187],\"l_shoulder\": [528,234],\"l_elbow\": [445,234],\"l_wrist\": [528,125],\"r_shoulder\": [779,250],\"r_elbow\": [806,422],\"r_wrist\": [779,516],\"l_hip\": [584,500],\"l_knee\": [584,657],\"l_foot\": [0,0],\"r_hip\": [695,500],\"r_knee\": [695,688],\"r_foot\": [0,0],\"waist\": [640,375]},{\"head\": [667,78],\"neck\": [667,187],\"l_shoulder\": [528,234],\"l_elbow\": [445,234],\"l_wrist\": [528,125],\"r_shoulder\": [779,250],\"r_elbow\": [806,422],\"r_wrist\": [779,516],\"l_hip\": [584,500],\"l_knee\": [584,657],\"l_foot\": [0,0],\"r_hip\": [695,500],\"r_knee\": [695,688],\"r_foot\": [0,0],\"waist\": [640,375]},{\"head\": [667,78],\"neck\": [667,187],\"l_shoulder\": [528,234],\"l_elbow\": [445,234],\"l_wrist\": [528,125],\"r_shoulder\": [779,250],\"r_elbow\": [806,422],\"r_wrist\": [779,516],\"l_hip\": [584,500],\"l_knee\": [584,657],\"l_foot\": [0,0],\"r_hip\": [695,500],\"r_knee\": [695,688],\"r_foot\": [0,0],\"waist\": [640,375]},{\"head\": [667,78],\"neck\": [667,187],\"l_shoulder\": [528,234],\"l_elbow\": [445,234],\"l_wrist\": [528,125],\"r_shoulder\": [779,250],\"r_elbow\": [806,422],\"r_wrist\": [779,516],\"l_hip\": [584,500],\"l_knee\": [584,657],\"l_foot\": [0,0],\"r_hip\": [695,500],\"r_knee\": [695,688],\"r_foot\": [0,0],\"waist\": [640,375]},{\"head\": [667,78],\"neck\": [667,187],\"l_shoulder\": [528,234],\"l_elbow\": [445,234],\"l_wrist\": [528,125],\"r_shoulder\": [779,250],\"r_elbow\": [806,422],\"r_wrist\": [779,516],\"l_hip\": [584,500],\"l_knee\": [584,657],\"l_foot\": [0,0],\"r_hip\": [695,500],\"r_knee\": [695,688],\"r_foot\": [0,0],\"waist\": [640,375]},{\"head\": [667,78],\"neck\": [667,187],\"l_shoulder\": [528,234],\"l_elbow\": [445,234],\"l_wrist\": [528,125],\"r_shoulder\": [779,250],\"r_elbow\": [806,422],\"r_wrist\": [779,516],\"l_hip\": [584,500],\"l_knee\": [584,657],\"l_foot\": [0,0],\"r_hip\": [695,500],\"r_knee\": [695,688],\"r_foot\": [0,0],\"waist\": [640,375]},{\"head\": [667,78],\"neck\": [667,187],\"l_shoulder\": [528,234],\"l_elbow\": [445,234],\"l_wrist\": [528,125],\"r_shoulder\": [779,250],\"r_elbow\": [806,422],\"r_wrist\": [779,516],\"l_hip\": [584,500],\"l_knee\": [584,657],\"l_foot\": [0,0],\"r_hip\": [695,500],\"r_knee\": [695,688],\"r_foot\": [0,0],\"waist\": [640,375]},{\"head\": [667,78],\"neck\": [667,187],\"l_shoulder\": [528,234],\"l_elbow\": [445,234],\"l_wrist\": [528,125],\"r_shoulder\": [779,250],\"r_elbow\": [806,422],\"r_wrist\": [779,516],\"l_hip\": [584,500],\"l_knee\": [584,657],\"l_foot\": [0,0],\"r_hip\": [695,500],\"r_knee\": [723,673],\"r_foot\": [0,0],\"waist\": [640,375]},{\"head\": [667,78],\"neck\": [667,187],\"l_shoulder\": [528,234],\"l_elbow\": [445,234],\"l_wrist\": [528,125],\"r_shoulder\": [779,250],\"r_elbow\": [806,422],\"r_wrist\": [779,516],\"l_hip\": [584,500],\"l_knee\": [584,657],\"l_foot\": [0,0],\"r_hip\": [695,500],\"r_knee\": [723,673],\"r_foot\": [0,0],\"waist\": [640,375]}]";
         try {
-            this.entries = new JSONArray(content);
-        } catch (JSONException ex) {
+            this.entries = new JSONArray();
+        } catch (Exception ex) {
             DebugLog.log(ex.getMessage());
         }
 
@@ -95,12 +84,13 @@ public class MockData {
     }
 
     public void executeInserts() {
-        long sessionId = insertSession(this.entries.length());
+        DebugLog.log(String.valueOf(entries .size()));
+        long sessionId = insertSession(this.entries.size());
         long insertId = 0;
         MPI poseModel = new MPI();
-        for (int i = 0; i < this.entries.length(); i++) {
+        for (int i = 0; i < this.entries.size(); i++) {
             try {
-                JSONObject jsonObject = this.entries.getJSONObject(i);
+                JSONObject jsonObject =  (JSONObject) this.entries.get(i);
                 long frameId = insertFrame(i);
                 insertSessionFrame(frameId, sessionId);
                 for (String spart : poseModel.body_parts) {
@@ -110,12 +100,12 @@ public class MockData {
                     values = values.substring(1, values.length() - 1);
 
                     String[] nums = values.split(",");
-                    int [] coordinates = StringArrToIntArr(nums);
+                    double [] coordinates = StringArrToDoubleArr(nums);
 
                     long recordInsertID = insertCoordinate(coordinates[0], coordinates[1]);
                     insertFrameCoordinate(frameId, recordInsertID);
                 }
-            } catch (JSONException ex) {
+            } catch (Exception ex) {
                 DebugLog.log(ex.getMessage());
             }
         }
@@ -128,11 +118,11 @@ public class MockData {
          */
     }
 
-    public MockData(AppDatabase appDatabase, String content) {
+    public MockData(AppDatabase appDatabase, JSONArray content) {
         this.appDatabase = appDatabase;
         try {
-            this.entries = new JSONArray(content);
-        } catch (JSONException ex) {
+            this.entries = content;
+        } catch (Exception ex) {
             DebugLog.log(ex.getMessage());
         }
     }
