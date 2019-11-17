@@ -4,7 +4,7 @@ import com.mygdx.game.persistance.*;
 import com.badlogic.gdx.math.Vector3;
 import com.mygdx.game.persistance.Video.NNVideo;
 import com.mygdx.game.persistance.Video.NNVideoDAO;
-import com.mygdx.game.PoseEstimation.nn.MPI.body_part;
+import com.mygdx.game.PoseEstimation.NN.MPI.body_part;
 import com.mygdx.game.persistance.Coordinate.NNCoordinate;
 
 /**

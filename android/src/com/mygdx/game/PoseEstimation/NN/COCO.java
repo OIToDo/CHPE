@@ -1,4 +1,4 @@
-package com.mygdx.game.PoseEstimation.nn;
+package com.mygdx.game.PoseEstimation.NN;
 
 public class COCO implements PoseModel {
     public int[][] POSE_PAIRS =

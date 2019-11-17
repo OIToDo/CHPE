@@ -8,8 +8,6 @@ import android.content.Context;
 public class Session {
 
     private int frameCount;
-    private int framesProcessed = 0;
-
     private CHPE chpe;
     private Context context;
 

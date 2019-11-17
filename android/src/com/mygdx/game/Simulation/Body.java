@@ -1,7 +1,5 @@
 package com.mygdx.game.Simulation;
 
-import android.view.Display;
-
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.VertexAttributes;
 import com.badlogic.gdx.graphics.g3d.Material;
@@ -12,11 +10,11 @@ import com.badlogic.gdx.graphics.g3d.utils.ModelBuilder;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.Analysis.Data;
-import com.mygdx.game.PoseEstimation.nn.MPI.body_part;
+import com.mygdx.game.PoseEstimation.NN.MPI.body_part;
 
 import java.util.HashMap;
 
-import static com.mygdx.game.PoseEstimation.nn.PoseModel.POSE_PAIRS;
+import static com.mygdx.game.PoseEstimation.NN.PoseModel.POSE_PAIRS;
 import static com.mygdx.game.Simulation.HelperClass.vec3Subtraction;
 
 public class Body {

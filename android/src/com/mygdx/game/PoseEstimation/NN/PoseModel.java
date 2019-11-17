@@ -1,4 +1,4 @@
-package com.mygdx.game.PoseEstimation.nn;
+package com.mygdx.game.PoseEstimation.NN;
 
 public interface PoseModel {
     int[][] POSE_PAIRS =

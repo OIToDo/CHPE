@@ -1,6 +1,6 @@
-package com.mygdx.game.PoseEstimation;
+package com.mygdx.game.Exceptions;
 
-class InvalidFrameAccess extends Exception {
+public class InvalidFrameAccess extends Exception {
 
     String message;
     Throwable cause;

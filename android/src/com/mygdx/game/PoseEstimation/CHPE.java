@@ -4,7 +4,7 @@ package com.mygdx.game.PoseEstimation;
 import android.content.Context;
 import android.graphics.Bitmap;
 
-import com.mygdx.game.PoseEstimation.nn.PoseModel;
+import com.mygdx.game.PoseEstimation.NN.PoseModel;
 import com.mygdx.game.persistance.AppDatabase;
 
 

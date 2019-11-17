@@ -1,13 +1,6 @@
 package com.mygdx.game.Analysis;
 
-import java.util.Set;
-import java.util.Map;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.ArrayList;
-
-import com.mygdx.game.PoseEstimation.nn.MPI.body_part;
-import com.mygdx.game.PoseEstimation.nn.PoseModel;
+import com.mygdx.game.PoseEstimation.NN.MPI.body_part;
 
 import com.badlogic.gdx.math.Vector3;
 

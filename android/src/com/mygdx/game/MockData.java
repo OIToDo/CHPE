@@ -1,6 +1,6 @@
 package com.mygdx.game;
 
-import com.mygdx.game.PoseEstimation.nn.MPI;
+import com.mygdx.game.PoseEstimation.NN.MPI;
 import com.mygdx.game.persistance.AppDatabase;
 import com.mygdx.game.persistance.Coordinate.NNCoordinate;
 import com.mygdx.game.persistance.Coordinate.NNCoordinateDAO;

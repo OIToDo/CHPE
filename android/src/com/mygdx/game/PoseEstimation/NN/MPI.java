@@ -1,7 +1,4 @@
-package com.mygdx.game.PoseEstimation.nn;
-
-import java.util.ArrayList;
-import java.util.List;
+package com.mygdx.game.PoseEstimation.NN;
 
 public class MPI implements PoseModel {
     public static enum body_part {
