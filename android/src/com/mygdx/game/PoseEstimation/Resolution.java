@@ -1,11 +1,18 @@
 package com.mygdx.game.PoseEstimation;
 
+import android.graphics.Bitmap;
+
 public class Resolution {
-    public int modelWidth;
-    public int modelHeight;
+    public int modelWidth = 257;
+    public int modelHeight = 257;
     private int screenWidth;
     private int screenHeight;
 
+
+    public Resolution(Bitmap bitmap) {
+        this.screenWidth = bitmap.getWidth();
+        this.screenHeight = bitmap.getHeight();
+    }
 
     public Resolution(int width, int height, int modelWidth, int modelHeight) {
         this.screenWidth = width;
@@ -22,7 +29,7 @@ public class Resolution {
     }
 
     public int getWidthByRatio(float width) {
-        return (int) (width * ((float)this.screenWidth / this.modelWidth));
+        return (int) (width * ((float) this.screenWidth / this.modelWidth));
     }
 
     public int getHeightByRatio(float height) {

@@ -36,54 +36,54 @@ public class VideoSplicer {
 
     }
 
-    private void getVideoDuration(){
+    private void getVideoDuration() {
         try {
             String sTotalTime = this.mediaMetadataRetriever.extractMetadata(VIDEO_DURATION);
             this.totalTime = Long.parseLong(sTotalTime);
-        }
-        catch (NumberFormatException nfe)
-        {
+        } catch (NumberFormatException nfe) {
             // TODO: Notify user of invalid file.
-            Log.e("VIDEOSPLICER: ","NumberFormatException: " + nfe.getMessage());
+            Log.e("VIDEOSPLICER: ", "NumberFormatException: " + nfe.getMessage());
         }
 
     }
 
     private void getAmountOfFrames() {
-        try
-        {
+        try {
             String sFrameCount = this.mediaMetadataRetriever.extractMetadata(VIDEO_FRAME_COUNT);
             this.frameCount = Integer.parseInt(sFrameCount);
-        }
-        catch (NumberFormatException nfe)
-        {
+        } catch (NumberFormatException nfe) {
             // TODO: Notify user of invalid file.
-            Log.e("VIDEOSPLICER: ","NumberFormatException: " + nfe.getMessage());
+            Log.e("VIDEOSPLICER: ", "NumberFormatException: " + nfe.getMessage());
         }
     }
 
-    private void getFrameIterTime(){
+    private void getFrameIterTime() {
         try {
 
             this.iterTimeUs = this.totalTime / this.frameCount;
-        }
-        catch (ArithmeticException ae)
-        {
+        } catch (ArithmeticException ae) {
             // TODO: Notify user of invalid file.
-            Log.e("VIDEOSPLICER: ","ArithmeticException: " + ae.getMessage());
+            Log.e("VIDEOSPLICER: ", "ArithmeticException: " + ae.getMessage());
         }
     }
-
 
     public boolean isNextFrameAvailable() {
         return this.framesProcessed + 1 <= this.frameCount;
     }
 
-    public Bitmap getNextFrame()throws InvalidFrameAccess {
-        if(isNextFrameAvailable()){
+    public Bitmap getNextFrame(int frame) {
+        // TODO: return this.mediaMetadataRetriever.getFrameAtIndex(this.framesProcessed);
+        Bitmap mp = this.mediaMetadataRetriever.getFrameAtTime(
+                frame * this.iterTimeUs);
+        return mp;
+    }
+
+
+    public Bitmap getNextFrame() throws InvalidFrameAccess {
+        if (isNextFrameAvailable()) {
 
             // TODO: return this.mediaMetadataRetriever.getFrameAtIndex(this.framesProcessed);
-            Bitmap mp =  this.mediaMetadataRetriever.getFrameAtTime(
+            Bitmap mp = this.mediaMetadataRetriever.getFrameAtTime(
                     this.framesProcessed * this.iterTimeUs);
             this.framesProcessed += 1;
             return mp;
