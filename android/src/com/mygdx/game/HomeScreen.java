@@ -17,11 +17,8 @@ public class HomeScreen extends AndroidApplication {
     //Button declaration of on-screen buttons.
     Button previousResultScreenButton;
     Button galleryScreenButton;
-    /////////////////////////////
     //TIJDELIJKE KNOPPEN/////////
     Button JUMP;
-    Button processWindow;
-    /////////////////////////
     //View Declaration of embedded on-screen libGDX views.
     View libGDXView;
     View embeddedView;
@@ -30,7 +27,7 @@ public class HomeScreen extends AndroidApplication {
     protected void onCreate(Bundle savedInstanceState) {
 
         PersistenceClient.getInstance(getApplicationContext());
-        MockData mockData = new MockData(PersistenceClient.getInstance(getApplicationContext()).getAppDatabase());
+        //MockData mockData = new MockData(PersistenceClient.getInstance(getApplicationContext()).getAppDatabase());
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_screen);
@@ -43,7 +40,6 @@ public class HomeScreen extends AndroidApplication {
         galleryScreenButton = findViewById(R.id.galleryScreenButton);
 
         JUMP = findViewById(R.id.JUMP);
-        processWindow = findViewById(R.id.WindowProcess);
 
         previousResultScreenButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,13 +62,6 @@ public class HomeScreen extends AndroidApplication {
             }
         });
 
-        processWindow.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openProcess();
-            }
-        });
-
         replaceView(embeddedView, libGDXView);
     }
 
@@ -83,11 +72,6 @@ public class HomeScreen extends AndroidApplication {
 
     public void openJUMP(){
         Intent intent = new Intent(this, CurrentResultActivity.class);
-        startActivity(intent);
-    }
-
-    public void openProcess() {
-        Intent intent = new Intent(this, ProcessingScreenActivity.class);
         startActivity(intent);
     }
 

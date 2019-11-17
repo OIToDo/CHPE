@@ -96,9 +96,11 @@ public class GalleryScreen extends AppCompatActivity implements Serializable {
     //NOT FINISHED
     public void startNeuralNetwork(Uri uri) {
         if(videoIsSelected) {
+            Intent intent = new Intent(this, ProcessingScreenActivity.class);
             toast = Toast.makeText(getApplicationContext(), "Started video analysis, this could take a while", Toast.LENGTH_LONG);
             toast.show();
             enqueueWork();
+            startActivity(intent);
         }
         else {
             toast = Toast.makeText(getApplicationContext(), "Failed to load video path", Toast.LENGTH_LONG);
