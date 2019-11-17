@@ -41,22 +41,22 @@ public class HomeScreen extends AndroidApplication {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        PersistenceClient.getInstance(getApplicationContext());
-        AssetManager am = getApplicationContext().getAssets();
-        InputStream is = null;
-        try {
-            is = am.open("data/wave.json");
-        } catch (IOException e) {
-            DebugLog.log("Unable to load asset norm json");
-        }
-        Reader r = new InputStreamReader(is);
+        //PersistenceClient.getInstance(getApplicationContext());
+        //AssetManager am = getApplicationContext().getAssets();
+        //InputStream is = null;
+        //try {
+        //    is = am.open("data/wave.json");
+        //} catch (IOException e) {
+        //    DebugLog.log("Unable to load asset norm json");
+       // }
+        //Reader r = new InputStreamReader(is);
 
-        loader = new JSONLoader(r);
-        DebugLog.log(loader.toString());
-        DebugLog.log(String.valueOf(loader.getFrameCount()));
-        JSONArray jsonArray = new JSONArray(loader.getArray());
-        MockData mockData = new MockData(PersistenceClient.getInstance(getApplicationContext()).getAppDatabase(),jsonArray);
-        mockData.executeInserts();
+        //loader = new JSONLoader(r);
+        //DebugLog.log(loader.toString());
+        //DebugLog.log(String.valueOf(loader.getFrameCount()));
+        //JSONArray jsonArray = new JSONArray(loader.getArray());
+        //MockData mockData = new MockData(PersistenceClient.getInstance(getApplicationContext()).getAppDatabase(),jsonArray);
+        //mockData.executeInserts();
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_screen);

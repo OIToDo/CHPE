@@ -8,6 +8,7 @@ import com.mygdx.game.persistance.Frame.NNFrame;
 import com.mygdx.game.persistance.PersistenceClient;
 import com.mygdx.game.persistance.Relations.NNFrameCoordinate;
 import com.mygdx.game.persistance.Relations.NNVideoFrame;
+import com.mygdx.game.PoseEstimation.*;
 
 public class NNInserts {
 
