@@ -1,11 +1,15 @@
 package com.mygdx.game;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.util.Log;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.os.Bundle;
 import android.view.View;
@@ -15,6 +19,8 @@ import android.widget.ImageView;
 import android.widget.MediaController;
 import android.widget.Toast;
 import android.widget.VideoView;
+
+import com.badlogic.gdx.backends.android.AndroidApplication;
 
 import java.io.File;
 import java.io.IOException;
@@ -42,7 +48,22 @@ public class GalleryScreen extends AppCompatActivity implements Serializable {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gallery_screen);
+        //Check if the path is selected by the user
         videoIsSelected = false;
+
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            // only for gingerbread and newer versions
+            Window window = getWindow();
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.setStatusBarColor(Color.rgb(0.902f,0.188f,0.157f));
+        }
+        else {
+            Window window = getWindow();
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.setStatusBarColor(0);
+        }
+
+
         //Initializing buttons
         homeScreenButton = findViewById(R.id.homeScreenButton);
         videoSelectButton = findViewById(R.id.videoGalleryScreenButton);
