@@ -30,6 +30,7 @@ public class HomeScreen extends AndroidApplication {
     //Button declaration of on-screen buttons.
     Button previousResultScreenButton;
     Button galleryScreenButton;
+    //TIJDELIJKE KNOPPEN/////////
     Button JUMP;
     //View Declaration of embedded on-screen libGDX views.
     View libGDXView;
@@ -42,6 +43,7 @@ public class HomeScreen extends AndroidApplication {
     protected void onCreate(Bundle savedInstanceState) {
 
         PersistenceClient.getInstance(getApplicationContext());
+        MockData mockData = new MockData(PersistenceClient.getInstance(getApplicationContext()).getAppDatabase());
         AssetManager am = getApplicationContext().getAssets();
         InputStream is = null;
         try {
@@ -55,7 +57,7 @@ public class HomeScreen extends AndroidApplication {
         DebugLog.log(loader.toString());
         DebugLog.log(String.valueOf(loader.getFrameCount()));
 
-        MockData mockData = new MockData(PersistenceClient.getInstance(getApplicationContext()).getAppDatabase(), loader.getArray());
+        //MockData mockData = new MockData(PersistenceClient.getInstance(getApplicationContext()).getAppDatabase(), loader.getArray());
         mockData.executeInserts();
 
         super.onCreate(savedInstanceState);
@@ -67,6 +69,7 @@ public class HomeScreen extends AndroidApplication {
 
         previousResultScreenButton = findViewById(R.id.previousResults);
         galleryScreenButton = findViewById(R.id.galleryScreenButton);
+
         JUMP = findViewById(R.id.JUMP);
 
         previousResultScreenButton.setOnClickListener(new View.OnClickListener() {
@@ -104,7 +107,7 @@ public class HomeScreen extends AndroidApplication {
     }
 
     public void openJUMP(){
-        Intent intent = new Intent(HomeScreen.this, CurrentResultActivity.class);
+        Intent intent = new Intent(this, CurrentResultActivity.class);
         startActivity(intent);
     }
 
