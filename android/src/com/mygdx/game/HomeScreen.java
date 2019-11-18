@@ -2,7 +2,6 @@ package com.mygdx.game;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.AssetManager;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,9 +17,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.Reader;
 
 public class HomeScreen extends AndroidApplication {
     //Button declaration of on-screen buttons.
@@ -37,24 +34,20 @@ public class HomeScreen extends AndroidApplication {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        AssetManager am = getApplicationContext().getAssets();
-        InputStream is = null;
-        try {
-            is = am.open("data/wave.json");
-        } catch (IOException e) {
-            DebugLog.log("Unable to load asset norm json");
-        }
-        Reader r = new InputStreamReader(is);
-
-        loader = new JSONLoader(r);
         try {
             new MockData(
                     PersistenceClient.getInstance(
                             getApplicationContext()).getAppDatabase(),
-                    new JSONArray(loader.toString()))
+                    new JSONArray(
+                            new InputStreamReader(
+                                    getApplicationContext()
+                                            .getAssets()
+                                            .open("data/wave.json"))))
                     .executeInserts();
         } catch (JSONException jse) {
             DebugLog.log("Invalid JSON");
+        } catch (IOException e) {
+            DebugLog.log("Unable to load asset norm json");
         }
 
 
