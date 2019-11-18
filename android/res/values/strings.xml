@@ -1,6 +1,12 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
 
     <string name="app_name">my-gdx-game</string>
-    
+    <string name="Home_Screen">Home Screen</string>
+    <string name="Load_Video_Button">Load Video</string>
+    <string name="Previous_Results">Previous Results</string>
+    <string name="Video_Select">Video Select</string>
+    <string name="Start_Analysis">Start Analysis</string>
+
 </resources>
+

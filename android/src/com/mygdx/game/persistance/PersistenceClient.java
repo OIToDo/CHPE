@@ -9,7 +9,7 @@ public class PersistenceClient {
     private Context mCtx;
     private static PersistenceClient mInstance;
 
-    private static String databaseName = "CHPEv1";
+    private static String databaseName = "CHPEv3";
 
     //our app database object
     private AppDatabase appDatabase;

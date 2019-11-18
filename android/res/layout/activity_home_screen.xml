@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/my_layout"
+    android:background="@android:color/black"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".HomeScreen">
@@ -16,15 +17,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    android:background="@android:color/black"
-    tools:context=".HomeScreen">
-
     <Button
         android:id="@+id/galleryScreenButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="35dp"
-        android:text="Load Video"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginBottom="25dp"
+        android:text="@string/Load_Video_Button"
         android:textColor="@android:color/holo_orange_light"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -35,8 +35,10 @@
         android:id="@+id/previousResults"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
         android:layout_marginBottom="15dp"
-        android:text="Previous Results"
+        android:text="@string/Previous_Results"
         android:textColor="@android:color/holo_orange_light"
         app:layout_constraintBottom_toTopOf="@+id/galleryScreenButton"
         app:layout_constraintEnd_toEndOf="parent"
@@ -47,8 +49,10 @@
         android:id="@+id/JUMP"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
         android:layout_marginBottom="15dp"
-        android:text="JUMP"
+        android:text="Naar Resulaten"
         android:textColor="@android:color/holo_orange_light"
         app:layout_constraintBottom_toTopOf="@+id/previousResults"
         app:layout_constraintEnd_toEndOf="parent"
@@ -59,9 +63,10 @@
         android:id="@+id/gameView"
         android:layout_width="380dp"
         android:layout_height="410dp"
+        android:layout_marginStart="25dp"
         android:layout_marginTop="25dp"
+        android:layout_marginEnd="25dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>
