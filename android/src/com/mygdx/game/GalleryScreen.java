@@ -129,9 +129,9 @@ public class GalleryScreen extends AppCompatActivity implements Serializable {
     //Sends works to the AnalysisService class
     public void enqueueWork() {
         String input = selectedVideoPath;
-        Intent serviceIntent = new Intent(this, AnalysisService.class);
+        Intent serviceIntent = new Intent(this, NeuralService.class);
         serviceIntent.putExtra("inputExtra", input);
-        AnalysisService.enqueueWork(this, serviceIntent);
+        NeuralService.enqueueWork(this, serviceIntent);
     }
 
 }

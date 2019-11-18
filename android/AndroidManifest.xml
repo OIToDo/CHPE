@@ -34,7 +34,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <service android:name=".AnalysisService"
+        <service android:name=".NeuralService"
             android:permission="android.permission.BIND_JOB_SERVICE"></service>
     </application>
 

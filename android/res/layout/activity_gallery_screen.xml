@@ -5,12 +5,13 @@
     android:id="@+id/my_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/black"
+    android:background="#00A1E1"
     tools:context=".HomeScreen">
 <FrameLayout
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="0dp"
     android:layout_marginTop="25dp"
+    android:background="#00A1E1"
     android:layout_marginLeft="15dp"
     android:layout_marginRight="15dp"
     app:layout_constraintEnd_toEndOf="parent"
@@ -20,7 +21,7 @@
     <VideoView
         android:id="@+id/videoView"
         android:layout_width="match_parent"
-        android:layout_height="410dp" />
+        android:layout_height="256dp" />
 
 </FrameLayout>
 
@@ -30,7 +31,9 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="35dp"
         android:text="@string/Home_Screen"
-        android:textColor="@android:color/holo_orange_light"
+        android:background="@drawable/custom_button"
+        android:textAllCaps="false"
+        android:textColor="@android:color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
@@ -44,9 +47,11 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="15dp"
         android:text="@string/Video_Select"
+        android:textAllCaps="false"
+        android:background="@drawable/custom_button"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
-        android:textColor="@android:color/holo_orange_light"
+        android:textColor="@android:color/white"
         app:layout_constraintBottom_toTopOf="@+id/startAnalysis"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -58,28 +63,13 @@
         android:layout_marginBottom="15dp"
         android:text="@string/Start_Analysis"
         android:layout_marginLeft="15dp"
+        android:background="@drawable/custom_button"
+        android:textAllCaps="false"
         android:layout_marginRight="15dp"
-        android:textColor="@android:color/holo_orange_light"
+        android:textColor="@android:color/white"
         app:layout_constraintBottom_toTopOf="@+id/homeScreenButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />
-
-    <!--    <ImageView
-        android:layout_height="400dp"
-        android:layout_width="333dp"
-        android:id="@+id/galleryView"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="15dp"/>-->
-
-    <!--   <Button
-           android:id="@+id/imageGalleryScreenButton"
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content"
-           android:layout_centerHorizontal="true"
-           android:layout_marginTop="400dp"
-           android:textColor="@android:color/holo_orange_light"
-           android:text="Select an image" />-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>
