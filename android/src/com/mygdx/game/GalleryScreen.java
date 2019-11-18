@@ -93,7 +93,7 @@ public class GalleryScreen extends AppCompatActivity implements Serializable {
         intent.putExtra("return-data", true);
         startActivityForResult(intent, SELECT_VIDEO_REQUEST);
     }
-    //NOT FINISHED
+    //Checks if videopath is selected, shows according toast message and starts an activity.
     public void startNeuralNetwork(Uri uri) {
         if(videoIsSelected) {
             Intent intent = new Intent(this, ProcessingScreenActivity.class);
@@ -126,7 +126,7 @@ public class GalleryScreen extends AppCompatActivity implements Serializable {
             }
         }
     }
-
+    //Sends works to the AnalysisService class
     public void enqueueWork() {
         String input = selectedVideoPath;
         Intent serviceIntent = new Intent(this, AnalysisService.class);

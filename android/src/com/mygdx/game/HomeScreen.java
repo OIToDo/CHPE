@@ -57,7 +57,7 @@ public class HomeScreen extends AndroidApplication {
         DebugLog.log(loader.toString());
         DebugLog.log(String.valueOf(loader.getFrameCount()));
 
-        MockData mockData = new MockData(PersistenceClient.getInstance(getApplicationContext()).getAppDatabase(), loader.getArray());
+        //MockData mockData = new MockData(PersistenceClient.getInstance(getApplicationContext()).getAppDatabase(), loader.getArray());
         mockData.executeInserts();
 
         super.onCreate(savedInstanceState);
