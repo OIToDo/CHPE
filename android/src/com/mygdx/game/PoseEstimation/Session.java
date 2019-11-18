@@ -40,7 +40,7 @@ public class Session {
         emptyVideo.frames_per_second = this.videoSplicer.getFramesPerSecond();
 
         this.videoId = this.appDatabase.nnVideoDAO().insert(emptyVideo);
-        this.nnInsert = new NNInserts(this.appDatabase);
+        this.nnInsert = new NNInserts(this.appDatabase, this.resolution);
     }
 
     public void runVideo() {
@@ -54,10 +54,11 @@ public class Session {
         }
     }
 
-
     private void PersonToFrame(Person person) {
         this.nnInsert.insertPerson(person, this.videoId, this.videoSplicer.getFramesProcessed());
     }
 
+    private void normaliseData(){
 
+    }
 }

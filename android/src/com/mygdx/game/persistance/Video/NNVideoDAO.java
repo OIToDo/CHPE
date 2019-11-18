@@ -2,6 +2,8 @@ package com.mygdx.game.persistance.Video;
 
 import com.mygdx.game.persistance.Coordinate.NNCoordinate;
 
+import java.util.List;
+
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
@@ -39,4 +41,11 @@ public interface NNVideoDAO {
 
     @Query("DELETE FROM video")
     void nukeTable();
+
+    @Query("SELECT max(coordinate.x) FROM frame, coordinate, frame_coordinate, video, video_frame WHERE coordinate.id == frame_coordinate.coordinate_id and frame_coordinate.frame_id == frame.id and video_frame.frame_id == frame.id and video_frame.video_id = :videoId")
+    long getMaxValuesX(long videoId);
+
+    @Query("SELECT max(coordinate.y) FROM frame, coordinate, frame_coordinate, video, video_frame WHERE coordinate.id == frame_coordinate.coordinate_id and frame_coordinate.frame_id == frame.id and video_frame.frame_id == frame.id and video_frame.video_id = :videoId")
+    long getMaxValuesY(long videoId);
+
 }

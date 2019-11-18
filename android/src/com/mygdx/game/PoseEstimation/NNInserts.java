@@ -1,27 +1,38 @@
 package com.mygdx.game.PoseEstimation;
 
-import android.content.Context;
-
 import com.mygdx.game.persistance.AppDatabase;
 import com.mygdx.game.persistance.Coordinate.NNCoordinate;
 import com.mygdx.game.persistance.Frame.NNFrame;
-import com.mygdx.game.persistance.PersistenceClient;
 import com.mygdx.game.persistance.Relations.NNFrameCoordinate;
 import com.mygdx.game.persistance.Relations.NNVideoFrame;
-import com.mygdx.game.PoseEstimation.*;
+
+import java.util.Arrays;
+import java.util.List;
 
 public class NNInserts {
 
+    private Resolution resolution;
     private AppDatabase appDatabase;
+    private long y_limit, x_limit;
 
-    public NNInserts(AppDatabase appDatabase) {
+    public NNInserts(AppDatabase appDatabase, Resolution resolution) {
         this.appDatabase = appDatabase;
-
+        this.resolution = resolution;
     }
 
-    public NNInserts(Context context) {
-        this.appDatabase = PersistenceClient.getInstance(context).getAppDatabase();
+
+    public List<Double> normaliseInts(List<Integer> raw) {
+        double x=10.00, y=10.00;
+        List<Double> list = Arrays.asList(x, y);
+        return list;
     }
+
+
+    public void normaliseCoordinates(long sessionId) {
+        this.y_limit = this.appDatabase.nnVideoDAO().getMaxValuesX(sessionId);
+        this.x_limit = this.appDatabase.nnVideoDAO().getMaxValuesY(sessionId);
+    }
+
 
 
     public void insertPerson(Person p, long videoId, int frameCount) {
