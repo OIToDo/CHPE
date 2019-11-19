@@ -1,6 +1,20 @@
 package com.mygdx.game.PoseEstimation.NN;
 
+/**
+ * The type Coco.
+ */
 public class COCO implements PoseModel {
+    /**
+     * The Protocol buffer.
+     */
+    public final String protocol_buffer = "pose/coco/pose_deploy_linevec.prototxt";
+    /**
+     * The Model.
+     */
+    public final String model = "pose/coco/pose_iter_440000.caffemodel";
+    /**
+     * The Pose pairs.
+     */
     public int[][] POSE_PAIRS =
             {
                     {1, 0},
@@ -21,8 +35,8 @@ public class COCO implements PoseModel {
                     {14, 16},
                     {15, 17}
             };
-
+    /**
+     * The Points.
+     */
     public int points = 18;
-    public final String protocol_buffer = "pose/coco/pose_deploy_linevec.prototxt";
-    public final String model = "pose/coco/pose_iter_440000.caffemodel";
 }

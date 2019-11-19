@@ -17,6 +17,9 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
+/**
+ * The type Persistence client.
+ */
 public class PersistenceClient {
 
     private Context mCtx;
@@ -72,6 +75,13 @@ public class PersistenceClient {
     }
 
 
+    /**
+     * Gets instance.
+     *
+     * @param mCtx              the m ctx
+     * @param debugDatabaseName the debug database name
+     * @return the instance
+     */
     public static synchronized PersistenceClient getInstance(Context mCtx, String debugDatabaseName) {
         if (mInstance == null) {
             if (debugDatabaseName != null) {
@@ -82,6 +92,12 @@ public class PersistenceClient {
         return mInstance;
     }
 
+    /**
+     * Gets instance.
+     *
+     * @param mCtx the m ctx
+     * @return the instance
+     */
     public static synchronized PersistenceClient getInstance(Context mCtx) {
         if (mInstance == null) {
             mInstance = new PersistenceClient(mCtx);
@@ -89,6 +105,11 @@ public class PersistenceClient {
         return mInstance;
     }
 
+    /**
+     * Gets app database.
+     *
+     * @return the app database
+     */
     public AppDatabase getAppDatabase() {
         return appDatabase;
     }

@@ -15,6 +15,9 @@ import com.mygdx.game.persistance.Video.NNVideo;
 import com.mygdx.game.persistance.Video.NNVideoDAO;
 
 
+/**
+ * The type App database.
+ */
 @Database(
         entities = {
                 NNFrame.class,
@@ -32,14 +35,39 @@ import com.mygdx.game.persistance.Video.NNVideoDAO;
 public abstract class AppDatabase extends RoomDatabase {
     private static AppDatabase appDatabase;
 
+    /**
+     * Nn frame dao nn frame dao.
+     *
+     * @return the nn frame dao
+     */
     public abstract NNFrameDAO nnFrameDAO();
 
+    /**
+     * Nn video dao nn video dao.
+     *
+     * @return the nn video dao
+     */
     public abstract NNVideoDAO nnVideoDAO();
 
+    /**
+     * Nn coordinate dao nn coordinate dao.
+     *
+     * @return the nn coordinate dao
+     */
     public abstract NNCoordinateDAO nnCoordinateDAO();
 
+    /**
+     * Nn session frame dao nn video frame dao.
+     *
+     * @return the nn video frame dao
+     */
     public abstract NNVideoFrameDAO nnSessionFrameDAO();
 
+    /**
+     * Nn frame coordinate dao nn frame coordinate dao.
+     *
+     * @return the nn frame coordinate dao
+     */
     public abstract NNFrameCoordinateDAO nnFrameCoordinateDAO();
 }
 

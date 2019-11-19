@@ -8,19 +8,33 @@ import android.util.Log;
 
 import com.mygdx.game.Exceptions.InvalidFrameAccess;
 
+/**
+ * The type Video splicer.
+ */
 public class VideoSplicer {
 
     private static final int VIDEO_FRAME_COUNT = 19;
     private static final int VIDEO_DURATION = 9;
+    /**
+     * The M uri.
+     */
+    public String mUri;
+    /**
+     * The Uri.
+     */
+    public Uri uri;
     private int frameCount;
     private int framesProcessed = 0;
     private long iterTimeUs; // Used to indicate how long a single frame is on screen
     private long totalTime;
     private MediaMetadataRetriever mediaMetadataRetriever = new MediaMetadataRetriever();
-    public String mUri;
-    public Uri uri;
 
 
+    /**
+     * Instantiates a new Video splicer.
+     *
+     * @param uri the uri
+     */
     public VideoSplicer(String uri) {
         this.mUri = uri;
 
@@ -37,6 +51,12 @@ public class VideoSplicer {
         this.getFrameIterTime();
     }
 
+    /**
+     * Instantiates a new Video splicer.
+     *
+     * @param uri     the uri
+     * @param context the context
+     */
     public VideoSplicer(Uri uri, Context context) {
         this.uri = uri;
 
@@ -54,19 +74,39 @@ public class VideoSplicer {
     }
 
 
+    /**
+     * Gets iter time us.
+     *
+     * @return the iter time us
+     */
     public long getIterTimeUs() {
         return iterTimeUs;
     }
 
+    /**
+     * Gets frame count.
+     *
+     * @return the frame count
+     */
     public int getFrameCount() {
         return frameCount;
     }
 
+    /**
+     * Gets frames processed.
+     *
+     * @return the frames processed
+     */
     public int getFramesProcessed() {
         return framesProcessed;
     }
 
-    public float getFramesPerSecond(){
+    /**
+     * Get frames per second float.
+     *
+     * @return the float
+     */
+    public float getFramesPerSecond() {
         return Float.parseFloat(Long.toString(this.iterTimeUs));
     }
 
@@ -103,10 +143,21 @@ public class VideoSplicer {
         }
     }
 
+    /**
+     * Is next frame available boolean.
+     *
+     * @return the boolean
+     */
     public boolean isNextFrameAvailable() {
         return this.framesProcessed + 1 <= this.frameCount;
     }
 
+    /**
+     * Gets next frame.
+     *
+     * @param frame the frame
+     * @return the next frame
+     */
     public Bitmap getNextFrame(int frame) {
         // TODO: return this.mediaMetadataRetriever.getFrameAtIndex(this.framesProcessed);
         Bitmap mp = this.mediaMetadataRetriever.getFrameAtTime(
@@ -115,6 +166,12 @@ public class VideoSplicer {
     }
 
 
+    /**
+     * Gets next frame.
+     *
+     * @return the next frame
+     * @throws InvalidFrameAccess the invalid frame access
+     */
     public Bitmap getNextFrame() throws InvalidFrameAccess {
         if (isNextFrameAvailable()) {
 

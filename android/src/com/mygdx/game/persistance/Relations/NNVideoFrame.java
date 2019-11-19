@@ -7,6 +7,9 @@ import androidx.room.ForeignKey;
 import com.mygdx.game.persistance.Frame.NNFrame;
 import com.mygdx.game.persistance.Video.NNVideo;
 
+/**
+ * The type Nn video frame.
+ */
 @Entity(
         primaryKeys = {
                 "video_id",
@@ -27,6 +30,12 @@ import com.mygdx.game.persistance.Video.NNVideo;
         tableName = "video_frame"
 )
 public class NNVideoFrame {
+    /**
+     * The Video id.
+     */
     @ColumnInfo(index = true) public long  video_id;
+    /**
+     * The Frame id.
+     */
     @ColumnInfo(index = true) public long  frame_id;
 }

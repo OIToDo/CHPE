@@ -8,6 +8,9 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
 
+/**
+ * The type Nn frame coordinate.
+ */
 @Entity(
         primaryKeys = {
                 "frame_id",
@@ -30,9 +33,15 @@ import androidx.room.ForeignKey;
 
 
 public class NNFrameCoordinate {
+    /**
+     * The Frame id.
+     */
     @ColumnInfo(index = true)
     public long  frame_id;
 
+    /**
+     * The Coordinate id.
+     */
     @ColumnInfo(index = true)
     public long  coordinate_id;
 }

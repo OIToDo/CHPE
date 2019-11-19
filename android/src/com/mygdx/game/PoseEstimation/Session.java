@@ -11,8 +11,10 @@ import com.mygdx.game.Exceptions.InvalidFrameAccess;
 import com.mygdx.game.persistance.AppDatabase;
 import com.mygdx.game.persistance.PersistenceClient;
 import com.mygdx.game.persistance.Video.NNVideo;
-import com.mygdx.game.PoseEstimation.*;
 
+/**
+ * The type Session.
+ */
 public class Session {
 
     private NNInserts nnInsert;
@@ -23,7 +25,13 @@ public class Session {
     private long videoId;
     private Resolution resolution;
 
-    // TODO: Run benchmark configuration
+    /**
+     * Instantiates a new Session.
+     *
+     * @param uri     the uri
+     * @param context the context
+     */
+// TODO: Run benchmark configuration
     public Session(String uri, Context context) {
 
         System.err.println(uri);
@@ -36,6 +44,12 @@ public class Session {
         this.initialiseDatabase(); // Preparing database for person entry
     }
 
+    /**
+     * Instantiates a new Session.
+     *
+     * @param uri     the uri
+     * @param context the context
+     */
     public Session(Uri uri, Context context) {
 
         this.videoSplicer = new VideoSplicer(uri, context);
@@ -57,6 +71,9 @@ public class Session {
         this.nnInsert = new NNInserts(this.appDatabase, this.resolution);
     }
 
+    /**
+     * Run video.
+     */
     public void runVideo() {
         while (this.videoSplicer.isNextFrameAvailable()) {
             try {
@@ -72,7 +89,7 @@ public class Session {
         this.nnInsert.insertPerson(person, this.videoId, this.videoSplicer.getFramesProcessed());
     }
 
-    private void normaliseData(){
+    private void normaliseData() {
 
     }
 }

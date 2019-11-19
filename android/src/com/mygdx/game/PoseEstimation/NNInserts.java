@@ -9,32 +9,58 @@ import com.mygdx.game.persistance.Relations.NNVideoFrame;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * The type Nn inserts.
+ */
 public class NNInserts {
 
     private Resolution resolution;
     private AppDatabase appDatabase;
     private long y_limit, x_limit;
 
+    /**
+     * Instantiates a new Nn inserts.
+     *
+     * @param appDatabase the app database
+     * @param resolution  the resolution
+     */
     public NNInserts(AppDatabase appDatabase, Resolution resolution) {
         this.appDatabase = appDatabase;
         this.resolution = resolution;
     }
 
 
+    /**
+     * Normalise ints list.
+     *
+     * @param raw the raw
+     * @return the list
+     */
     public List<Double> normaliseInts(List<Integer> raw) {
-        double x=10.00, y=10.00;
+        double x = 10.00, y = 10.00;
         List<Double> list = Arrays.asList(x, y);
         return list;
     }
 
 
+    /**
+     * Normalise coordinates.
+     *
+     * @param sessionId the session id
+     */
     public void normaliseCoordinates(long sessionId) {
         this.y_limit = this.appDatabase.nnVideoDAO().getMaxValuesX(sessionId);
         this.x_limit = this.appDatabase.nnVideoDAO().getMaxValuesY(sessionId);
     }
 
 
-
+    /**
+     * Insert person.
+     *
+     * @param p          the p
+     * @param videoId    the video id
+     * @param frameCount the frame count
+     */
     public void insertPerson(Person p, long videoId, int frameCount) {
 
         // Creating new frame for the instance
