@@ -1,7 +1,9 @@
 package com.mygdx.game.PoseEstimation;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.media.MediaMetadataRetriever;
+import android.net.Uri;
 import android.util.Log;
 
 import com.mygdx.game.Exceptions.InvalidFrameAccess;
@@ -15,15 +17,15 @@ public class VideoSplicer {
     private long iterTimeUs; // Used to indicate how long a single frame is on screen
     private long totalTime;
     private MediaMetadataRetriever mediaMetadataRetriever = new MediaMetadataRetriever();
-    public String uri;
+    public String mUri;
+    public Uri uri;
 
 
     public VideoSplicer(String uri) {
-        this.uri = uri;
+        this.mUri = uri;
 
         // Accessing the file
         this.mediaMetadataRetriever.setDataSource(uri);
-
 
         // Getting the video duration
         this.getVideoDuration();
@@ -33,8 +35,24 @@ public class VideoSplicer {
 
         // Calculating the iter frame count based on those values
         this.getFrameIterTime();
-
     }
+
+    public VideoSplicer(Uri uri, Context context) {
+        this.uri = uri;
+
+        // Accessing the file
+        this.mediaMetadataRetriever.setDataSource(context, uri);
+
+        // Getting the video duration
+        this.getVideoDuration();
+
+        // Getting the amount of frames in video
+        this.getAmountOfFrames();
+
+        // Calculating the iter frame count based on those values
+        this.getFrameIterTime();
+    }
+
 
     public long getIterTimeUs() {
         return iterTimeUs;
@@ -54,6 +72,7 @@ public class VideoSplicer {
 
 
     private void getVideoDuration() {
+        System.out.println(this.uri.toString());
         try {
             String sTotalTime = this.mediaMetadataRetriever.extractMetadata(VIDEO_DURATION);
             this.totalTime = Long.parseLong(sTotalTime);

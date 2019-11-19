@@ -4,6 +4,7 @@ package com.mygdx.game.PoseEstimation;
 // Ensuring that sessions can be cancelled and continued later on.
 
 import android.content.Context;
+import android.net.Uri;
 import android.util.Log;
 
 import com.mygdx.game.Exceptions.InvalidFrameAccess;
@@ -24,7 +25,20 @@ public class Session {
 
     // TODO: Run benchmark configuration
     public Session(String uri, Context context) {
+
+        System.err.println(uri);
+
         this.videoSplicer = new VideoSplicer(uri);
+        this.appDatabase = PersistenceClient.getInstance(context).getAppDatabase();
+        this.resolution = new Resolution(this.videoSplicer.getNextFrame(0));
+        this.chpe = new CHPE(context, this.resolution);
+
+        this.initialiseDatabase(); // Preparing database for person entry
+    }
+
+    public Session(Uri uri, Context context) {
+
+        this.videoSplicer = new VideoSplicer(uri, context);
         this.appDatabase = PersistenceClient.getInstance(context).getAppDatabase();
         this.resolution = new Resolution(this.videoSplicer.getNextFrame(0));
         this.chpe = new CHPE(context, this.resolution);

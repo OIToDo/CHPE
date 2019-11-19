@@ -95,9 +95,11 @@ public class GalleryScreen extends AppCompatActivity implements Serializable {
     }
     //Checks if videopath is selected, shows according toast message and starts an activity.
     public void startNeuralNetwork(Uri uri) {
+        DebugLog.log(uri.toString());
         if(videoIsSelected) {
             Intent intent = new Intent(this, ProcessingScreenActivity.class);
             toast = Toast.makeText(getApplicationContext(), "Started video analysis, this could take a while", Toast.LENGTH_LONG);
+
             toast.show();
             enqueueWork();
             startActivity(intent);

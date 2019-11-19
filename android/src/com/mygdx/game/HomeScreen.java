@@ -9,7 +9,6 @@ import android.widget.Button;
 
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
-import com.mygdx.game.Analysis.JSONLoader;
 import com.mygdx.game.Simulation.MyGdxGame;
 import com.mygdx.game.persistance.PersistenceClient;
 
@@ -28,28 +27,11 @@ public class HomeScreen extends AndroidApplication {
     //View Declaration of embedded on-screen libGDX views.
     View libGDXView;
     View embeddedView;
-    JSONLoader loader;
 
     private static Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        try {
-            new MockData(
-                    PersistenceClient.getInstance(
-                            getApplicationContext()).getAppDatabase(),
-                    new JSONArray(
-                            new InputStreamReader(
-                                    getApplicationContext()
-                                            .getAssets()
-                                            .open("data/wave.json"))))
-                    .executeInserts();
-        } catch (JSONException jse) {
-            DebugLog.log("Invalid JSON");
-        } catch (IOException e) {
-            DebugLog.log("Unable to load asset norm json");
-        }
-
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_screen);
