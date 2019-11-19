@@ -1,5 +1,7 @@
 package com.mygdx.game.PoseEstimation;
 
+import com.mygdx.game.PoseEstimation.NN.PoseNet.KeyPoint;
+import com.mygdx.game.PoseEstimation.NN.PoseNet.Person;
 import com.mygdx.game.persistance.AppDatabase;
 import com.mygdx.game.persistance.Coordinate.NNCoordinate;
 import com.mygdx.game.persistance.Frame.NNFrame;
@@ -10,16 +12,16 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * The type Nn inserts.
+ * NNInsert is an example class used for inserting new videos to the database
  */
 public class NNInserts {
 
-    private Resolution resolution;
+    private Resolution resolution; // Used for normalisations
     private AppDatabase appDatabase;
     private long y_limit, x_limit;
 
     /**
-     * Instantiates a new Nn inserts.
+     * Instantiates a new NN inserts.
      *
      * @param appDatabase the app database
      * @param resolution  the resolution
@@ -29,17 +31,15 @@ public class NNInserts {
         this.resolution = resolution;
     }
 
-
     /**
      * Normalise ints list.
      *
-     * @param raw the raw
+     * @param integerList the raw integer values
      * @return the list
      */
-    public List<Double> normaliseInts(List<Integer> raw) {
+    public List<Double> normaliseInts(List<Integer> integerList) {
         double x = 10.00, y = 10.00;
-        List<Double> list = Arrays.asList(x, y);
-        return list;
+        return Arrays.asList(x, y);
     }
 
 
@@ -57,33 +57,48 @@ public class NNInserts {
     /**
      * Insert person.
      *
-     * @param p          the p
-     * @param videoId    the video id
-     * @param frameCount the frame count
+     * @param person     the Person object used to extract points from
+     * @param videoId    the video id based on the database insert
+     * @param frameCount the nth frame count to ensure it's placed in order.
      */
-    public void insertPerson(Person p, long videoId, int frameCount) {
+    void insertPerson(Person person, long videoId, int frameCount) {
 
         // Creating new frame for the instance
         NNFrame nnFrame = new NNFrame();
         nnFrame.frame_count = frameCount;
         long frameId = this.appDatabase.nnFrameDAO().insert(nnFrame);
 
-        // Linking to the video
-        NNVideoFrame nnVideoFrame = new NNVideoFrame();
-        nnVideoFrame.frame_id = frameId;
-        nnVideoFrame.video_id = videoId;
-        this.appDatabase.nnSessionFrameDAO().insert(nnVideoFrame); // TODO: Refactor nnSessionFrameDAO
+        linkFrameIdToVideo(frameId, videoId);
 
-        for (KeyPoint keyPoint : p.getKeyPoints()) {
-            NNCoordinate nnCoordinate = new NNCoordinate();
-            nnCoordinate.raw_x = keyPoint.getPosition().getX();
-            nnCoordinate.raw_y = keyPoint.getPosition().getY();
-            long coordinateId = this.appDatabase.nnCoordinateDAO().insert(nnCoordinate);
-
-            NNFrameCoordinate nnFrameCoordinate = new NNFrameCoordinate();
-            nnFrameCoordinate.frame_id = frameId;
-            nnFrameCoordinate.coordinate_id = coordinateId;
-            this.appDatabase.nnFrameCoordinateDAO().insert(nnFrameCoordinate);
+        for (KeyPoint keyPoint : person.getKeyPoints()) {
+            linkFrameToCoordinate(
+                    frameId,
+                    this.appDatabase
+                        .nnCoordinateDAO()
+                        .insert(
+                                new NNCoordinate(
+                                        keyPoint.position.x,
+                                        keyPoint.position.y
+                                )
+                    )
+            );
         }
+    }
+
+    private void linkFrameToCoordinate(long frameId, long coordinateId) {
+        this.appDatabase
+                .nnFrameCoordinateDAO()
+                .insert(
+                        new NNFrameCoordinate(frameId, coordinateId)
+                );
+    }
+
+    private void linkFrameIdToVideo(long frameId, long videoId) {
+        // Linking to the video
+        this.appDatabase
+                .nnVideoFrame()
+                .insert(
+                        new NNVideoFrame(videoId, frameId)
+                );
     }
 }

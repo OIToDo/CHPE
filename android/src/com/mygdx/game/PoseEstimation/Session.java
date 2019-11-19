@@ -8,6 +8,8 @@ import android.net.Uri;
 import android.util.Log;
 
 import com.mygdx.game.Exceptions.InvalidFrameAccess;
+import com.mygdx.game.PoseEstimation.NN.ModelParser;
+import com.mygdx.game.PoseEstimation.NN.PoseNet.Person;
 import com.mygdx.game.persistance.AppDatabase;
 import com.mygdx.game.persistance.PersistenceClient;
 import com.mygdx.game.persistance.Video.NNVideo;
@@ -19,7 +21,6 @@ public class Session {
 
     private NNInserts nnInsert;
     private CHPE chpe;
-    private Context context;
     private VideoSplicer videoSplicer;
     private AppDatabase appDatabase;
     private long videoId;
@@ -39,7 +40,7 @@ public class Session {
         this.videoSplicer = new VideoSplicer(uri);
         this.appDatabase = PersistenceClient.getInstance(context).getAppDatabase();
         this.resolution = new Resolution(this.videoSplicer.getNextFrame(0));
-        this.chpe = new CHPE(context, this.resolution);
+        this.chpe = new CHPE(context, this.resolution, ModelParser.POSENET_MODEL);
 
         this.initialiseDatabase(); // Preparing database for person entry
     }
@@ -55,19 +56,19 @@ public class Session {
         this.videoSplicer = new VideoSplicer(uri, context);
         this.appDatabase = PersistenceClient.getInstance(context).getAppDatabase();
         this.resolution = new Resolution(this.videoSplicer.getNextFrame(0));
-        this.chpe = new CHPE(context, this.resolution);
+        this.chpe = new CHPE(context, this.resolution, ModelParser.POSENET_MODEL);
 
         this.initialiseDatabase(); // Preparing database for person entry
     }
 
     private void initialiseDatabase() {
-        NNVideo emptyVideo = new NNVideo();
-        emptyVideo.width = this.resolution.screenWidth;
-        emptyVideo.height = this.resolution.screenHeight;
-        emptyVideo.frame_count = this.videoSplicer.getFrameCount();
-        emptyVideo.frames_per_second = this.videoSplicer.getFramesPerSecond();
 
-        this.videoId = this.appDatabase.nnVideoDAO().insert(emptyVideo);
+        this.videoId = this.appDatabase.nnVideoDAO().insert(new NNVideo(
+                this.videoSplicer.getFramesPerSecond(),
+                this.videoSplicer.getFrameCount(),
+                this.resolution.screenWidth,
+                this.resolution.screenHeight
+        ));
         this.nnInsert = new NNInserts(this.appDatabase, this.resolution);
     }
 

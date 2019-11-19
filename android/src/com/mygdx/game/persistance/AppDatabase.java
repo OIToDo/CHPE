@@ -61,7 +61,7 @@ public abstract class AppDatabase extends RoomDatabase {
      *
      * @return the nn video frame dao
      */
-    public abstract NNVideoFrameDAO nnSessionFrameDAO();
+    public abstract NNVideoFrameDAO nnVideoFrame();
 
     /**
      * Nn frame coordinate dao nn frame coordinate dao.

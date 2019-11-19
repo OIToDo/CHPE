@@ -33,6 +33,12 @@ import androidx.room.ForeignKey;
 
 
 public class NNFrameCoordinate {
+
+    public NNFrameCoordinate(long frame_id, long coordinate_id){
+        this.frame_id = frame_id;
+        this.coordinate_id = coordinate_id;
+    }
+
     /**
      * The Frame id.
      */

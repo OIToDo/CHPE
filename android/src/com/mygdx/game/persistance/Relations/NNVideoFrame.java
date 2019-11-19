@@ -30,6 +30,12 @@ import com.mygdx.game.persistance.Video.NNVideo;
         tableName = "video_frame"
 )
 public class NNVideoFrame {
+
+    public NNVideoFrame(long video_id, long frame_id){
+        this.video_id = video_id;
+        this.frame_id = frame_id;
+    }
+
     /**
      * The Video id.
      */

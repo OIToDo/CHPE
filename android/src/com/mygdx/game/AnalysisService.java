@@ -30,7 +30,7 @@ public class AnalysisService extends JobIntentService {
 
         String input = intent.getStringExtra("inputExtra");
         //Fake work, SAD, should be replaced with great work! AMERICAN WORK!
-        
+
         for (int i = 0; i < 10; i++) {
 
             Log.d(TAG, input + " - " + i);
