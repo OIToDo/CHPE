@@ -8,7 +8,6 @@ import com.mygdx.game.PoseEstimation.NN.ModelParser;
 import com.mygdx.game.PoseEstimation.NN.PoseModel;
 import com.mygdx.game.PoseEstimation.NN.PoseNet.Person;
 import com.mygdx.game.PoseEstimation.NN.PoseNet.Posenet.Device;
-import com.mygdx.game.persistance.AppDatabase;
 
 
 /**

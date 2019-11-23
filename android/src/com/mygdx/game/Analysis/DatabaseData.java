@@ -1,11 +1,11 @@
 package com.mygdx.game.Analysis;
 
-import com.mygdx.game.persistance.*;
+import com.mygdx.game.Persistance.*;
 import com.badlogic.gdx.math.Vector3;
-import com.mygdx.game.persistance.Video.NNVideo;
-import com.mygdx.game.persistance.Video.NNVideoDAO;
+import com.mygdx.game.Persistance.Video.NNVideo;
+import com.mygdx.game.Persistance.Video.NNVideoDAO;
 import com.mygdx.game.PoseEstimation.NN.MPI.body_part;
-import com.mygdx.game.persistance.Coordinate.NNCoordinate;
+import com.mygdx.game.Persistance.Coordinate.NNCoordinate;
 
 /**
  * This class implements the Data interface, it retrieves the vector data

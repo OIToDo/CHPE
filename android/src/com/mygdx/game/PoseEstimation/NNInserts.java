@@ -2,11 +2,11 @@ package com.mygdx.game.PoseEstimation;
 
 import com.mygdx.game.PoseEstimation.NN.PoseNet.KeyPoint;
 import com.mygdx.game.PoseEstimation.NN.PoseNet.Person;
-import com.mygdx.game.persistance.AppDatabase;
-import com.mygdx.game.persistance.Coordinate.NNCoordinate;
-import com.mygdx.game.persistance.Frame.NNFrame;
-import com.mygdx.game.persistance.Relations.NNFrameCoordinate;
-import com.mygdx.game.persistance.Relations.NNVideoFrame;
+import com.mygdx.game.Persistance.AppDatabase;
+import com.mygdx.game.Persistance.Coordinate.NNCoordinate;
+import com.mygdx.game.Persistance.Frame.NNFrame;
+import com.mygdx.game.Persistance.Relations.NNFrameCoordinate;
+import com.mygdx.game.Persistance.Relations.NNVideoFrame;
 
 import java.util.Arrays;
 import java.util.List;
@@ -26,7 +26,7 @@ public class NNInserts {
      * @param appDatabase the app database
      * @param resolution  the resolution
      */
-    public NNInserts(AppDatabase appDatabase, Resolution resolution) {
+    NNInserts(AppDatabase appDatabase, Resolution resolution) {
         this.appDatabase = appDatabase;
         this.resolution = resolution;
     }

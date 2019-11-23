@@ -1,17 +1,17 @@
 package com.mygdx.game;
 
 import com.mygdx.game.PoseEstimation.NN.MPI;
-import com.mygdx.game.persistance.AppDatabase;
-import com.mygdx.game.persistance.Coordinate.NNCoordinate;
-import com.mygdx.game.persistance.Coordinate.NNCoordinateDAO;
-import com.mygdx.game.persistance.Frame.NNFrame;
-import com.mygdx.game.persistance.Frame.NNFrameDAO;
-import com.mygdx.game.persistance.Relations.NNFrameCoordinate;
-import com.mygdx.game.persistance.Relations.NNFrameCoordinateDAO;
-import com.mygdx.game.persistance.Relations.NNVideoFrame;
-import com.mygdx.game.persistance.Relations.NNVideoFrameDAO;
-import com.mygdx.game.persistance.Video.NNVideo;
-import com.mygdx.game.persistance.Video.NNVideoDAO;
+import com.mygdx.game.Persistance.AppDatabase;
+import com.mygdx.game.Persistance.Coordinate.NNCoordinate;
+import com.mygdx.game.Persistance.Coordinate.NNCoordinateDAO;
+import com.mygdx.game.Persistance.Frame.NNFrame;
+import com.mygdx.game.Persistance.Frame.NNFrameDAO;
+import com.mygdx.game.Persistance.Relations.NNFrameCoordinate;
+import com.mygdx.game.Persistance.Relations.NNFrameCoordinateDAO;
+import com.mygdx.game.Persistance.Relations.NNVideoFrame;
+import com.mygdx.game.Persistance.Relations.NNVideoFrameDAO;
+import com.mygdx.game.Persistance.Video.NNVideo;
+import com.mygdx.game.Persistance.Video.NNVideoDAO;
 
 import org.json.JSONArray;
 import org.json.JSONException;

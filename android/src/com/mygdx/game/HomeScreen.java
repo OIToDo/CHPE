@@ -10,13 +10,6 @@ import android.widget.Button;
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
 import com.mygdx.game.Simulation.MyGdxGame;
-import com.mygdx.game.persistance.PersistenceClient;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-
-import java.io.IOException;
-import java.io.InputStreamReader;
 
 public class HomeScreen extends AndroidApplication {
     //Button declaration of on-screen buttons.

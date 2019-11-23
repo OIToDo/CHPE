@@ -2,9 +2,6 @@ package com.mygdx.game.Analysis;
 
 import java.util.HashMap;
 
-
-import com.mygdx.game.persistance.*;
-
 /**
  * Main class that provides (and performs) the functionality for analyzing a data set
  * of vector coordinates for detecting human body language and actions.

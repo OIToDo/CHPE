@@ -10,9 +10,9 @@ import android.util.Log;
 import com.mygdx.game.Exceptions.InvalidFrameAccess;
 import com.mygdx.game.PoseEstimation.NN.ModelParser;
 import com.mygdx.game.PoseEstimation.NN.PoseNet.Person;
-import com.mygdx.game.persistance.AppDatabase;
-import com.mygdx.game.persistance.PersistenceClient;
-import com.mygdx.game.persistance.Video.NNVideo;
+import com.mygdx.game.Persistance.AppDatabase;
+import com.mygdx.game.Persistance.PersistenceClient;
+import com.mygdx.game.Persistance.Video.NNVideo;
 
 /**
  * The type Session.

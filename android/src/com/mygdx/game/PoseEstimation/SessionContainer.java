@@ -1,7 +1,7 @@
 package com.mygdx.game.PoseEstimation;
 
-import com.mygdx.game.persistance.AppDatabase;
-import com.mygdx.game.persistance.Coordinate.NNCoordinate;
+import com.mygdx.game.Persistance.AppDatabase;
+import com.mygdx.game.Persistance.Coordinate.NNCoordinate;
 
 import java.util.List;
 
