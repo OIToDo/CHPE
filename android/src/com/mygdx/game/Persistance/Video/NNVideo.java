@@ -1,6 +1,7 @@
 package com.mygdx.game.Persistance.Video;
 
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 
@@ -14,10 +15,12 @@ public class NNVideo {
 
     public NNVideo() {}
 
+    @Ignore
     public NNVideo(long id) {
         this.id = id;
     }
 
+    @Ignore
     public NNVideo(float frames_per_second, int frame_count, int width, int height) {
         this.frames_per_second = frames_per_second;
         this.frame_count = frame_count;

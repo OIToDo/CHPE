@@ -64,18 +64,14 @@ public class MockData {
     }
 
     private void insertFrameCoordinate(long fid, long cid) {
-        NNFrameCoordinate nnFrameCoordinate = new NNFrameCoordinate();
+        NNFrameCoordinate nnFrameCoordinate = new NNFrameCoordinate(fid, cid);
         NNFrameCoordinateDAO nnFrameCoordinateDAO = this.appDatabase.nnFrameCoordinateDAO();
-        nnFrameCoordinate.coordinate_id = cid;
-        nnFrameCoordinate.frame_id = fid;
         nnFrameCoordinateDAO.insert(nnFrameCoordinate);
     }
 
     private void insertSessionFrame(long fid, long sid) {
-        NNVideoFrame nnSessionFrame = new NNVideoFrame();
+        NNVideoFrame nnSessionFrame = new NNVideoFrame(sid, fid);
         NNVideoFrameDAO nnSessionFrameDAO = this.appDatabase.nnVideoFrame();
-        nnSessionFrame.video_id = sid;
-        nnSessionFrame.frame_id = fid;
         nnSessionFrameDAO.insert(nnSessionFrame);
     }
 
