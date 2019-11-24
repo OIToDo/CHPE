@@ -64,6 +64,7 @@ class Posenet(
         return interpreter!!
     }
 
+
     override fun close() {
         interpreter?.close()
         interpreter = null

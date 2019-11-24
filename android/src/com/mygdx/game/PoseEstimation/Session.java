@@ -8,10 +8,10 @@ import android.net.Uri;
 import android.util.Log;
 
 import com.mygdx.game.Exceptions.InvalidFrameAccess;
-import com.mygdx.game.PoseEstimation.NN.ModelParser;
 import com.mygdx.game.Persistance.AppDatabase;
 import com.mygdx.game.Persistance.PersistenceClient;
 import com.mygdx.game.Persistance.Video.NNVideo;
+import com.mygdx.game.PoseEstimation.NN.ModelParser;
 import com.mygdx.game.PoseEstimation.NN.PoseNet.Person;
 
 /**
@@ -34,9 +34,6 @@ public class Session {
      */
 // TODO: Run benchmark configuration
     public Session(String uri, Context context) {
-
-        System.err.println(uri);
-
         this.videoSplicer = new VideoSplicer(uri);
         this.appDatabase = PersistenceClient.getInstance(context).getAppDatabase();
         this.resolution = new Resolution(this.videoSplicer.getNextFrame(0));

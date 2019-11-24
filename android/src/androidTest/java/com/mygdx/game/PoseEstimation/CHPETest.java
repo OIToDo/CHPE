@@ -26,10 +26,10 @@ public class CHPETest {
     @Rule
     public ErrorCollector collector = new ErrorCollector();
 
-    private Context context = InstrumentationRegistry.getInstrumentation().getTargetContext();
+    private Context context = InstrumentationRegistry.getInstrumentation().getContext();
+    private Context targetContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
     private String examplePhoto = "example-human-pose.jpg";
     private Bitmap bitmap;
-    //private CHPE chpe;
 
     @Before
     public void setUp() throws Exception {
@@ -98,14 +98,15 @@ public class CHPETest {
                 CoreMatchers.is("pose/coco/pose_iter_440000.caffemodel")
         );
     }
-
+    /*
+    TODO: Enable: OpenGL ES 3.1
     @Test
     public void ProcessFrameGPU() {
-        CHPE chpe = new CHPE(this.context, new Resolution(this.bitmap), new Posenet());
+        CHPE chpe = new CHPE(this.targetContext, new Resolution(this.bitmap), new Posenet());
         Person p = chpe.ProcessFrame(this.bitmap, NNInterpreter.GPU);
         assertEquals(new Posenet().points, p.getKeyPoints().size());
     }
-
+    */
     @Test
     public void ProcessFrameCPU() {
         CHPE chpe = new CHPE(this.context, new Resolution(this.bitmap), new Posenet());
