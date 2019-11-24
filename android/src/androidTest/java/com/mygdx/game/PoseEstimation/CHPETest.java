@@ -4,7 +4,6 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
-import com.mygdx.game.Persistance.AppDatabase;
 import com.mygdx.game.PoseEstimation.NN.COCO;
 import com.mygdx.game.PoseEstimation.NN.MPI;
 import com.mygdx.game.PoseEstimation.NN.NNInterpreter;
@@ -18,9 +17,6 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ErrorCollector;
 
-import java.io.InputStream;
-
-import androidx.room.Room;
 import androidx.test.platform.app.InstrumentationRegistry;
 
 import static org.junit.Assert.assertEquals;
@@ -31,14 +27,14 @@ public class CHPETest {
     public ErrorCollector collector = new ErrorCollector();
 
     private Context context = InstrumentationRegistry.getInstrumentation().getTargetContext();
-    private String exampleFoto = "example-human-pose.jpg";
+    private String examplePhoto = "example-human-pose.jpg";
     private Bitmap bitmap;
     //private CHPE chpe;
 
     @Before
     public void setUp() throws Exception {
         // Importing the Example image
-        this.bitmap = BitmapFactory.decodeStream(this.context.getAssets().open(exampleFoto));
+        this.bitmap = BitmapFactory.decodeStream(this.context.getAssets().open(examplePhoto));
     }
 
 
