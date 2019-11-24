@@ -19,9 +19,7 @@ package com.mygdx.game.PoseEstimation
 import android.content.Context
 import android.graphics.Bitmap
 import android.os.SystemClock
-import com.mygdx.game.PoseEstimation.NN.PoseNet.KeyPoint
-import com.mygdx.game.PoseEstimation.NN.PoseNet.Person
-import com.mygdx.game.PoseEstimation.NN.PoseNet.Posenet
+
 import org.tensorflow.lite.Interpreter
 import org.tensorflow.lite.gpu.GpuDelegate
 import java.io.FileInputStream
@@ -32,11 +30,53 @@ import java.nio.channels.FileChannel
 import kotlin.math.abs
 import kotlin.math.exp
 
+enum class BodyPart {
+    NOSE,
+    LEFT_EYE,
+    RIGHT_EYE,
+    LEFT_EAR,
+    RIGHT_EAR,
+    LEFT_SHOULDER,
+    RIGHT_SHOULDER,
+    LEFT_ELBOW,
+    RIGHT_ELBOW,
+    LEFT_WRIST,
+    RIGHT_WRIST,
+    LEFT_HIP,
+    RIGHT_HIP,
+    LEFT_KNEE,
+    RIGHT_KNEE,
+    LEFT_ANKLE,
+    RIGHT_ANKLE
+}
+
+class Position {
+    var x: Int = 0
+    var y: Int = 0
+}
+
+class KeyPoint {
+    var bodyPart: BodyPart = BodyPart.NOSE
+    var position: Position = Position()
+    var score: Float = 0.0f
+}
+
+class Person {
+    var keyPoints = listOf<KeyPoint>()
+    var score: Float = 0.0f
+}
+
+enum class Device {
+    CPU,
+    NNAPI,
+    GPU
+}
+
 
 class Posenet(
         val context: Context,
         val filename: String,
-        val device: Posenet.Device,
+        val device: Device,
         val resolution: Resolution
 ) : AutoCloseable {
     var lastInferenceTimeNanos: Long = -1
@@ -51,13 +91,13 @@ class Posenet(
         }
         val options = Interpreter.Options()
         when (device) {
-            Posenet.Device.CPU -> {
+            Device.CPU -> {
             }
-            Posenet.Device.GPU -> {
+            Device.GPU -> {
                 gpuDelegate = GpuDelegate()
                 options.addDelegate(gpuDelegate)
             }
-            Posenet.Device.NNAPI -> options.setUseNNAPI(true)
+            Device.NNAPI -> options.setUseNNAPI(true)
         }
         interpreter = Interpreter(loadModelFile(filename, context), options)
         return interpreter!!
@@ -259,7 +299,7 @@ class Posenet(
         val person = Person()
         val keypointList = Array(numKeypoints) { KeyPoint() }
         var totalScore = 0.0f
-        enumValues<Posenet.body_part>().forEachIndexed { idx, it ->
+        enumValues<BodyPart>().forEachIndexed { idx, it ->
             keypointList[idx].bodyPart = it
             keypointList[idx].position.x = xCoords[idx]
             keypointList[idx].position.y = yCoords[idx]

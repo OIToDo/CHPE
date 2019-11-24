@@ -109,4 +109,29 @@ public class MPI implements PoseModel {
          */
         waist
     }
+
+    @Override
+    public int[][] getPosePairs() {
+        return POSE_PAIRS;
+    }
+
+    @Override
+    public int getPoints() {
+        return points;
+    }
+
+    public String getProtocolBuffer() {
+        return protocol_buffer;
+    }
+
+    @Override
+    public String getModel() {
+        return model;
+    }
+
+    @Override
+    public String[] getBodyParts() {
+        return body_parts;
+    }
+
 }

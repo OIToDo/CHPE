@@ -1,7 +1,5 @@
 package com.mygdx.game.PoseEstimation;
 
-import com.mygdx.game.PoseEstimation.NN.PoseNet.KeyPoint;
-import com.mygdx.game.PoseEstimation.NN.PoseNet.Person;
 import com.mygdx.game.Persistance.AppDatabase;
 import com.mygdx.game.Persistance.Coordinate.NNCoordinate;
 import com.mygdx.game.Persistance.Frame.NNFrame;
@@ -77,8 +75,8 @@ public class NNInserts {
                         .nnCoordinateDAO()
                         .insert(
                                 new NNCoordinate(
-                                        keyPoint.position.x,
-                                        keyPoint.position.y
+                                        keyPoint.getPosition().getX(),
+                                        keyPoint.getPosition().getY()
                                 )
                     )
             );

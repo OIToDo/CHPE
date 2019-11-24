@@ -1,7 +1,5 @@
 package com.mygdx.game.PoseEstimation.NN;
 
-import com.mygdx.game.PoseEstimation.NN.PoseNet.Posenet;
-
 public class ModelParser {
 
 

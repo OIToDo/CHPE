@@ -1,4 +1,4 @@
-package com.mygdx.game.PoseEstimation.NN.PoseNet;
+package com.mygdx.game.PoseEstimation.NN;
 
 import com.mygdx.game.PoseEstimation.NN.PoseModel;
 
@@ -26,7 +26,7 @@ public class Posenet implements PoseModel {
     /**
      * The Points.
      */
-    public final int points = 15;
+    public final int points = 17;
     /**
      * The Protocol buffer.
      */
@@ -130,4 +130,29 @@ public class Posenet implements PoseModel {
          */
         waist
     }
+
+    @Override
+    public int[][] getPosePairs() {
+        return POSE_PAIRS;
+    }
+
+    @Override
+    public int getPoints() {
+        return points;
+    }
+
+    public String getProtocolBuffer() {
+        return protocol_buffer;
+    }
+
+    @Override
+    public String getModel() {
+        return model;
+    }
+
+    @Override
+    public String[] getBodyParts() {
+        return body_parts;
+    }
+
 }

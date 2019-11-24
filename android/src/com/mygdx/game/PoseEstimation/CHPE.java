@@ -6,8 +6,8 @@ import android.graphics.Bitmap;
 
 import com.mygdx.game.PoseEstimation.NN.ModelParser;
 import com.mygdx.game.PoseEstimation.NN.PoseModel;
-import com.mygdx.game.PoseEstimation.NN.PoseNet.Person;
-import com.mygdx.game.PoseEstimation.NN.PoseNet.Posenet.Device;
+
+
 
 
 /**
@@ -42,6 +42,10 @@ public class CHPE {
     }
 
 
+    PoseModel getPoseModel(){
+        return this.poseModel;
+    }
+
     /**
      * Process frame person based on the
      *
@@ -58,9 +62,11 @@ public class CHPE {
         );
 
         Posenet posenet = new Posenet(this.context,
-                this.poseModel.model, // Instance of the model used
+                this.poseModel.getModel(), // Instance of the model used
                 device, // Device on which the execution will take place
                 this.resolution); // Instance of resolution used for scaling
+
+
         return posenet.estimateSinglePose(scaledBitmap); //
     }
 

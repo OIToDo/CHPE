@@ -11,10 +11,10 @@ import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.Analysis.Data;
 import com.mygdx.game.PoseEstimation.NN.MPI.body_part;
+import com.mygdx.game.PoseEstimation.NN.Posenet;
 
 import java.util.HashMap;
 
-import static com.mygdx.game.PoseEstimation.NN.PoseModel.POSE_PAIRS;
 import static com.mygdx.game.Simulation.HelperClass.vec3Subtraction;
 
 public class Body {
@@ -69,7 +69,7 @@ public class Body {
         }
 
         // BodyLimbs -------------------------------------------------------------------------------------------------------------------|
-        for (int[] pp : POSE_PAIRS){
+        for (int[] pp : new Posenet().getPosePairs()){
             limbArray.add(bodyLimb.create(jointCoords.get(pp[0]).x, jointCoords.get(pp[0]).y, jointCoords.get(pp[1]).x, jointCoords.get(pp[1]).y, 0, limbDiameter * scale));
         }
     }
@@ -115,7 +115,7 @@ public class Body {
 
         //update limbs --------------------------------------------------------------------------------------------------|
         int limbAmount = 0;
-        for (int[] pp : POSE_PAIRS){
+        for (int[] pp : new Posenet().getPosePairs()){
             create_limb(jointCoords.get(pp[0]), jointCoords.get(pp[1]),-25,limbAmount);
             limbAmount++;
         }

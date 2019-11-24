@@ -9,7 +9,6 @@ import android.util.Log;
 
 import com.mygdx.game.Exceptions.InvalidFrameAccess;
 import com.mygdx.game.PoseEstimation.NN.ModelParser;
-import com.mygdx.game.PoseEstimation.NN.PoseNet.Person;
 import com.mygdx.game.Persistance.AppDatabase;
 import com.mygdx.game.Persistance.PersistenceClient;
 import com.mygdx.game.Persistance.Video.NNVideo;
@@ -87,7 +86,7 @@ public class Session {
     }
 
     private void PersonToFrame(Person person) {
-        this.nnInsert.insertPerson(person, this.videoId, this.videoSplicer.getFramesProcessed());
+        //this.nnInsert.insertPerson(person, this.videoId, this.videoSplicer.getFramesProcessed());
     }
 
     private void normaliseData() {
