@@ -7,6 +7,8 @@ import android.graphics.BitmapFactory;
 import com.mygdx.game.Persistance.AppDatabase;
 import com.mygdx.game.PoseEstimation.NN.COCO;
 import com.mygdx.game.PoseEstimation.NN.MPI;
+import com.mygdx.game.PoseEstimation.NN.NNInterpreter;
+import com.mygdx.game.PoseEstimation.NN.PoseNet.Person;
 import com.mygdx.game.PoseEstimation.NN.Posenet;
 
 import org.hamcrest.CoreMatchers;
@@ -16,9 +18,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ErrorCollector;
 
-import java.io.IOException;
 import java.io.InputStream;
-import java.util.List;
 
 import androidx.room.Room;
 import androidx.test.platform.app.InstrumentationRegistry;
@@ -31,20 +31,14 @@ public class CHPETest {
     public ErrorCollector collector = new ErrorCollector();
 
     private Context context = InstrumentationRegistry.getInstrumentation().getTargetContext();
-    private AppDatabase appDatabase;
-    private String databaseName = "CHPETest";
     private String exampleFoto = "example-human-pose.jpg";
     private Bitmap bitmap;
     //private CHPE chpe;
 
     @Before
     public void setUp() throws Exception {
-        // Ensure that the database name is NOT the actual database name
-        this.appDatabase = Room.databaseBuilder(this.context, AppDatabase.class, databaseName)
-                .allowMainThreadQueries() // TODO: Multi-threaded agent
-                .build();
-        InputStream testInput = this.context.getAssets().open(exampleFoto);
-        this.bitmap = BitmapFactory.decodeStream(testInput);
+        // Importing the Example image
+        this.bitmap = BitmapFactory.decodeStream(this.context.getAssets().open(exampleFoto));
     }
 
 
@@ -58,8 +52,14 @@ public class CHPETest {
     }
 
 
+    /**
+     * Tear down.
+     * Currently serves no purpose, because all manipulated data is accessed and modified locally.
+     * @throws Exception the exception
+     */
     @After
     public void tearDown() throws Exception {
+
     }
 
     @Test
@@ -106,21 +106,21 @@ public class CHPETest {
     @Test
     public void ProcessFrameGPU() {
         CHPE chpe = new CHPE(this.context, new Resolution(this.bitmap), new Posenet());
-        Person p = chpe.ProcessFrame(this.bitmap, Device.GPU);
+        Person p = chpe.ProcessFrame(this.bitmap, NNInterpreter.GPU);
         assertEquals(new Posenet().points, p.getKeyPoints().size());
     }
 
     @Test
     public void ProcessFrameCPU() {
         CHPE chpe = new CHPE(this.context, new Resolution(this.bitmap), new Posenet());
-        Person p = chpe.ProcessFrame(this.bitmap, Device.CPU);
+        Person p = chpe.ProcessFrame(this.bitmap, NNInterpreter.CPU);
         assertEquals(new Posenet().points, p.getKeyPoints().size());
     }
 
     @Test
     public void ProcessFrameNNAPI() {
         CHPE chpe = new CHPE(this.context, new Resolution(this.bitmap), new Posenet());
-        Person p = chpe.ProcessFrame(this.bitmap, Device.NNAPI);
+        Person p = chpe.ProcessFrame(this.bitmap, NNInterpreter.NNAPI);
         assertEquals(new Posenet().points, p.getKeyPoints().size());
     }
 }

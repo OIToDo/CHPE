@@ -58,13 +58,6 @@ public class Posenet implements PoseModel {
             "right_ankle"
     };
 
-    public enum Device {
-        CPU,
-        NNAPI,
-        GPU
-    }
-
-
     /**
      * The enum Body part.
      */

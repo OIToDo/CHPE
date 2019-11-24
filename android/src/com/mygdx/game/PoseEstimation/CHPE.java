@@ -5,9 +5,9 @@ import android.content.Context;
 import android.graphics.Bitmap;
 
 import com.mygdx.game.PoseEstimation.NN.ModelParser;
+import com.mygdx.game.PoseEstimation.NN.NNInterpreter;
 import com.mygdx.game.PoseEstimation.NN.PoseModel;
-
-
+import com.mygdx.game.PoseEstimation.NN.PoseNet.Person;
 
 
 /**
@@ -50,10 +50,10 @@ public class CHPE {
      * Process frame person based on the
      *
      * @param image  The supplied bitmap image
-     * @param device The device type (i.e. CPU/GPU/NNAPI)
+     * @param nnInterpreter The nnInterpreter type (i.e. CPU/GPU/NNAPI)
      * @return Instance of a Person found on the image
      */
-    Person ProcessFrame(Bitmap image, Device device) {
+    Person ProcessFrame(Bitmap image, NNInterpreter nnInterpreter) {
         Bitmap scaledBitmap = Bitmap.createScaledBitmap(
                 image,
                 this.resolution.modelWidth,
@@ -63,7 +63,7 @@ public class CHPE {
 
         Posenet posenet = new Posenet(this.context,
                 this.poseModel.getModel(), // Instance of the model used
-                device, // Device on which the execution will take place
+                nnInterpreter, // Device on which the execution will take place
                 this.resolution); // Instance of resolution used for scaling
 
 
@@ -77,6 +77,6 @@ public class CHPE {
      * @return Instance of a Person found on the image
      */
     Person ProcessFrame(Bitmap image) {
-        return ProcessFrame(image, Device.GPU);
+        return ProcessFrame(image, NNInterpreter.GPU);
     }
 }

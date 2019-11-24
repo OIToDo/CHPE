@@ -5,6 +5,8 @@ import com.mygdx.game.Persistance.Coordinate.NNCoordinate;
 import com.mygdx.game.Persistance.Frame.NNFrame;
 import com.mygdx.game.Persistance.Relations.NNFrameCoordinate;
 import com.mygdx.game.Persistance.Relations.NNVideoFrame;
+import com.mygdx.game.PoseEstimation.NN.PoseNet.KeyPoint;
+import com.mygdx.game.PoseEstimation.NN.PoseNet.Person;
 
 import java.util.Arrays;
 import java.util.List;
