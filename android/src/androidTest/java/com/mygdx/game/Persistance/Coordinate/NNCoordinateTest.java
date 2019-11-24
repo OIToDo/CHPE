@@ -15,6 +15,7 @@ import static org.junit.Assert.assertEquals;
 
 @RunWith(AndroidJUnit4.class)
 public class NNCoordinateTest {
+    public final int INSERT_QUERY_AMOUNT = 2; // IMPORTANT: KEEP IN MIND THAT THE SEQUENCE OF TESTS CAN SKEWED DUE TO TRANSACTIONS.
     private NNCoordinateDAO nnCoordinateDAO;
     private AppDatabase appDatabase;
 
@@ -39,7 +40,19 @@ public class NNCoordinateTest {
         NNCoordinate nnCoordinateInserted = nnCoordinateDAO.getById(
                 nnCoordinateDAO.insert(nnCoordinate));
 
-        assertEquals(1, nnCoordinateDAO.getCount());
+        assertEquals(1, nnCoordinateDAO.getCount(), INSERT_QUERY_AMOUNT);
+        assertEquals(nnCoordinateInserted.raw_x, nnCoordinate.raw_x, 0.0);
+        assertEquals(nnCoordinateInserted.raw_y, nnCoordinate.raw_y, 0.0);
+    }
+
+    @Test
+    public void InsertAmountCounterCustomConstructor() {
+        NNCoordinate nnCoordinate = new NNCoordinate(2, 20);
+
+        NNCoordinate nnCoordinateInserted = nnCoordinateDAO.getById(
+                nnCoordinateDAO.insert(nnCoordinate));
+
+        assertEquals(1, nnCoordinateDAO.getCount(), INSERT_QUERY_AMOUNT);
         assertEquals(nnCoordinateInserted.raw_x, nnCoordinate.raw_x, 0.0);
         assertEquals(nnCoordinateInserted.raw_y, nnCoordinate.raw_y, 0.0);
     }

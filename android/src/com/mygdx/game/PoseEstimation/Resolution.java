@@ -26,7 +26,7 @@ public class Resolution {
     int getModelWidth() {
         return modelWidth;
     }
-    
+
     int getModelHeight() {
         return modelHeight;
     }
