@@ -29,7 +29,7 @@ public class Body {
     public Array<ModelInstance> limbArray = new Array<>();
 
     // Prevent from creating a copy upon every time this method is called.
-    private static final int body_part_size = body_part.values().length;
+    private static final int body_part_size = body_part.values().length; // TODO: Needs to be replaced by dynamic model modifier
 
     ModelBuilder modelBuilder = new ModelBuilder();
 
@@ -58,7 +58,7 @@ public class Body {
         // BodyParts a.k.a joints -------------------------------------------------------------------------------------------------------|
 
         // Create the joints and give them color
-        for(body_part bp : body_part.values()){
+        for(body_part bp : body_part.values()){ // TODO: Needs to be replaced by dynamic model modifier
             jointMap.put(bp, bodyPart.create(0f,0f,0f, jointDiameter * scale, Vector3.Z, 0, Color.YELLOW));
         }
         jointMap.get(body_part.head).materials.get(0).set(ColorAttribute.createDiffuse(Color.GREEN));
@@ -115,6 +115,8 @@ public class Body {
 
         //update limbs --------------------------------------------------------------------------------------------------|
         int limbAmount = 0;
+
+        // TODO: Needs to be replaced by dynamic model modifier
         for (int[] pp : new Posenet().getPosePairs()){
             create_limb(jointCoords.get(pp[0]), jointCoords.get(pp[1]),-25,limbAmount);
             limbAmount++;
