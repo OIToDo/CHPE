@@ -6,6 +6,7 @@ package com.mygdx.game.Analysis;
  */
 public class Action { 
     /**
+     * @param name
      * Constructor.
      */
     public Action(final String name) {
@@ -30,8 +31,16 @@ public class Action {
 
     /**
      * Getter for the Action's name.
+     * @return String containing the Action's name.
      */
     public String getName() { return name; }
+
+    /**
+     * Setter for the Action's name.
+     * @param new_name
+     * @return void
+     */
+    public void setName(String new_name) { name = new_name; }
 
     /**
      * Name of the action.

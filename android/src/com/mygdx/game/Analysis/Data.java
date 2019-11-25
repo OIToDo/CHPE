@@ -27,6 +27,22 @@ public interface Data {
     public abstract Vector3 getCoord(int frame, body_part bp);
 
     /**
+     *
+     * @param frame
+     * @param bp
+     * @param x
+     */
+    public abstract void setX(int frame, body_part bp, double x);
+
+    /**
+     *
+      * @param frame
+     * @param bp
+     * @param y
+     */
+    public abstract void setY(int frame, body_part bp, double  y);
+
+    /**
      * 
      * @return The number of body parts used in the data structure.
      */
@@ -49,4 +65,5 @@ public interface Data {
      * TODO: WIP, this might end up being split into multiple functions
      */
     public abstract void serialize();
+
 }

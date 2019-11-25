@@ -21,7 +21,6 @@ public class DatabaseData implements Data {
         this.appDatabase=appDatabase;
         this.nnVideoDAO = this.appDatabase.nnVideoDAO();
         this.currentSession = this.nnVideoDAO.getLastSession();
-
     }
 
     /**
@@ -66,6 +65,26 @@ public class DatabaseData implements Data {
      */
     public void serialize() {
         return;
+    }
+
+    /**
+     *
+     * @param frame
+     * @param bp
+     * @param x
+     */
+    public void setX(int frame, body_part bp, double x) {
+
+    }
+
+    /**
+     *
+     * @param frame
+     * @param bp
+     * @param y
+     */
+    public void setY(int frame, body_part bp, double  y) {
+
     }
 
     /**

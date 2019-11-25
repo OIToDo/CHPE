@@ -47,7 +47,7 @@ public class Analysis {
      * TODO: implementation missing. 
      * Most of this will be done in Python first because of faster - and visual - testing.
      */
-    public void process() {
+    protected void process() {
         return;
     }
 
