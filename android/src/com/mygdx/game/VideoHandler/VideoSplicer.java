@@ -8,6 +8,12 @@ public interface VideoSplicer {
 
     boolean isNextFrameAvailable();
 
+    int getFramesProcessed();
+
+    int getFrameCount();
+    long getFramesPerSecond();
+
+
     Bitmap getNextFrame(int frame);
 
     Bitmap getNextFrame() throws InvalidFrameAccess;

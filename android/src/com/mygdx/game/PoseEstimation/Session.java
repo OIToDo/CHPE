@@ -8,12 +8,14 @@ import android.net.Uri;
 import android.util.Log;
 
 import com.mygdx.game.Exceptions.InvalidFrameAccess;
+import com.mygdx.game.Exceptions.InvalidVideoSplicerType;
 import com.mygdx.game.Persistance.AppDatabase;
 import com.mygdx.game.Persistance.PersistenceClient;
 import com.mygdx.game.Persistance.Video.NNVideo;
 import com.mygdx.game.PoseEstimation.NN.ModelParser;
 import com.mygdx.game.PoseEstimation.NN.PoseNet.Person;
-import com.mygdx.game.VideoHandler.VideoSplicerUri;
+import com.mygdx.game.VideoHandler.VideoSplicer;
+import com.mygdx.game.VideoHandler.VideoSplicerFactory;
 
 /**
  * The type Session.
@@ -22,7 +24,7 @@ public class Session {
 
     private NNInserts nnInsert;
     private CHPE chpe;
-    private VideoSplicerUri videoSplicer;
+    private VideoSplicer videoSplicer;
     private AppDatabase appDatabase;
     private long videoId;
     private Resolution resolution;
@@ -35,7 +37,12 @@ public class Session {
      */
 // TODO: Run benchmark configuration
     public Session(String uri, Context context) {
-        this.videoSplicer = new VideoSplicerUri(uri);
+
+        try {
+            this.videoSplicer = VideoSplicerFactory.getVideoSplicer(uri);
+        } catch (InvalidVideoSplicerType invalidVideoSplicerType) {
+            Log.e("SESSION", invalidVideoSplicerType.toString());
+        }
         this.appDatabase = PersistenceClient.getInstance(context).getAppDatabase();
         this.resolution = new Resolution(this.videoSplicer.getNextFrame(0));
         this.chpe = new CHPE(context, this.resolution, ModelParser.POSENET_MODEL);
@@ -51,7 +58,11 @@ public class Session {
      */
     public Session(Uri uri, Context context) {
 
-        this.videoSplicer = new VideoSplicerUri(uri, context);
+        try {
+            this.videoSplicer = VideoSplicerFactory.getVideoSplicer(uri, context);
+        } catch (InvalidVideoSplicerType invalidVideoSplicerType) {
+            Log.e("SESSION", invalidVideoSplicerType.toString());
+        }
         this.appDatabase = PersistenceClient.getInstance(context).getAppDatabase();
         this.resolution = new Resolution(this.videoSplicer.getNextFrame(0));
         this.chpe = new CHPE(context, this.resolution, ModelParser.POSENET_MODEL);
@@ -64,8 +75,8 @@ public class Session {
         this.videoId = this.appDatabase.nnVideoDAO().insert(new NNVideo(
                 this.videoSplicer.getFramesPerSecond(),
                 this.videoSplicer.getFrameCount(),
-                this.resolution.screenWidth,
-                this.resolution.screenHeight
+                this.resolution.getScreenWidth(),
+                this.resolution.getScreenHeight()
         ));
         this.nnInsert = new NNInserts(this.appDatabase, this.resolution);
     }
