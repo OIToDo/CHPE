@@ -33,17 +33,6 @@ public class VideoSplicerTest {
         InputStream inputStream = this.context.getAssets().open(exampleVideo);
 
 
-        AssetManager assetManager = this.context.getAssets();
-        System.out.println("BEGIN");
-
-        while(inputStream.read() != -1){
-            System.out.println(inputStream.read());
-        }
-        for (String s :
-                assetManager.list("")) {
-            System.out.println(s);
-        }
-
     }
 
 

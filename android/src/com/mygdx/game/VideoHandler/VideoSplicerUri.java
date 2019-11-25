@@ -1,4 +1,4 @@
-package com.mygdx.game.PoseEstimation;
+package com.mygdx.game.VideoHandler;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -11,8 +11,8 @@ import com.mygdx.game.Exceptions.InvalidFrameAccess;
 /**
  * The type Video splicer.
  */
-public class VideoSplicer {
-    private static final String TAG = VideoSplicer.class.getSimpleName();
+public class VideoSplicerUri implements VideoSplicer {
+    private static final String TAG = VideoSplicerUri.class.getSimpleName();
     private static final int VIDEO_FRAME_COUNT = 19;
     private static final int VIDEO_DURATION = 9;
     /**
@@ -22,34 +22,30 @@ public class VideoSplicer {
     /**
      * The Uri.
      */
-    public Uri uri;
-    private int frameCount;
-    private int framesProcessed = 0;
-    private long iterTimeUs; // Used to indicate how long a single frame is on screen
-    private long totalTime;
-    private MediaMetadataRetriever mediaMetadataRetriever = new MediaMetadataRetriever();
+    private Uri uri;
 
+    private MediaMetadataRetriever mediaMetadataRetriever = new MediaMetadataRetriever();
+    int frameCount = -1;
+    int framesProcessed = -1;
 
     /**
      * Instantiates a new Video splicer.
      *
      * @param uri the uri
      */
-    VideoSplicer(String uri) {
+    VideoSplicerUri(String uri) {
         this.mUri = uri;
 
         // Accessing the file
         this.mediaMetadataRetriever.setDataSource(uri);
 
-        // Getting the video duration
-        this.getVideoDuration();
 
         // Getting the amount of frames in video
         this.getAmountOfFrames();
 
-        // Calculating the iter frame count based on those values
-        this.getFrameIterTime();
+
     }
+
 
     /**
      * Instantiates a new Video splicer.
@@ -57,7 +53,7 @@ public class VideoSplicer {
      * @param uri     the uri
      * @param context the context
      */
-    VideoSplicer(Uri uri, Context context) {
+    VideoSplicerUri(Uri uri, Context context) {
         this.uri = uri;
 
         // Accessing the file
@@ -79,8 +75,8 @@ public class VideoSplicer {
      *
      * @return the iter time us
      */
-    public long getIterTimeUs() {
-        return iterTimeUs;
+    long getIterTimeUs() {
+        return getIterTimeUs();
     }
 
     /**
@@ -89,7 +85,7 @@ public class VideoSplicer {
      * @return the frame count
      */
     public int getFrameCount() {
-        return frameCount;
+        return this.frameCount;
     }
 
     /**
@@ -107,20 +103,27 @@ public class VideoSplicer {
      * @return the float
      */
     public float getFramesPerSecond() {
-        return Float.parseFloat(Long.toString(this.iterTimeUs));
+        return Float.parseFloat(Long.toString(this.getFrameIterTime()));
     }
 
 
-    private void getVideoDuration() {
-        System.out.println(this.uri.toString());
+    long getVideoDuration() throws NumberFormatException {
         try {
             String sTotalTime = this.mediaMetadataRetriever.extractMetadata(VIDEO_DURATION);
-            this.totalTime = Long.parseLong(sTotalTime);
+            return Long.parseLong(sTotalTime);
         } catch (NumberFormatException nfe) {
-            // TODO: Notify user of invalid file.
-            Log.e(TAG, "NumberFormatException: " + nfe.getMessage());
+            throw new NumberFormatException();
         }
 
+    }
+
+    long getFrameIterTime() throws ArithmeticException {
+        try {
+            return this.getVideoDuration() / this.frameCount;
+        } catch (ArithmeticException ae) {
+            // TODO: Notify user of invalid file.
+            throw new ArithmeticException(ae.toString());
+        }
     }
 
     private void getAmountOfFrames() {
@@ -133,22 +136,13 @@ public class VideoSplicer {
         }
     }
 
-    private void getFrameIterTime() {
-        try {
-
-            this.iterTimeUs = this.totalTime / this.frameCount;
-        } catch (ArithmeticException ae) {
-            // TODO: Notify user of invalid file.
-            Log.e(TAG, "ArithmeticException: " + ae.getMessage());
-        }
-    }
 
     /**
      * Is next frame available boolean.
      *
      * @return the boolean
      */
-    boolean isNextFrameAvailable() {
+    public boolean isNextFrameAvailable() {
         return this.framesProcessed + 1 <= this.frameCount;
     }
 
@@ -158,11 +152,12 @@ public class VideoSplicer {
      * @param frame the frame
      * @return the next frame
      */
-    Bitmap getNextFrame(int frame) {
+    public Bitmap getNextFrame(int frame) {
         // TODO: return this.mediaMetadataRetriever.getFrameAtIndex(this.framesProcessed);
 
-        return this.mediaMetadataRetriever.getFrameAtTime(
-                frame * this.iterTimeUs);
+        Bitmap mp = this.mediaMetadataRetriever.getFrameAtIndex(
+                frame);
+        return mp;
     }
 
 
@@ -172,12 +167,12 @@ public class VideoSplicer {
      * @return the next frame
      * @throws InvalidFrameAccess the invalid frame access
      */
-    Bitmap getNextFrame() throws InvalidFrameAccess {
+    public Bitmap getNextFrame() throws InvalidFrameAccess {
         if (isNextFrameAvailable()) {
 
             // TODO: return this.mediaMetadataRetriever.getFrameAtIndex(this.framesProcessed);
-            Bitmap mp = this.mediaMetadataRetriever.getFrameAtTime(
-                    this.framesProcessed * this.iterTimeUs);
+            Bitmap mp = this.mediaMetadataRetriever.getFrameAtIndex(
+                    this.framesProcessed);
             this.framesProcessed += 1;
             return mp;
         }

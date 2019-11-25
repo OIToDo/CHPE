@@ -13,6 +13,7 @@ import com.mygdx.game.Persistance.PersistenceClient;
 import com.mygdx.game.Persistance.Video.NNVideo;
 import com.mygdx.game.PoseEstimation.NN.ModelParser;
 import com.mygdx.game.PoseEstimation.NN.PoseNet.Person;
+import com.mygdx.game.VideoHandler.VideoSplicerUri;
 
 /**
  * The type Session.
@@ -21,7 +22,7 @@ public class Session {
 
     private NNInserts nnInsert;
     private CHPE chpe;
-    private VideoSplicer videoSplicer;
+    private VideoSplicerUri videoSplicer;
     private AppDatabase appDatabase;
     private long videoId;
     private Resolution resolution;
@@ -34,7 +35,7 @@ public class Session {
      */
 // TODO: Run benchmark configuration
     public Session(String uri, Context context) {
-        this.videoSplicer = new VideoSplicer(uri);
+        this.videoSplicer = new VideoSplicerUri(uri);
         this.appDatabase = PersistenceClient.getInstance(context).getAppDatabase();
         this.resolution = new Resolution(this.videoSplicer.getNextFrame(0));
         this.chpe = new CHPE(context, this.resolution, ModelParser.POSENET_MODEL);
@@ -50,7 +51,7 @@ public class Session {
      */
     public Session(Uri uri, Context context) {
 
-        this.videoSplicer = new VideoSplicer(uri, context);
+        this.videoSplicer = new VideoSplicerUri(uri, context);
         this.appDatabase = PersistenceClient.getInstance(context).getAppDatabase();
         this.resolution = new Resolution(this.videoSplicer.getNextFrame(0));
         this.chpe = new CHPE(context, this.resolution, ModelParser.POSENET_MODEL);

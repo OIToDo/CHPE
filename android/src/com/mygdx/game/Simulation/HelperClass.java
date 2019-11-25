@@ -28,6 +28,15 @@ public class HelperClass {
         return (float)length;
     }
 
+    /**
+     * Gets angle.
+     *
+     * @param x1 the x 1
+     * @param y1 the y 1
+     * @param x2 the x 2
+     * @param y2 the y 2
+     * @return the angle
+     */
     public static float getAngle(float x1, float y1, float x2, float y2) {
         float angle = (float) Math.toDegrees(Math.atan2(y1 - y2, x1 - x2));
 
