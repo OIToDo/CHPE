@@ -1,8 +1,5 @@
 package com.mygdx.game.Persistance;
 
-import androidx.room.Database;
-import androidx.room.RoomDatabase;
-
 import com.mygdx.game.Persistance.Coordinate.NNCoordinate;
 import com.mygdx.game.Persistance.Coordinate.NNCoordinateDAO;
 import com.mygdx.game.Persistance.Frame.NNFrame;
@@ -13,6 +10,9 @@ import com.mygdx.game.Persistance.Relations.NNVideoFrame;
 import com.mygdx.game.Persistance.Relations.NNVideoFrameDAO;
 import com.mygdx.game.Persistance.Video.NNVideo;
 import com.mygdx.game.Persistance.Video.NNVideoDAO;
+
+import androidx.room.Database;
+import androidx.room.RoomDatabase;
 
 
 /**

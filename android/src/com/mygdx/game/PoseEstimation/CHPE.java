@@ -56,8 +56,8 @@ public class CHPE {
     Person ProcessFrame(Bitmap image, NNInterpreter nnInterpreter) {
         Bitmap scaledBitmap = Bitmap.createScaledBitmap(
                 image,
-                this.resolution.modelWidth,
-                this.resolution.modelHeight,
+                this.resolution.getModelWidth(),
+                this.resolution.getModelHeight(),
                 BILINEAR_INTERPOLATION // Simple interpolation to fill 'empty' spaces on image
         );
 

@@ -6,7 +6,6 @@ import android.webkit.URLUtil;
 
 import com.mygdx.game.Exceptions.InvalidVideoSplicerType;
 
-import java.io.InputStream;
 
 public class VideoSplicerFactory {
 
@@ -33,9 +32,12 @@ public class VideoSplicerFactory {
             return new VideoSplicerUriLegacy(uri, context);
     }
 
-    public static VideoSplicer getVideoSplicer(InputStream inputStream) {
+
+
+    /* TODO: Make inputstream type
+   public static VideoSplicer getVideoSplicer(InputStream inputStream) {
         return new VideoSplicerInputStream(inputStream);
     }
-
+     */
 
 }

@@ -67,10 +67,11 @@ project(":android") {
         natives "com.badlogicgames.gdx:gdx-box2d-platform:$gdxVersion:natives-x86"
         natives "com.badlogicgames.gdx:gdx-box2d-platform:$gdxVersion:natives-x86_64"
         androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+
     }
 }
 
-project(":core") {
+project(":core") { // TODO: Delete
     apply plugin: "java-library"
 
 

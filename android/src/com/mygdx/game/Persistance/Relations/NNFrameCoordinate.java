@@ -34,20 +34,19 @@ import androidx.room.ForeignKey;
 
 public class NNFrameCoordinate {
 
-    public NNFrameCoordinate(long frame_id, long coordinate_id){
-        this.frame_id = frame_id;
-        this.coordinate_id = coordinate_id;
-    }
-
     /**
      * The Frame id.
      */
     @ColumnInfo(index = true)
-    public long  frame_id;
-
+    public long frame_id;
     /**
      * The Coordinate id.
      */
     @ColumnInfo(index = true)
-    public long  coordinate_id;
+    public long coordinate_id;
+
+    public NNFrameCoordinate(long frame_id, long coordinate_id) {
+        this.frame_id = frame_id;
+        this.coordinate_id = coordinate_id;
+    }
 }

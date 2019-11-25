@@ -1,8 +1,8 @@
 package com.mygdx.game.Persistance.Frame;
 
 import androidx.room.Dao;
-import androidx.room.Insert;
 import androidx.room.Delete;
+import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
 

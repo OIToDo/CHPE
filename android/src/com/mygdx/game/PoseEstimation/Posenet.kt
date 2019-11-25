@@ -204,15 +204,13 @@ class Posenet(
         // Created scaled version of bitmap for model input.
         var bitmap = Bitmap.createScaledBitmap(croppedBitmap, resolution.modelWidth, resolution.modelHeight, true)
 
-        val estimationStartTimeNanos = SystemClock.elapsedRealtimeNanos()
         val inputArray = arrayOf(initInputArray(bitmap))
 
         val outputMap = initOutputMap(getInterpreter())
 
-        val inferenceStartTimeNanos = SystemClock.elapsedRealtimeNanos()
         getInterpreter().runForMultipleInputsOutputs(inputArray, outputMap)
 
-
+        @SuppressWarnings("unchecked")
         val heatmaps = outputMap[0] as Array<Array<Array<FloatArray>>>
         val offsets = outputMap[1] as Array<Array<Array<FloatArray>>>
 

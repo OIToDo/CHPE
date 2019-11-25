@@ -22,11 +22,9 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
  */
 public class PersistenceClient {
 
-    private Context mCtx;
     private static PersistenceClient mInstance;
-
     private static String databaseName = "CHPEv3";
-
+    private Context mCtx;
     //our app database object
     private AppDatabase appDatabase;
 

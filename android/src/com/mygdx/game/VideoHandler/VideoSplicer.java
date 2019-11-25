@@ -11,7 +11,8 @@ public interface VideoSplicer {
     int getFramesProcessed();
 
     int getFrameCount();
-    long getFramesPerSecond();
+
+    float getFramesPerSecond();
 
 
     Bitmap getNextFrame(int frame);

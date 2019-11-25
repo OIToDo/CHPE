@@ -64,8 +64,7 @@ public class NNInserts {
     void insertPerson(Person person, long videoId, int frameCount) {
 
         // Creating new frame for the instance
-        NNFrame nnFrame = new NNFrame();
-        nnFrame.frame_count = frameCount;
+        NNFrame nnFrame = new NNFrame(frameCount);
         long frameId = this.appDatabase.nnFrameDAO().insert(nnFrame);
 
         linkFrameIdToVideo(frameId, videoId);

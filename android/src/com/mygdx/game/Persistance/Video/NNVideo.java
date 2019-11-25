@@ -13,21 +13,6 @@ public class NNVideo {
     //TODO: Create date field
 
 
-    public NNVideo() {}
-
-    @Ignore
-    public NNVideo(long id) {
-        this.id = id;
-    }
-
-    @Ignore
-    public NNVideo(float frames_per_second, int frame_count, int width, int height) {
-        this.frames_per_second = frames_per_second;
-        this.frame_count = frame_count;
-        this.width = width;
-        this.height = height;
-    }
-
     /**
      * The Id.
      */
@@ -49,5 +34,18 @@ public class NNVideo {
      * The Height.
      */
     public int height;
+    public NNVideo() {
+    }
+    @Ignore
+    public NNVideo(long id) {
+        this.id = id;
+    }
+    @Ignore
+    public NNVideo(float frames_per_second, int frame_count, int width, int height) {
+        this.frames_per_second = frames_per_second;
+        this.frame_count = frame_count;
+        this.width = width;
+        this.height = height;
+    }
 
 }
