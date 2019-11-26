@@ -9,6 +9,7 @@ import android.widget.Button;
 
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
+import com.mygdx.game.Persistance.PersistenceClient;
 import com.mygdx.game.Simulation.MyGdxGame;
 
 public class HomeScreen extends AndroidApplication {
@@ -25,6 +26,8 @@ public class HomeScreen extends AndroidApplication {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        MockData mockData = new MockData(PersistenceClient.getInstance(getApplicationContext()).getAppDatabase());
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_screen);

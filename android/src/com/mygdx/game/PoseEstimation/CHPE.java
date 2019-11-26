@@ -4,10 +4,12 @@ package com.mygdx.game.PoseEstimation;
 import android.content.Context;
 import android.graphics.Bitmap;
 
+
 import com.mygdx.game.PoseEstimation.NN.ModelParser;
 import com.mygdx.game.PoseEstimation.NN.NNInterpreter;
-import com.mygdx.game.PoseEstimation.NN.PoseModel;
+import com.mygdx.game.PoseEstimation.NN.PoseModels.PoseModel;
 import com.mygdx.game.PoseEstimation.NN.PoseNet.Person;
+import com.mygdx.game.PoseEstimation.NN.PoseNet.PosenetHandler;
 
 
 /**
@@ -25,13 +27,13 @@ public class CHPE {
      * @param context    The context
      * @param resolution The resolution used for scaling
      */
-    CHPE(Context context, Resolution resolution, PoseModel model) {
+    public CHPE(Context context, Resolution resolution, PoseModel model) {
         this.context = context;
         this.resolution = resolution;
         this.poseModel = model;
     }
 
-    CHPE(Context context, Resolution resolution, final int model) {
+    public CHPE(Context context, Resolution resolution, final int model) {
         this.context = context;
         this.resolution = resolution;
         parseModel(model);
@@ -61,13 +63,13 @@ public class CHPE {
                 BILINEAR_INTERPOLATION // Simple interpolation to fill 'empty' spaces on image
         );
 
-        Posenet posenet = new Posenet(this.context,
+        PosenetHandler posenetHandler = new PosenetHandler(this.context,
                 this.poseModel.getModel(), // Instance of the model used
                 nnInterpreter, // Device on which the execution will take place
                 this.resolution); // Instance of resolution used for scaling
 
 
-        return posenet.estimateSinglePose(scaledBitmap); //
+        return posenetHandler.estimateSinglePose(scaledBitmap); //
     }
 
     /**

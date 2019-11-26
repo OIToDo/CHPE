@@ -1,6 +1,6 @@
 package com.mygdx.game;
 
-import com.mygdx.game.PoseEstimation.NN.MPI;
+import com.mygdx.game.PoseEstimation.NN.PoseModels.*;
 import com.mygdx.game.Persistance.AppDatabase;
 import com.mygdx.game.Persistance.Coordinate.NNCoordinate;
 import com.mygdx.game.Persistance.Coordinate.NNCoordinateDAO;
@@ -89,7 +89,7 @@ public class MockData {
         DebugLog.log(String.valueOf(entries.length()));
         long sessionId = insertSession(this.entries.length());
         long insertId = 0;
-        MPI poseModel = new MPI();
+        NNModelMPI poseModel = new NNModelMPI();
         for (int i = 0; i < this.entries.length(); i++) {
             try {
                 JSONObject jsonObject = (JSONObject) this.entries.get(i);

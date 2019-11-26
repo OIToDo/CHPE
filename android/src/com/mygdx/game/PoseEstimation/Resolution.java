@@ -23,19 +23,19 @@ public class Resolution {
      */
     private int screenHeight;
 
-    int getModelWidth() {
+    public int getModelWidth() {
         return modelWidth;
     }
 
-    int getModelHeight() {
+    public int getModelHeight() {
         return modelHeight;
     }
 
-    int getScreenWidth() {
+    public int getScreenWidth() {
         return screenWidth;
     }
 
-    int getScreenHeight() {
+    public int getScreenHeight() {
         return screenHeight;
     }
 
@@ -45,7 +45,7 @@ public class Resolution {
      *
      * @param bitmap the bitmap
      */
-    Resolution(Bitmap bitmap) {
+    public Resolution(Bitmap bitmap) {
         this.screenWidth = bitmap.getWidth();
         this.screenHeight = bitmap.getHeight();
     }
@@ -58,7 +58,7 @@ public class Resolution {
      * @param modelWidth  the model width
      * @param modelHeight the model height
      */
-    Resolution(int width, int height, int modelWidth, int modelHeight) {
+    public Resolution(int width, int height, int modelWidth, int modelHeight) {
         this.screenWidth = width;
         this.screenHeight = height;
         this.modelWidth = modelWidth;

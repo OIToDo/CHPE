@@ -1,6 +1,7 @@
 package com.mygdx.game.Persistance.Frame;
 
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 /**
@@ -23,6 +24,7 @@ public class NNFrame {
     /**
      * Instantiates a new NN frame without data.
      */
+    @Ignore
     NNFrame() {
     }
 
@@ -33,6 +35,7 @@ public class NNFrame {
      *
      * @param id the id
      */
+    @Ignore
     NNFrame(long id) {
         this.id = id;
     }

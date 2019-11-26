@@ -1,7 +1,8 @@
 package com.mygdx.game.PoseEstimation.NN;
 
-public class ModelParser {
+import com.mygdx.game.PoseEstimation.NN.PoseModels.*;
 
+public class ModelParser {
 
     public final static int COCO_MODEL = 1;
     public final static int MPI_MODEL = 2;
@@ -11,13 +12,13 @@ public class ModelParser {
         PoseModel model;
         switch (modelId) {
             case 2:
-                model = new MPI();
+                model = new NNModelMPI();
                 break;
             case 3:
-                model = new Posenet();
+                model = new NNModelPosenet();
                 break;
             default:
-                model = new COCO();
+                model = new NNModelCOCO();
         }
         return model;
     }

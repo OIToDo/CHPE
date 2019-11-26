@@ -1,6 +1,6 @@
 package com.mygdx.game.Analysis;
 
-import com.mygdx.game.PoseEstimation.NN.MPI.body_part;
+import com.mygdx.game.PoseEstimation.NN.PoseModels.NNModelMPI.body_part;
 
 import com.badlogic.gdx.math.Vector3;
 

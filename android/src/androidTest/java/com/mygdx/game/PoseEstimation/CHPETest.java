@@ -4,11 +4,9 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
-import com.mygdx.game.PoseEstimation.NN.COCO;
-import com.mygdx.game.PoseEstimation.NN.MPI;
+import com.mygdx.game.PoseEstimation.NN.PoseModels.*;
 import com.mygdx.game.PoseEstimation.NN.NNInterpreter;
 import com.mygdx.game.PoseEstimation.NN.PoseNet.Person;
-import com.mygdx.game.PoseEstimation.NN.Posenet;
 
 import org.hamcrest.CoreMatchers;
 import org.junit.After;
@@ -81,9 +79,9 @@ public class CHPETest {
     @Test
     public void StaticConstructor() {
 
-        CHPE chpePoseNet = new CHPE(this.context, new Resolution(this.bitmap), new Posenet());
-        CHPE chpeMPI = new CHPE(this.context, new Resolution(this.bitmap), new MPI());
-        CHPE chpe = new CHPE(this.context, new Resolution(this.bitmap), new COCO());
+        CHPE chpePoseNet = new CHPE(this.context, new Resolution(this.bitmap), new NNModelPosenet());
+        CHPE chpeMPI = new CHPE(this.context, new Resolution(this.bitmap), new NNModelMPI());
+        CHPE chpe = new CHPE(this.context, new Resolution(this.bitmap), new NNModelCOCO());
 
 
         collector.checkThat(chpeMPI.getPoseModel().getModel(),
@@ -102,22 +100,22 @@ public class CHPETest {
     TODO: Enable: OpenGL ES 3.1
     @Test
     public void ProcessFrameGPU() {
-        CHPE chpe = new CHPE(this.targetContext, new Resolution(this.bitmap), new Posenet());
+        CHPE chpe = new CHPE(this.targetContext, new Resolution(this.bitmap), new NNModelPosenet());
         Person p = chpe.ProcessFrame(this.bitmap, NNInterpreter.GPU);
-        assertEquals(new Posenet().points, p.getKeyPoints().size());
+        assertEquals(new NNModelPosenet().points, p.getKeyPoints().size());
     }
     */
     @Test
     public void ProcessFrameCPU() {
-        CHPE chpe = new CHPE(this.context, new Resolution(this.bitmap), new Posenet());
+        CHPE chpe = new CHPE(this.context, new Resolution(this.bitmap), new NNModelPosenet());
         Person p = chpe.ProcessFrame(this.bitmap, NNInterpreter.CPU);
-        assertEquals(new Posenet().points, p.getKeyPoints().size());
+        assertEquals(new NNModelPosenet().points, p.getKeyPoints().size());
     }
 
     @Test
     public void ProcessFrameNNAPI() {
-        CHPE chpe = new CHPE(this.context, new Resolution(this.bitmap), new Posenet());
+        CHPE chpe = new CHPE(this.context, new Resolution(this.bitmap), new NNModelPosenet());
         Person p = chpe.ProcessFrame(this.bitmap, NNInterpreter.NNAPI);
-        assertEquals(new Posenet().points, p.getKeyPoints().size());
+        assertEquals(new NNModelPosenet().points, p.getKeyPoints().size());
     }
 }

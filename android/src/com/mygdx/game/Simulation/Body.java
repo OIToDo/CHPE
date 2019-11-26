@@ -10,8 +10,8 @@ import com.badlogic.gdx.graphics.g3d.utils.ModelBuilder;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.Analysis.Data;
-import com.mygdx.game.PoseEstimation.NN.MPI.body_part;
-import com.mygdx.game.PoseEstimation.NN.Posenet;
+import com.mygdx.game.PoseEstimation.NN.PoseModels.NNModelMPI;
+import com.mygdx.game.PoseEstimation.NN.PoseModels.NNModelMPI.*;
 
 import java.util.HashMap;
 
@@ -69,7 +69,7 @@ public class Body {
         }
 
         // BodyLimbs -------------------------------------------------------------------------------------------------------------------|
-        for (int[] pp : new Posenet().getPosePairs()){
+        for (int[] pp : new NNModelMPI().getPosePairs()){
             limbArray.add(bodyLimb.create(jointCoords.get(pp[0]).x, jointCoords.get(pp[0]).y, jointCoords.get(pp[1]).x, jointCoords.get(pp[1]).y, 0, limbDiameter * scale));
         }
     }
@@ -117,7 +117,7 @@ public class Body {
         int limbAmount = 0;
 
         // TODO: Needs to be replaced by dynamic model modifier
-        for (int[] pp : new Posenet().getPosePairs()){
+        for (int[] pp : new NNModelMPI().getPosePairs()){
             create_limb(jointCoords.get(pp[0]), jointCoords.get(pp[1]),-25,limbAmount);
             limbAmount++;
         }
