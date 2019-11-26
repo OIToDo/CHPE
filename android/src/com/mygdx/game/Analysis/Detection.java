@@ -62,7 +62,7 @@ public class Detection {
                     inAction = false;
                     continue;
                 }
-                action_time += 1 / data.getFps();
+                action_time += 1.0f / data.getFps();
             }
         }
 
@@ -74,9 +74,7 @@ public class Detection {
      * @param dt How long the condition has to be true for (in seconds).
      * @return If the Action was detected or not.
      */
-    public boolean HandsIdle(float dt) {
-        // TODO: this algorithm doesnt make any sense, pls fix
-        int threshold = 10;
+    public boolean HandsIdle(float dt, double threshold) {
         boolean inAction = false;
         float actionTime = 0;
 
@@ -110,7 +108,7 @@ public class Detection {
                     continue;
                 } else {
                     // add a second
-                    actionTime += 1.0f;
+                    actionTime += 1.0f / data.getFps();
                 }
             }
         }

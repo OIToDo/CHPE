@@ -17,31 +17,24 @@ public class Filter {
             for(int f = 1; f < data.getFrameCount(); f++) {
                 Vector3 previous = data.getCoord(f-1, bp);
                 Vector3 current = data.getCoord(f, bp);
-                if(previous.isZero() && current.isZero()) {
-                    // TODO: pray this works, else just set it per component
-                    current = previous;
+                if(!previous.isZero() && current.isZero()) {
+                    data.setX(f, bp, previous.x);
+                    data.setY(f, bp, previous.y);
                 }
             }
         }
     }
 
-    public void resolveWaist() {
+    public void averageOf(body_part toUpdate, body_part left, body_part right) {
         for(int f = 0; f < data.getFrameCount(); f++) {
-            data.getCoord(f, body_part.waist).x = data.getCoord(f, body_part.l_hip).x +
-                    Math.abs((data.getCoord(f, body_part.r_hip).x - data.getCoord(f, body_part.l_hip).x) / 2);
-            data.getCoord(f, body_part.waist).y = data.getCoord(f, body_part.l_hip).y +
-                    Math.abs((data.getCoord(f, body_part.r_hip).y - data.getCoord(f, body_part.l_hip).y) / 2);
-        }
-    }
+            double x = data.getCoord(f, left).x +
+                    Math.abs((data.getCoord(f, right).x - data.getCoord(f, left).x) / 2);
 
-    public void resolveNeck() {
-        for(int f = 0; f < data.getFrameCount(); f++) {
-            double neck_x = data.getCoord(f, body_part.l_shoulder).x +
-                    Math.abs((data.getCoord(f, body_part.r_shoulder).x - data.getCoord(f, body_part.l_shoulder).x) / 2);
-            double neck_y = data.getCoord(f, body_part.l_shoulder).y +
-                    Math.abs((data.getCoord(f, body_part.r_shoulder).y - data.getCoord(f, body_part.l_shoulder).y) / 2);
-            data.setX(f, body_part.neck, neck_x);
-            data.setY(f, body_part.neck, neck_y);
+            double y = data.getCoord(f, left).y +
+                    Math.abs((data.getCoord(f, right).y - data.getCoord(f, left).y) / 2);
+
+            data.setX(f, toUpdate, x);
+            data.setY(f, toUpdate, y);
         }
     }
 
@@ -59,8 +52,9 @@ public class Filter {
                     acc.x += kernel[i] * data.getCoord(f + (i = offset), bp).x;
                     acc.y += kernel[i] * data.getCoord(f + (i = offset), bp).y;
                 }
-                data.getCoord(f, bp).x = acc.x / sum;
-                data.getCoord(f, bp).y = acc.y / sum;
+                // TODO: right now it's filtering in-place which gives weird results, pls fix
+                data.setX(f, bp, acc.x / sum);
+                data.setY(f, bp, acc.y / sum);
             }
         }
 
