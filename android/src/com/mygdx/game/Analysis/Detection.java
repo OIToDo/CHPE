@@ -26,19 +26,20 @@ public class Detection {
         this.data = data;
     }
 
+
+    public Vector3 abs(Vector3 v) {
+        return new Vector3(
+            v.x < 0 ? v.x * -1 : v.x,
+            v.y < 0 ? v.y * -1 : v.y,
+            v.z < 0 ? v.z * -1 : v.z
+        );
+    }
+
     /**
      * Checks if the person's hands can not be found for a given amount of time.
      * @param dt Given amount of time for it to be true.
      * @return if the Action was detected or not.
      */
-
-    public Vector3 abs(Vector3 v) {
-        return new Vector3(
-                v.x < 0 ? v.x * -1 : v.x,
-                v.y < 0 ? v.y * -1 : v.y,
-                v.z < 0 ? v.z * -1 : v.z
-        );
-    }
     public boolean handsFound(float dt) {
         boolean inAction = false;
         float action_time = 0;

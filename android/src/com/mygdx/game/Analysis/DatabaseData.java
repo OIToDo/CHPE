@@ -2,6 +2,7 @@ package com.mygdx.game.Analysis;
 
 import com.mygdx.game.persistance.*;
 import com.badlogic.gdx.math.Vector3;
+import com.mygdx.game.persistance.Coordinate.NNCoordinateDAO;
 import com.mygdx.game.persistance.Video.NNVideo;
 import com.mygdx.game.persistance.Video.NNVideoDAO;
 import com.mygdx.game.PoseEstimation.nn.MPI.body_part;
@@ -74,7 +75,11 @@ public class DatabaseData implements Data {
      * @param x
      */
     public void setX(int frame, body_part bp, double x) {
-
+        NNCoordinate current = this.nnVideoDAO.get_coordinates(frame,bp.ordinal(),
+                this.currentSession.id);
+        current.x = x;
+        NNCoordinateDAO dao = this.appDatabase.nnCoordinateDAO();
+        dao.update(current);
     }
 
     /**
@@ -84,7 +89,11 @@ public class DatabaseData implements Data {
      * @param y
      */
     public void setY(int frame, body_part bp, double  y) {
-
+        NNCoordinate current = this.nnVideoDAO.get_coordinates(frame,bp.ordinal(),
+                this.currentSession.id);
+        current.y = y;
+        NNCoordinateDAO dao = this.appDatabase.nnCoordinateDAO();
+        dao.update(current);
     }
 
     /**

@@ -36,10 +36,12 @@ public class Filter {
 
     public void resolveNeck() {
         for(int f = 0; f < data.getFrameCount(); f++) {
-            data.getCoord(f, body_part.neck).x = data.getCoord(f, body_part.l_shoulder).x +
+            double neck_x = data.getCoord(f, body_part.l_shoulder).x +
                     Math.abs((data.getCoord(f, body_part.r_shoulder).x - data.getCoord(f, body_part.l_shoulder).x) / 2);
-            data.getCoord(f, body_part.neck).y = data.getCoord(f, body_part.l_shoulder).y +
+            double neck_y = data.getCoord(f, body_part.l_shoulder).y +
                     Math.abs((data.getCoord(f, body_part.r_shoulder).y - data.getCoord(f, body_part.l_shoulder).y) / 2);
+            data.setX(f, body_part.neck, neck_x);
+            data.setY(f, body_part.neck, neck_y);
         }
     }
 
