@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#00A1E1"
     tools:context=".ProcessingScreenActivity">
 
 
@@ -15,23 +16,12 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
-        android:id="@+id/testText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Testertje"
-        android:paddingTop="5dp"
-        app:layout_constraintBottom_toTopOf="@+id/button2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/processingView"></EditText>
-
     <Button
         android:id="@+id/startButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="5dp"
+        android:background="@drawable/custom_button"
         android:text="Start"
         app:layout_constraintBottom_toTopOf="@+id/stopButton"
         tools:layout_editor_absoluteX="-16dp" />
@@ -42,6 +32,7 @@
         android:layout_height="wrap_content"
         android:paddingTop="5dp"
         android:text="Stop"
+        android:background="@drawable/custom_button"
         app:layout_constraintBottom_toBottomOf="parent"
         tools:layout_editor_absoluteX="-16dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>

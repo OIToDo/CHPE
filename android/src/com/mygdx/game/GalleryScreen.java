@@ -1,11 +1,18 @@
 package com.mygdx.game;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.net.Uri;
+import android.os.Build;
 import android.provider.MediaStore;
 import android.util.Log;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.os.Bundle;
 import android.view.View;
@@ -13,8 +20,11 @@ import android.content.Intent;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.MediaController;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 import android.widget.VideoView;
+
+import com.badlogic.gdx.backends.android.AndroidApplication;
 
 import java.io.File;
 import java.io.IOException;
@@ -32,17 +42,36 @@ public class GalleryScreen extends AppCompatActivity implements Serializable {
     String selectedVideoPath;
     //Int declaration to enter video function with.
     private final int SELECT_VIDEO_REQUEST = 1;
+    //Static string for notification channel
+    public static final String channel_ForeGround_ID = "Testerino";
     //Uri for the selectable video from the user.
     Uri videoUri;
     //Toast message to confirm that the user started the analysis process.
     Toast toast;
     //boolean to check if a video has been selected.
     boolean videoIsSelected;
+    //Channel_ID name for notification
+    public static final String Channel_ID = "NeuralServiceChannel";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gallery_screen);
+        //Check if the path is selected by the user
         videoIsSelected = false;
+
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            // only for gingerbread and newer versions
+            Window window = getWindow();
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.setStatusBarColor(Color.rgb(0.902f,0.188f,0.157f));
+        }
+        else {
+            Window window = getWindow();
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.setStatusBarColor(0);
+        }
+
+
         //Initializing buttons
         homeScreenButton = findViewById(R.id.homeScreenButton);
         videoSelectButton = findViewById(R.id.videoGalleryScreenButton);
@@ -70,7 +99,8 @@ public class GalleryScreen extends AppCompatActivity implements Serializable {
         startAnalysis.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startNeuralNetwork(videoUri);
+                //startNeuralNetwork(videoUri);
+                startService();
             }
         });
     }
@@ -93,13 +123,50 @@ public class GalleryScreen extends AppCompatActivity implements Serializable {
         intent.putExtra("return-data", true);
         startActivityForResult(intent, SELECT_VIDEO_REQUEST);
     }
-    //Checks if videopath is selected, shows according toast message and starts an activity.
+
+/*    public void notificationMaker() {
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationChannel notificationChannel = new NotificationChannel(
+                    Channel_ID,
+                    "TEST",
+                    NotificationManager.IMPORTANCE_DEFAULT
+            );
+            NotificationManager manager = getSystemService(NotificationManager.class);
+            manager.createNotificationChannel(notificationChannel);
+        }
+    }*/
+
+    public void startService() {
+        if(videoIsSelected) {
+            //Intent intent = new Intent(this, ProcessingScreenActivity.class);
+            toast = Toast.makeText(getApplicationContext(), "Started video analysis, this could take a while", Toast.LENGTH_LONG);
+            toast.show();
+            Intent serviceIntent = new Intent(this, ForegroundService.class);
+            serviceIntent.putExtra("videoPath", selectedVideoPath);
+            ContextCompat.startForegroundService(this, serviceIntent);
+/*            enqueueWork();
+            notificationMaker();*/
+            //startActivity(intent);
+        }
+        else {
+            toast = Toast.makeText(getApplicationContext(), "Failed to load video path", Toast.LENGTH_LONG);
+            toast.show();
+        }
+    }
+
+    public void stopService() {
+        Intent serviceIntent = new Intent(this, ForegroundService.class);
+        stopService(serviceIntent);
+    }
+
     public void startNeuralNetwork(Uri uri) {
+        //Checks if videopath is selected, shows according toast message and starts an activity.
         if(videoIsSelected) {
             Intent intent = new Intent(this, ProcessingScreenActivity.class);
             toast = Toast.makeText(getApplicationContext(), "Started video analysis, this could take a while", Toast.LENGTH_LONG);
             toast.show();
-            enqueueWork();
+/*            enqueueWork();
+            notificationMaker();*/
             startActivity(intent);
         }
         else {
@@ -129,9 +196,9 @@ public class GalleryScreen extends AppCompatActivity implements Serializable {
     //Sends works to the AnalysisService class
     public void enqueueWork() {
         String input = selectedVideoPath;
-        Intent serviceIntent = new Intent(this, AnalysisService.class);
+        Intent serviceIntent = new Intent(this, NeuralService.class);
         serviceIntent.putExtra("inputExtra", input);
-        AnalysisService.enqueueWork(this, serviceIntent);
+        NeuralService.enqueueWork(this, serviceIntent);
     }
 
 }

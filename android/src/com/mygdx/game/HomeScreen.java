@@ -3,9 +3,12 @@ package com.mygdx.game;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.AssetManager;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 
 import com.badlogic.gdx.Input;
@@ -43,7 +46,7 @@ public class HomeScreen extends AndroidApplication {
     protected void onCreate(Bundle savedInstanceState) {
 
         PersistenceClient.getInstance(getApplicationContext());
-        MockData mockData = new MockData(PersistenceClient.getInstance(getApplicationContext()).getAppDatabase());
+        //MockData mockData = new MockData(PersistenceClient.getInstance(getApplicationContext()).getAppDatabase());
         AssetManager am = getApplicationContext().getAssets();
         InputStream is = null;
         try {
@@ -52,13 +55,24 @@ public class HomeScreen extends AndroidApplication {
             DebugLog.log("Unable to load asset norm json");
         }
         Reader r = new InputStreamReader(is);
-
+        //If statement to check SDK Version so that the status-bar will be recolored.
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            // only for gingerbread and newer versions
+            Window window = getWindow();
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.setStatusBarColor(Color.rgb(0.902f,0.188f,0.157f));
+        }
+        else {
+            Window window = getWindow();
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.setStatusBarColor(0);
+        }
         loader = new JSONLoader(r);
         DebugLog.log(loader.toString());
         DebugLog.log(String.valueOf(loader.getFrameCount()));
 
-        //MockData mockData = new MockData(PersistenceClient.getInstance(getApplicationContext()).getAppDatabase(), loader.getArray());
-        mockData.executeInserts();
+        MockData mockData = new MockData(PersistenceClient.getInstance(getApplicationContext()).getAppDatabase(), loader.getArray());
+        //mockData.executeInserts();
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_screen);
