@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/black"
-    tools:context=".ResultActivity">
+    android:background="#00A1E1">
 
 
     <TextView
@@ -13,7 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="150dp"
-        android:textColor="@android:color/holo_orange_light"
+        android:textColor="@android:color/white"
         android:text="To be developed"
         app:layout_constraintBottom_toTopOf="@+id/homeScreenButton"
         app:layout_constraintEnd_toEndOf="parent"
@@ -22,11 +21,14 @@
     <Button
         android:id="@+id/homeScreenButton"
         android:layout_width="match_parent"
-        android:layout_marginHorizontal="15sp"
-        android:textColor="@android:color/holo_orange_light"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:textColor="@android:color/white"
         android:layout_height="wrap_content"
         android:layout_marginBottom="35dp"
-        android:text="Home Screen"
+        android:text="@string/Home_Screen"
+        android:background="@drawable/custom_button"
+        android:textAllCaps="false"
         app:layout_constraintBottom_toBottomOf="parent"
         tools:layout_editor_absoluteX="158dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>
