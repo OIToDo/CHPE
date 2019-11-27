@@ -143,6 +143,10 @@ public class GalleryScreen extends AppCompatActivity implements Serializable {
             toast.show();
             Intent serviceIntent = new Intent(this, ForegroundService.class);
             serviceIntent.putExtra("videoPath", selectedVideoPath);
+            serviceIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            serviceIntent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+            //serviceIntent.addFlags(Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
+
             ContextCompat.startForegroundService(this, serviceIntent);
 /*            enqueueWork();
             notificationMaker();*/
