@@ -1,7 +1,7 @@
 package com.mygdx.game.Analysis;
 
-import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.DebugLog;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.mygdx.game.PoseEstimation.nn.MPI.body_part;
 
