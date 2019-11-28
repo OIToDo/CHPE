@@ -56,7 +56,7 @@ public class MyGdxGame implements ApplicationListener {
 	public void create(){
 
 		//Data object
-		context = getAppContext();
+		context = HomeScreen.getAppContext();
 		data = new DatabaseData(PersistenceClient.getInstance(context).getAppDatabase());
 
 		modelBatch = new ModelBatch();
