@@ -39,9 +39,7 @@ public class HomeScreen extends AndroidApplication {
     View libGDXView;
     View embeddedView;
     JSONLoader loader;
-
     private static Context context;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 

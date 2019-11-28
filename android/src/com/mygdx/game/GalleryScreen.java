@@ -5,6 +5,8 @@ import androidx.core.content.ContextCompat;
 
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.net.Uri;
@@ -29,6 +31,7 @@ import com.badlogic.gdx.backends.android.AndroidApplication;
 import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.List;
 
 public class GalleryScreen extends AppCompatActivity implements Serializable {
     //Button declaration for on-screen buttons.
@@ -68,8 +71,6 @@ public class GalleryScreen extends AppCompatActivity implements Serializable {
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
             window.setStatusBarColor(0);
         }
-
-
         //Initializing buttons
         homeScreenButton = findViewById(R.id.homeScreenButton);
         videoSelectButton = findViewById(R.id.videoGalleryScreenButton);
@@ -102,7 +103,6 @@ public class GalleryScreen extends AppCompatActivity implements Serializable {
             }
         });
     }
-
     //Starts a new Intent to open up the home-screen.
     public void openHomeScreen() {
         Intent intent = new Intent(this, HomeScreen.class);
@@ -118,6 +118,8 @@ public class GalleryScreen extends AppCompatActivity implements Serializable {
         }
         intent.setType("video/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
+        intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
         intent.putExtra("return-data", true);
         startActivityForResult(intent, SELECT_VIDEO_REQUEST);
     }
@@ -128,11 +130,11 @@ public class GalleryScreen extends AppCompatActivity implements Serializable {
             toast = Toast.makeText(getApplicationContext(), "Started video analysis, this could take a while", Toast.LENGTH_LONG);
             toast.show();
             Intent serviceIntent = new Intent(this, ForegroundService.class);
+
             serviceIntent.putExtra("DING", videoUri.toString());
             serviceIntent.setData(videoUri);
-            serviceIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-            serviceIntent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-            serviceIntent.addFlags(Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
+            //serviceIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            //serviceIntent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
 
             ContextCompat.startForegroundService(this, serviceIntent);
         }
