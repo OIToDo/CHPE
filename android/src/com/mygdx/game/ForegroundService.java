@@ -7,23 +7,17 @@ import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
 import android.graphics.Color;
 import android.media.MediaMetadataRetriever;
 import android.net.Uri;
 import android.os.IBinder;
 import android.os.SystemClock;
-import android.provider.MediaStore;
 import android.util.Log;
-import android.webkit.URLUtil;
 
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
 
-import com.mygdx.game.PoseEstimation.Session;
-import com.mygdx.game.VideoHandler.VideoSplicerUri;
-
-import java.util.HashMap;
+import java.io.FileInputStream;
 
 import static com.mygdx.game.GalleryScreen.channel_ForeGround_ID;
 
@@ -37,9 +31,9 @@ public class ForegroundService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startID) {
-        String videoPath = intent.getStringExtra("videoPath");
-        String TAG = "IN FOREGROUND BITCHES";
-
+        //String videoPath = intent.getStringExtra("videoPath");
+        String videoPath = intent.getStringExtra("DING");
+        String TAG = "SOEP";
         int importance = NotificationManager.IMPORTANCE_DEFAULT;
         NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         NotificationChannel notificationChannel = new NotificationChannel(CHANNEL_ID, "TEST", importance);
@@ -57,36 +51,24 @@ public class ForegroundService extends Service {
                 .setOngoing(true)
                 .setChannelId(CHANNEL_ID)
                 .build();
-        startForeground(10, notification);
+        Uri otherUri = intent.getData();
+        startForeground(7, notification);
+        try{
+            MediaMetadataRetriever mediaMetadataRetriever = new MediaMetadataRetriever();
+            mediaMetadataRetriever.setDataSource(getApplication(), otherUri);
+        }catch (Exception e){
+            Log.d("Prep", e.getMessage());
 
-
-        stopSelf();
-
+        }
         return START_NOT_STICKY;
     }
-
-    public String getRealPathFromURI(Context context, Uri contentUri) {
-        Cursor cursor = null;
-
-        String[] proj = {MediaStore.Images.Media.DATA};
-        cursor = context.getContentResolver().query(contentUri, proj, null, null, null);
-        int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
-        cursor.moveToFirst();
-        return cursor.getString(column_index);
-
-
-    }
-
     @Override
     public void onDestroy() {
         super.onDestroy();
     }
-
     @Nullable
     @Override
     public IBinder onBind(Intent intent) {
         return null;
     }
-
-
 }

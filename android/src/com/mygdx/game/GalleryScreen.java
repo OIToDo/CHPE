@@ -38,8 +38,6 @@ public class GalleryScreen extends AppCompatActivity implements Serializable {
     //VideoView and MediaController declaration for the embedded video view with media control UI.
     VideoView videoView;
     MediaController mediaController;
-    //String declaration to copy video-file path with.
-    String selectedVideoPath;
     //Int declaration to enter video function with.
     private final int SELECT_VIDEO_REQUEST = 1;
     //Static string for notification channel
@@ -124,33 +122,41 @@ public class GalleryScreen extends AppCompatActivity implements Serializable {
         startActivityForResult(intent, SELECT_VIDEO_REQUEST);
     }
 
-/*    public void notificationMaker() {
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            NotificationChannel notificationChannel = new NotificationChannel(
-                    Channel_ID,
-                    "TEST",
-                    NotificationManager.IMPORTANCE_DEFAULT
-            );
-            NotificationManager manager = getSystemService(NotificationManager.class);
-            manager.createNotificationChannel(notificationChannel);
-        }
-    }*/
-
     public void startService() {
         if(videoIsSelected) {
             //Intent intent = new Intent(this, ProcessingScreenActivity.class);
             toast = Toast.makeText(getApplicationContext(), "Started video analysis, this could take a while", Toast.LENGTH_LONG);
             toast.show();
             Intent serviceIntent = new Intent(this, ForegroundService.class);
-            serviceIntent.putExtra("videoPath", selectedVideoPath);
+            serviceIntent.putExtra("DING", videoUri.toString());
+            serviceIntent.setData(videoUri);
+            serviceIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            serviceIntent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+            serviceIntent.addFlags(Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
+
             ContextCompat.startForegroundService(this, serviceIntent);
-/*            enqueueWork();
-            notificationMaker();*/
-            //startActivity(intent);
         }
         else {
             toast = Toast.makeText(getApplicationContext(), "Failed to load video path", Toast.LENGTH_LONG);
             toast.show();
+        }
+    }
+    //Initializes the VideoView player with the selected video.
+    //@param String name
+    public void initializePlayer(String name) {
+        videoUri = Uri.parse(name);
+        videoView.setVideoURI(videoUri);
+        videoView.start();
+        videoIsSelected = true;
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK) {
+            if (requestCode == SELECT_VIDEO_REQUEST) {
+                initializePlayer(data.getData().toString());
+            }
         }
     }
 
@@ -165,8 +171,6 @@ public class GalleryScreen extends AppCompatActivity implements Serializable {
             Intent intent = new Intent(this, ProcessingScreenActivity.class);
             toast = Toast.makeText(getApplicationContext(), "Started video analysis, this could take a while", Toast.LENGTH_LONG);
             toast.show();
-/*            enqueueWork();
-            notificationMaker();*/
             startActivity(intent);
         }
         else {
@@ -174,31 +178,4 @@ public class GalleryScreen extends AppCompatActivity implements Serializable {
             toast.show();
         }
     }
-    //Initializes the VideoView player with the selected video.
-    //@param String name
-    public void initializePlayer(String name ) {
-        videoUri = Uri.parse(name);
-        videoView.setVideoURI(videoUri);
-        videoView.start();
-        videoIsSelected = true;
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK) {
-            if (requestCode == SELECT_VIDEO_REQUEST) {
-                selectedVideoPath = data.getData().toString();
-                initializePlayer(data.getData().toString());
-            }
-        }
-    }
-    //Sends works to the AnalysisService class
-    public void enqueueWork() {
-        String input = selectedVideoPath;
-        Intent serviceIntent = new Intent(this, NeuralService.class);
-        serviceIntent.putExtra("inputExtra", input);
-        NeuralService.enqueueWork(this, serviceIntent);
-    }
-
 }
