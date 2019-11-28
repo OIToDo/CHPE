@@ -22,7 +22,7 @@ public class HelperClassTest {
     public void test(){
         Vector2 a = new Vector2(0f, 3f);
         Vector2 b = new Vector2(4f,0f);
-        float c = HelperClass.PythagorasTheorem(a.x, a.y, b.x, b.y);
+        float c = HelperClass.PythagorasTheorem(a, b);
         assertEquals(c, 5f, 0f);
     }
 }

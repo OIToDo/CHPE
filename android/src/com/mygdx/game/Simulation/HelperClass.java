@@ -21,15 +21,15 @@ public class HelperClass {
 //        Gdx.gl.glLineWidth(1);
 //    }
 
-    public static float PythagorasTheorem(float x1, float y1, float x2, float y2){
-        double side1 = Math.abs(x1-x2);
-        double side2 = Math.abs(y1-y2);
+    public static float PythagorasTheorem(Vector2 coords1, Vector2 coords2){
+        double side1 = Math.abs(coords1.x-coords2.x);
+        double side2 = Math.abs(coords1.y-coords2.y);
         double length = Math.sqrt(Math.pow(side1, 2) + Math.pow(side2, 2));
         return (float)length;
     }
 
-    public static float getAngle(float x1, float y1, float x2, float y2) {
-        float angle = (float) Math.toDegrees(Math.atan2(y1 - y2, x1 - x2));
+    public static float getAngle(Vector2 coords1, Vector2 coords2) {
+        float angle = (float) Math.toDegrees(Math.atan2(coords1.y - coords2.y, coords1.x - coords2.x));
 
         if(angle < 0){
             angle += 360;
