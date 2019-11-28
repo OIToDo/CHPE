@@ -141,7 +141,6 @@ public class Body {
             limbArray.get(index).update(
                     new Vector2(jointCoords.get(pp[0]).x * -data_scale, jointCoords.get(pp[0]).y * data_scale),
                     new Vector2(jointCoords.get(pp[1]).x * -data_scale, jointCoords.get(pp[1]).y * data_scale), 0);
-            System.out.println("x1: " + jointCoords.get(pp[0]).x + " y1: " + jointCoords.get(pp[0]).y + " x2: " + jointCoords.get(pp[1]).x + " y2: " + jointCoords.get(pp[1]).y);
             index++;
         }
         if(scaled == false){
