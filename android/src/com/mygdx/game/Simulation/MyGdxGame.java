@@ -29,6 +29,7 @@ import com.mygdx.game.HomeScreen;
 import com.mygdx.game.persistance.PersistenceClient;
 
 import static com.mygdx.game.HomeScreen.getAppContext;
+
 public class MyGdxGame implements ApplicationListener {
 	public PerspectiveCamera gameCam;
 	public PerspectiveCamera guiCam;
