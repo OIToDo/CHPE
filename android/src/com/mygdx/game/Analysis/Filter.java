@@ -25,14 +25,14 @@ public class Filter {
         }
     }
 
+    public double absAverage(double a, double b) {
+        return a + Math.abs((a - b) / 2);
+    }
+
     public void averageOf(body_part toUpdate, body_part left, body_part right) {
         for(int f = 0; f < data.getFrameCount(); f++) {
-            double x = data.getCoord(f, left).x +
-                    Math.abs((data.getCoord(f, right).x - data.getCoord(f, left).x) / 2);
-
-            double y = data.getCoord(f, left).y +
-                    Math.abs((data.getCoord(f, right).y - data.getCoord(f, left).y) / 2);
-
+            double x = absAverage(data.getCoord(f, left).x, data.getCoord(f, right).x);
+            double y = absAverage(data.getCoord(f, left).x, data.getCoord(f, right).x);
             data.setX(f, toUpdate, x);
             data.setY(f, toUpdate, y);
         }

@@ -16,14 +16,14 @@ import static org.junit.Assert.assertTrue;
 public class ActionTest {
     @Test
     public void NameTest() {
-        Action action = new Action("MIJNACTIE");
+        Action action = new Action("action");
         String action_name = action.getName();
         assertEquals(action.getName(), action_name);
     }
 
     @Test
     public void OccurrenceTest() {
-        Action action = new Action("MIJNACTIE");
+        Action action = new Action("action");
         action.setOccurance(true);
         assertEquals(action.Occured(), true);
     }

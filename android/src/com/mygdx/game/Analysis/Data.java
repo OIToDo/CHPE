@@ -24,7 +24,7 @@ public interface Data {
      * @return A 2 component integer vector that contains the specified body part's coordinate
      * in indexed frames' screen space.
      */
-    public abstract Vector3 getCoord(int frame, body_part bp);
+    Vector3 getCoord(int frame, body_part bp);
 
     /**
      *
@@ -32,7 +32,7 @@ public interface Data {
      * @param bp
      * @param x
      */
-    public abstract void setX(int frame, body_part bp, double x);
+     void setX(int frame, body_part bp, double x);
 
     /**
      *
@@ -40,30 +40,30 @@ public interface Data {
      * @param bp
      * @param y
      */
-    public abstract void setY(int frame, body_part bp, double  y);
+    void setY(int frame, body_part bp, double  y);
 
     /**
      * 
      * @return The number of body parts used in the data structure.
      */
-    public abstract int getBodyPartCount();
+    int getBodyPartCount();
 
     /**
      * 
      * @return The number of total frames in the videos' data structure.
      */
-    public abstract int getFrameCount();
+    int getFrameCount();
 
     /**
      * 
      * @return The number of frames per second of the original video.
      */
-    public abstract float getFps();
+    float getFps();
 
     /**
      * Serializes the processed data back to the data structure object.
      * TODO: WIP, this might end up being split into multiple functions
      */
-    public abstract void serialize();
+    void serialize();
 
 }
