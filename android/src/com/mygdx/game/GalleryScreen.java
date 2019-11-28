@@ -118,7 +118,7 @@ public class GalleryScreen extends AppCompatActivity implements Serializable {
         }
         intent.setType("video/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
-        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
         intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
         intent.putExtra("return-data", true);
         startActivityForResult(intent, SELECT_VIDEO_REQUEST);
@@ -130,10 +130,11 @@ public class GalleryScreen extends AppCompatActivity implements Serializable {
             toast = Toast.makeText(getApplicationContext(), "Started video analysis, this could take a while", Toast.LENGTH_LONG);
             toast.show();
             Intent serviceIntent = new Intent(this, ForegroundService.class);
+
             serviceIntent.putExtra("DING", videoUri.toString());
             serviceIntent.setData(videoUri);
-            serviceIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-            serviceIntent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+            //serviceIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            //serviceIntent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
 
             ContextCompat.startForegroundService(this, serviceIntent);
         }
