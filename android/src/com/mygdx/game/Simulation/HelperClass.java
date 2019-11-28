@@ -8,18 +8,18 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 
 public class HelperClass {
-    private static ShapeRenderer debugRenderer = new ShapeRenderer();
-
-    public static void DrawDebugLine(Vector2 start, Vector2 end, int lineWidth, Color color, Matrix4 projectionMatrix)
-    {
-        Gdx.gl.glLineWidth(lineWidth);
-        debugRenderer.setProjectionMatrix(projectionMatrix);
-        debugRenderer.begin(ShapeRenderer.ShapeType.Line);
-        debugRenderer.setColor(color);
-        debugRenderer.line(start, end);
-        debugRenderer.end();
-        Gdx.gl.glLineWidth(1);
-    }
+//    private static ShapeRenderer debugRenderer = new ShapeRenderer();
+//
+//    public static void DrawDebugLine(Vector2 start, Vector2 end, int lineWidth, Color color, Matrix4 projectionMatrix)
+//    {
+//        Gdx.gl.glLineWidth(lineWidth);
+//        debugRenderer.setProjectionMatrix(projectionMatrix);
+//        debugRenderer.begin(ShapeRenderer.ShapeType.Line);
+//        debugRenderer.setColor(color);
+//        debugRenderer.line(start, end);
+//        debugRenderer.end();
+//        Gdx.gl.glLineWidth(1);
+//    }
 
     public static float PythagorasTheorem(float x1, float y1, float x2, float y2){
         double side1 = Math.abs(x1-x2);
