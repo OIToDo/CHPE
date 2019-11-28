@@ -33,17 +33,14 @@ public class VideoSplicerUri implements VideoSplicer {
      *
      * @param uri the uri
      */
-    VideoSplicerUri(String uri) {
+    public VideoSplicerUri(String uri) {
         this.mUri = uri;
 
         // Accessing the file
         this.mediaMetadataRetriever.setDataSource(uri);
 
-
         // Getting the amount of frames in video
         this.getAmountOfFrames();
-
-
     }
 
 

@@ -11,11 +11,11 @@ import com.mygdx.game.PoseEstimation.Session;
 import androidx.annotation.NonNull;
 import androidx.core.app.JobIntentService;
 
-public class AnalysisService extends JobIntentService {
+public class NeuralService extends JobIntentService {
     private static final String TAG = "AnalysisService";
 
     static void enqueueWork(Context context, Intent work) {
-        enqueueWork(context, AnalysisService.class, 117, work);
+        enqueueWork(context, NeuralService.class, 117, work);
     }
 
     @Override

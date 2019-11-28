@@ -3,7 +3,10 @@ package com.mygdx.game;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -42,7 +45,17 @@ public class CurrentResultActivity extends AppCompatActivity {
                 feedback.add(pair.getKey().getName() + " didn't happen.");
             }
         }
-
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            // only for gingerbread and newer versions
+            Window window = getWindow();
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.setStatusBarColor(Color.rgb(0.902f,0.188f,0.157f));
+        }
+        else {
+            Window window = getWindow();
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.setStatusBarColor(0);
+        }
         listView.setAdapter(adapter);
     }
 }

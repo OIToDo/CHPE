@@ -85,6 +85,24 @@ public class MockData {
         executeInserts();
     }
 
+    public MockData(AppDatabase appDatabase, JSONArray content) {
+        this.appDatabase = appDatabase;
+        try {
+            this.entries = content;
+        } catch (Exception ex) {
+            DebugLog.log(ex.getMessage());
+        }
+    }
+
+    public MockData(AppDatabase appDatabase, String content) {
+        this.appDatabase = appDatabase;
+        try {
+            this.entries = new JSONArray(content);
+        } catch (JSONException ex) {
+            DebugLog.log(ex.getMessage());
+        }
+    }
+
     public void executeInserts() {
         DebugLog.log(String.valueOf(entries.length()));
         long sessionId = insertSession(this.entries.length());
@@ -113,13 +131,5 @@ public class MockData {
         }
     }
 
-    public MockData(AppDatabase appDatabase, JSONArray content) {
-        this.appDatabase = appDatabase;
-        try {
-            this.entries = content;
-        } catch (Exception ex) {
-            DebugLog.log(ex.getMessage());
-        }
-    }
 
 }

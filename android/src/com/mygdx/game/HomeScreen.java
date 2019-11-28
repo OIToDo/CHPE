@@ -2,15 +2,32 @@ package com.mygdx.game;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.AssetManager;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
+import com.badlogic.gdx.math.Vector3;
+import com.mygdx.game.Analysis.JSONLoader;
 import com.mygdx.game.Persistance.PersistenceClient;
+
 import com.mygdx.game.Simulation.MyGdxGame;
+
+import org.json.JSONArray;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.nio.Buffer;
 
 public class HomeScreen extends AndroidApplication {
     //Button declaration of on-screen buttons.
@@ -21,13 +38,41 @@ public class HomeScreen extends AndroidApplication {
     //View Declaration of embedded on-screen libGDX views.
     View libGDXView;
     View embeddedView;
+    JSONLoader loader;
 
     private static Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        MockData mockData = new MockData(PersistenceClient.getInstance(getApplicationContext()).getAppDatabase());
+        PersistenceClient.getInstance(getApplicationContext());
+        //MockData mockData = new MockData(PersistenceClient.getInstance(getApplicationContext()).getAppDatabase());
+        AssetManager am = getApplicationContext().getAssets();
+        InputStream is = null;
+        try {
+            is = am.open("data/wave.json");
+        } catch (IOException e) {
+            DebugLog.log("Unable to load asset norm json");
+        }
+        Reader r = new InputStreamReader(is);
+        //If statement to check SDK Version so that the status-bar will be recolored.
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            // only for gingerbread and newer versions
+            Window window = getWindow();
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.setStatusBarColor(Color.rgb(0.902f,0.188f,0.157f));
+        }
+        else {
+            Window window = getWindow();
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.setStatusBarColor(0);
+        }
+        loader = new JSONLoader(r);
+        DebugLog.log(loader.toString());
+        DebugLog.log(String.valueOf(loader.getFrameCount()));
+
+        //MockData mockData = new MockData(PersistenceClient.getInstance(getApplicationContext()).getAppDatabase(), loader.toString());
+        //mockData.executeInserts();
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_screen);
@@ -66,30 +111,30 @@ public class HomeScreen extends AndroidApplication {
         HomeScreen.context = getApplicationContext();
     }
 
-    public static Context getAppContext() {
+    public static Context getAppContext(){
         return HomeScreen.context;
     }
 
-    public void openPreviousResultScreen() {
+    public void openPreviousResultScreen(){
         Intent intent = new Intent(this, PreviousResultActivity.class);
         startActivity(intent);
     }
 
-    public void openJUMP() {
+    public void openJUMP(){
         Intent intent = new Intent(this, CurrentResultActivity.class);
         startActivity(intent);
     }
 
-    public void openLoadVideoScreen() {
+    public void openLoadVideoScreen(){
         Intent intent = new Intent(this, GalleryScreen.class);
         startActivity(intent);
     }
 
     private void replaceView(View oldView, View newView) {
-        ViewGroup parent = (ViewGroup) oldView.getParent();
+        ViewGroup parent = (ViewGroup)oldView.getParent();
         ViewGroup.LayoutParams oldParameters = oldView.getLayoutParams();
         newView.setLayoutParams(oldParameters);
-        if (parent == null) {
+        if(parent == null) {
             return;
         }
         int index = parent.indexOfChild(oldView);
