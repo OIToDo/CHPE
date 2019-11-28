@@ -28,8 +28,6 @@ import com.mygdx.game.Analysis.DatabaseData;
 import com.mygdx.game.HomeScreen;
 import com.mygdx.game.persistance.PersistenceClient;
 
-import static com.mygdx.game.HomeScreen.getAppContext;
-
 public class MyGdxGame implements ApplicationListener {
 	public PerspectiveCamera gameCam;
 	public PerspectiveCamera guiCam;
@@ -56,7 +54,7 @@ public class MyGdxGame implements ApplicationListener {
 	public void create(){
 
 		//Data object
-		context = getAppContext();
+		context = HomeScreen.getAppContext();
 		data = new DatabaseData(PersistenceClient.getInstance(context).getAppDatabase());
 
 		modelBatch = new ModelBatch();
