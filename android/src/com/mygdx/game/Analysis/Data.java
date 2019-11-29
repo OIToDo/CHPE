@@ -27,18 +27,18 @@ public interface Data {
     Vector3 getCoord(int frame, body_part bp);
 
     /**
-     *
-     * @param frame
-     * @param bp
-     * @param x
+     * Sets the X component of a specific coordinate of a body part and frame.
+     * @param frame Frame index.
+     * @param bp Body part.
+     * @param x new component value.
      */
      void setX(int frame, body_part bp, double x);
 
     /**
-     *
-      * @param frame
-     * @param bp
-     * @param y
+     * Sets the Y component of a specific coordinate of a body part and frame.
+     * @param frame Frame index.
+     * @param bp Body part.
+     * @param y new component value.
      */
     void setY(int frame, body_part bp, double  y);
 

@@ -54,6 +54,7 @@ public class FilterTest {
 
     @Test
     public void testKernel() {
+
         double kernel[] = {1, 2, 1};
     }
 

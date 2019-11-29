@@ -13,11 +13,17 @@ import com.mygdx.game.DebugLog;
 import com.badlogic.gdx.math.Vector3;
 import com.mygdx.game.PoseEstimation.nn.MPI.body_part;
 /**
+ * @author Nico van Bentum
  * This class handles checking the vector data for certain FUTURE: Actions
  * and FUTURE: Patterns. For now these are just single functions with descriptive names.
  * TODO: Implement more generic framework.
  */
 public class Detection {
+    /**
+     * Interface to the vector data.
+     */
+    private final Data data;
+
     /**
      * Constructor, initializes class fields.
      * @param data Data interface object.
@@ -26,12 +32,16 @@ public class Detection {
         this.data = data;
     }
 
-
+    /**
+     * Helper function for getting the absolute values of a Vector3.
+     * @param v Input vector.
+     * @return Vector with absolute values.
+     */
     public Vector3 abs(Vector3 v) {
         return new Vector3(
-            v.x < 0 ? v.x * -1 : v.x,
-            v.y < 0 ? v.y * -1 : v.y,
-            v.z < 0 ? v.z * -1 : v.z
+            Math.abs(v.x),
+            Math.abs(v.y),
+            Math.abs(v.z)
         );
     }
 
@@ -149,9 +159,4 @@ public class Detection {
         }
         return false;
     }
-
-    /**
-     * Interface to the vector data.
-     */
-    private final Data data;
 }

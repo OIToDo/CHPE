@@ -5,13 +5,27 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.mygdx.game.PoseEstimation.nn.MPI.body_part;
 
+/**
+ * @author Nico van Bentum
+ * This class can perform various filtering actions on a Data class.
+ */
 public class Filter {
-    Data data;
+    /**
+     * Data you want to filter.
+     */
+    private final Data data;
 
+    /**
+     * Constructor, sets the data.
+     * @param pData external data object.
+     */
     public Filter(Data pData) {
         data = pData;
     }
 
+    /**
+     * Looks for zeros in the entire data set and changes them to previous entry.
+     */
     public void resolveZeros() {
         for(body_part bp : body_part.values()) {
             for(int f = 1; f < data.getFrameCount(); f++) {
@@ -25,10 +39,23 @@ public class Filter {
         }
     }
 
+    /**
+     * Calculates the absolute average between two numbers.
+     * @param a first number
+     * @param b second number
+     * @return resulting absolute average.
+     */
     public double absAverage(double a, double b) {
         return a + Math.abs((a - b) / 2);
     }
 
+    /**
+     * Updates every coordinate for a given body part with the average of two other body parts.
+     * Mainly used for changing the waist coordinates to the average of both hips.
+     * @param toUpdate which body part you want to give the average to
+     * @param left first body part
+     * @param right second body part
+     */
     public void averageOf(body_part toUpdate, body_part left, body_part right) {
         for(int f = 0; f < data.getFrameCount(); f++) {
             double x = absAverage(data.getCoord(f, left).x, data.getCoord(f, right).x);
@@ -38,12 +65,20 @@ public class Filter {
         }
     }
 
+    /**
+     * Performs a linear performed weighted average kernel filtering over the data set.
+     * @param kernel array of doubles to use as kernel
+     */
     public void kernelFilter(double kernel[]) {
         int offset = kernel.length / 2;
         int sum = 0;
         for(double weight : kernel) {
             sum += weight;
         }
+
+        Vector3 a = new Vector3(1,1,1);
+        Vector3 b = new Vector3(1,1,1);
+        Vector3 c = a.sub(b);
 
         for(body_part bp : body_part.values()) {
             for(int f = offset; f < data.getFrameCount()-offset; f++) {

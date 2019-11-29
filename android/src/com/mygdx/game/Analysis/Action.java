@@ -1,12 +1,13 @@
 package com.mygdx.game.Analysis;
 
 /**
+ * @author Nico van Bentum
  * Class used for defining actions we want to detect.
  * TODO: Should become a more sophisticated object people can implement and tie attributes to.
  */
 public class Action { 
     /**
-     * @param name
+     * @param name Name of the action.
      * Constructor.
      */
     public Action(final String name) {
@@ -14,19 +15,19 @@ public class Action {
     }
 
     /**
-     * Requests if the Action has occured or not.
-     * @return Whether the Action occured or not.
+     * Requests if the Action has occurred or not.
+     * @return Whether the Action occurred or not.
      */
-    public boolean Occured() {
-        return occured;
+    public boolean occurred() {
+        return occurred;
     }
 
     /**
-     * Sets the occurance.
-     * @param occ New occurence to set.
+     * Sets the occurrence.
+     * @param occ New occurrence to set.
      */
-    public void setOccurance(boolean occ) {
-        occured = occ;
+    public void setOccurrence(boolean occ) {
+        occurred = occ;
     }
 
     /**
@@ -48,7 +49,7 @@ public class Action {
     private String name;
 
     /**
-     * If the action occured or not.
+     * If the action occurred or not.
      */
-    private Boolean occured;
+    private Boolean occurred;
 }

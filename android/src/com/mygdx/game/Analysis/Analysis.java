@@ -7,10 +7,26 @@ import com.mygdx.game.PoseEstimation.nn.MPI.body_part;
 import com.mygdx.game.persistance.*;
 
 /**
+ * @author Nico van Bentum
  * Main class that provides (and performs) the functionality for analyzing a data set
  * of vector coordinates for detecting human body language and actions.
  */
 public class Analysis {
+    /**
+     * An interface object to the vector data used needed for filtering and processing.
+     */
+    private final Data data;
+
+    /**
+     * A handle to the detection class that handles detecting specific Actions.
+     */
+    private final Detection detection;
+
+    /**
+     * Object that can perform various filter techniques on the data object.
+     */
+    private final Filter filter;
+
     /**
      * Constructor. Initializes member fields.
      * @param data Object for interfacing with the data set.
@@ -30,23 +46,22 @@ public class Analysis {
         HashMap<Action, Boolean> results = new HashMap<Action, Boolean>();
 
         Action action = new Action("handAbovehead");
-        action.setOccurance(detection.handsAboveHead(1));
-        results.put(action, action.Occured());
+        action.setOccurrence(detection.handsAboveHead(1));
+        results.put(action, action.occurred());
 
         action = new Action("handsIdle");
-        action.setOccurance(detection.HandsIdle(10, 0.01f));
-        results.put(action, action.Occured());
+        action.setOccurrence(detection.HandsIdle(10, 0.01f));
+        results.put(action, action.occurred());
 
         action = new Action("handsNotFound");
-        action.setOccurance(detection.handsFound(1.0f));
-        results.put(action, action.Occured());
+        action.setOccurrence(detection.handsFound(1.0f));
+        results.put(action, action.occurred());
 
         return results;
     }
     
     /**
-     * Filters and processes the data and writes the improved version back to the data object.
-     * TODO: implementation missing. 
+     * Filters and processes the data.
      * Most of this will be done in Python first because of faster - and visual - testing.
      */
     protected void process() {
@@ -58,19 +73,4 @@ public class Analysis {
             filter.kernelFilter(kernel);
         }
     }
-
-    /**
-     * An interface object to the vector data used needed for filtering and processing.
-     */
-    private final Data data;
-
-    /**
-     * A handle to the detection class that handles detecting specific Actions.
-     */
-    private final Detection detection;
-
-    /**
-     * Object that can perform various filter techniques on the data object.
-     */
-    private final Filter filter;
 }
