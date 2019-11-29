@@ -6,6 +6,7 @@ import com.mygdx.game.Exceptions.InvalidFrameAccess;
 
 public interface VideoSplicer {
 
+
     boolean isNextFrameAvailable();
 
     int getFramesProcessed();

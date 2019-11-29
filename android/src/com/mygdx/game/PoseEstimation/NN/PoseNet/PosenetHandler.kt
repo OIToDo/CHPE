@@ -42,7 +42,7 @@ class PosenetHandler(
         private set
 
     private var interpreter: Interpreter? = null
-    private var gpuDelegate: GpuDelegate? = null
+    //private var gpuDelegate: GpuDelegate? = null
 
     private fun getInterpreter(): Interpreter {
         if (interpreter != null) {
@@ -52,10 +52,10 @@ class PosenetHandler(
         when (nnInterpreter) {
             NNInterpreter.CPU -> {
             }
-            NNInterpreter.GPU -> {
-                gpuDelegate = GpuDelegate()
-                options.addDelegate(gpuDelegate)
-            }
+            //NNInterpreter.GPU -> {
+            //    gpuDelegate = GpuDelegate()
+            //    options.addDelegate(gpuDelegate)
+            //}
             NNInterpreter.NNAPI -> options.setUseNNAPI(true)
         }
         interpreter = Interpreter(loadModelFile(filename, context), options)
@@ -66,8 +66,8 @@ class PosenetHandler(
     override fun close() {
         interpreter?.close()
         interpreter = null
-        gpuDelegate?.close()
-        gpuDelegate = null
+        //gpuDelegate?.close()
+        //gpuDelegate = null
     }
 
     /** Returns value within [0,1].   */

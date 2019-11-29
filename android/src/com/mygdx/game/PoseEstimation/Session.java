@@ -3,16 +3,19 @@ package com.mygdx.game.PoseEstimation;
 
 // Ensuring that sessions can be cancelled and continued later on.
 
+import android.bluetooth.BluetoothClass;
 import android.content.Context;
 import android.net.Uri;
 import android.util.Log;
 
+import com.mygdx.game.DebugLog;
 import com.mygdx.game.Exceptions.InvalidFrameAccess;
 import com.mygdx.game.Exceptions.InvalidVideoSplicerType;
 import com.mygdx.game.Persistance.AppDatabase;
 import com.mygdx.game.Persistance.PersistenceClient;
 import com.mygdx.game.Persistance.Video.NNVideo;
 import com.mygdx.game.PoseEstimation.NN.ModelParser;
+import com.mygdx.game.PoseEstimation.NN.NNInterpreter;
 import com.mygdx.game.PoseEstimation.NN.PoseNet.Person;
 import com.mygdx.game.VideoHandler.VideoSplicer;
 import com.mygdx.game.VideoHandler.VideoSplicerFactory;
@@ -44,7 +47,7 @@ public class Session {
             Log.e("SESSION", invalidVideoSplicerType.toString());
         }
         this.appDatabase = PersistenceClient.getInstance(context).getAppDatabase();
-        this.resolution = new Resolution(this.videoSplicer.getNextFrame(0));
+        this.resolution = new Resolution(this.videoSplicer.getNextFrame(1));
         this.chpe = new CHPE(context, this.resolution, ModelParser.POSENET_MODEL);
 
         this.initialiseDatabase(); // Preparing database for person entry
@@ -57,7 +60,6 @@ public class Session {
      * @param context the context
      */
     public Session(Uri uri, Context context) {
-
         try {
             this.videoSplicer = VideoSplicerFactory.getVideoSplicer(uri, context);
         } catch (InvalidVideoSplicerType invalidVideoSplicerType) {
@@ -70,10 +72,27 @@ public class Session {
         this.initialiseDatabase(); // Preparing database for person entry
     }
 
+
+    /**
+     * Instantiates a new Session.
+     *
+     * @param uri     the uri
+     * @param context the context
+     */
+    public Session(Uri uri, Context context, VideoSplicer videoSplicer) {
+
+        this.videoSplicer = videoSplicer;
+        this.appDatabase = PersistenceClient.getInstance(context).getAppDatabase();
+        this.resolution = new Resolution(1920, 1080, 257);
+        this.chpe = new CHPE(context, this.resolution, ModelParser.POSENET_MODEL);
+
+        this.initialiseDatabase(); // Preparing database for person entry
+    }
+
     private void initialiseDatabase() {
 
         this.videoId = this.appDatabase.nnVideoDAO().insert(new NNVideo(
-                this.videoSplicer.getFramesPerSecond(),
+                24.54f,
                 this.videoSplicer.getFrameCount(),
                 this.resolution.getScreenWidth(),
                 this.resolution.getScreenHeight()
@@ -86,8 +105,10 @@ public class Session {
      */
     public void runVideo() {
         while (this.videoSplicer.isNextFrameAvailable()) {
+            DebugLog.log("runVideo iter");
             try {
-                Person p = this.chpe.ProcessFrame(this.videoSplicer.getNextFrame());
+                Person p = this.chpe.ProcessFrame(this.videoSplicer.getNextFrame(), NNInterpreter.CPU);
+                this.PersonToFrame(p);
 
             } catch (InvalidFrameAccess invalidFrameAccess) {
                 Log.e("runVideo -> PoseNet - Iterator", "runVideo: ", invalidFrameAccess);

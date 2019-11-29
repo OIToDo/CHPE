@@ -8,13 +8,19 @@ import android.util.Log;
 
 import com.mygdx.game.Exceptions.InvalidFrameAccess;
 
+import java.security.InvalidParameterException;
+import java.util.HashMap;
+import java.util.Random;
+
+import static android.media.MediaMetadataRetriever.OPTION_CLOSEST;
+import static android.media.MediaMetadataRetriever.OPTION_CLOSEST_SYNC;
+import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
+
 /**
  * The type Video splicer.
  */
 public class VideoSplicerUriLegacy extends VideoSplicerUri {
     private static final String TAG = VideoSplicerUri.class.getSimpleName();
-    private static final int VIDEO_FRAME_COUNT = 19;
-    private static final int VIDEO_DURATION = 9;
     /**
      * The M uri.
      */
@@ -23,8 +29,9 @@ public class VideoSplicerUriLegacy extends VideoSplicerUri {
      * The Uri.
      */
     public Uri uri;
-    private long iterTimeUs; // Used to indicate how long a single frame is on screen
-    private long totalTime;
+    public long iterTimeUs; // Used to indicate how long a single frame is on screen
+    public long totalTime; // TODO: Update to allow longer video's. The current limit would be
+    private long usToS, sToUS = 1000000; // Converting microseconds to seconds, double assignment for usability reasons.
 
     private MediaMetadataRetriever mediaMetadataRetriever = new MediaMetadataRetriever();
 
@@ -38,30 +45,81 @@ public class VideoSplicerUriLegacy extends VideoSplicerUri {
         super(uri);
     }
 
-    VideoSplicerUriLegacy(Uri uri, Context context) {
+    public VideoSplicerUriLegacy(Uri uri, Context context) {
         super(uri, context);
+        this.uri = uri;
+
+        initialiseVideoSplicerLegacy();
     }
 
-    private void initialiseVideoSplicerLegacy(){
-        this.totalTime = this.getVideoDuration();
-        // Calculating the iter frame count based on those values
-        this.iterTimeUs = this.getFrameIterTime();
+    public VideoSplicerUriLegacy(String uri, HashMap<String, String> map) {
+        super(Uri.parse(uri), getApplicationContext());
+        initialiseVideoSplicerLegacy();
     }
+
+
+
+    private void initialiseVideoSplicerLegacy(){
+        this.totalTime = getVideoDuration();
+        // Calculating the iter frame count based on those values
+        this.iterTimeUs = getFrameIterTime();
+
+    }
+
 
 
     /**
      * Gets next frame.
      *
-     * @param frame the frame
+     * @param frame the frame, MUST be atleast 1
      * @return the next frame
      */
     @Override
     public Bitmap getNextFrame(int frame) {
+
+        if(frame == 0 || frame < 0 || frame > this.frameCount){
+            throw new InvalidParameterException("Value must between 1 - " + this.frameCount);
+        }
         return this.mediaMetadataRetriever.getFrameAtTime(
                 frame * this.iterTimeUs);
     }
 
 
+    public Bitmap getRandomFrame() {
+        return this.mediaMetadataRetriever.getFrameAtTime(
+                (new Random().nextInt(this.frameCount) + 1) // getting a random int.
+                        // Ensuring that the frame isn't zero.
+                        * this.iterTimeUs, OPTION_CLOSEST_SYNC );
+    }
+
+
+    public long getFrameIterTime() throws ArithmeticException {
+        try {
+            return (this.totalTime / this.frameCount);
+        } catch (ArithmeticException ae) {
+            // TODO: Notify user of invalid file.
+            throw new ArithmeticException(ae.toString());
+        }
+    }
+
+    private void calculateFramesPerSecond() throws ArithmeticException {
+        try {
+            this.iterTimeUs = (this.sToUS * 60) / (this.getFrameIterTime());
+        } catch (ArithmeticException ae) {
+            // TODO: Notify user of invalid file.
+            throw new ArithmeticException(ae.toString());
+        }
+    }
+
+    @Override
+    public float getFramesPerSecond() {
+        try {
+            return this.sToUS / (this.getFrameIterTime());
+        } catch (ArithmeticException ae) {
+            // TODO: Notify user of invalid file.
+            throw new ArithmeticException(ae.toString());
+        }
+    }
 
     /**
      * Gets next frame.

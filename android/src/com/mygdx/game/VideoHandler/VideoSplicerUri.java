@@ -13,8 +13,9 @@ import com.mygdx.game.Exceptions.InvalidFrameAccess;
  */
 public class VideoSplicerUri implements VideoSplicer {
     private static final String TAG = VideoSplicerUri.class.getSimpleName();
-    private static final int VIDEO_FRAME_COUNT = 19;
-    private static final int VIDEO_DURATION = 9;
+    private static final int META_VIDEO_FRAME_COUNT = 32;
+    private static final int META_VIDEO_FRAME_RATE = 25;
+    private static final int META_VIDEO_DURATION = 9;
     /**
      * The M uri.
      */
@@ -25,8 +26,8 @@ public class VideoSplicerUri implements VideoSplicer {
     private Uri uri;
 
     private MediaMetadataRetriever mediaMetadataRetriever = new MediaMetadataRetriever();
-    int frameCount = -1;
-    int framesProcessed = -1;
+    public int frameCount = -1;
+    public int framesProcessed = 0;
 
     /**
      * Instantiates a new Video splicer.
@@ -57,13 +58,11 @@ public class VideoSplicerUri implements VideoSplicer {
         this.mediaMetadataRetriever.setDataSource(context, uri);
 
         // Getting the video duration
-        this.getVideoDuration();
+        //this.getVideoDuration();
 
         // Getting the amount of frames in video
-        this.getAmountOfFrames();
+        //this.getAmountOfFrames();
 
-        // Calculating the iter frame count based on those values
-        this.getFrameIterTime();
     }
 
 
@@ -100,13 +99,14 @@ public class VideoSplicerUri implements VideoSplicer {
      * @return the float
      */
     public float getFramesPerSecond() {
-        return Float.parseFloat(Long.toString(this.getFrameIterTime()));
+        return Float.parseFloat(this.mediaMetadataRetriever.extractMetadata(META_VIDEO_FRAME_RATE));
     }
+
 
 
     long getVideoDuration() throws NumberFormatException {
         try {
-            String sTotalTime = this.mediaMetadataRetriever.extractMetadata(VIDEO_DURATION);
+            String sTotalTime = this.mediaMetadataRetriever.extractMetadata(META_VIDEO_DURATION);
             return Long.parseLong(sTotalTime);
         } catch (NumberFormatException nfe) {
             throw new NumberFormatException();
@@ -114,18 +114,9 @@ public class VideoSplicerUri implements VideoSplicer {
 
     }
 
-    long getFrameIterTime() throws ArithmeticException {
-        try {
-            return this.getVideoDuration() / this.frameCount;
-        } catch (ArithmeticException ae) {
-            // TODO: Notify user of invalid file.
-            throw new ArithmeticException(ae.toString());
-        }
-    }
-
     private void getAmountOfFrames() {
         try {
-            String sFrameCount = this.mediaMetadataRetriever.extractMetadata(VIDEO_FRAME_COUNT);
+            String sFrameCount = this.mediaMetadataRetriever.extractMetadata(META_VIDEO_FRAME_COUNT);
             this.frameCount = Integer.parseInt(sFrameCount);
         } catch (NumberFormatException nfe) {
             // TODO: Notify user of invalid file.
@@ -140,7 +131,7 @@ public class VideoSplicerUri implements VideoSplicer {
      * @return the boolean
      */
     public boolean isNextFrameAvailable() {
-        return this.framesProcessed + 1 <= this.frameCount;
+        return this.framesProcessed + 1 < this.frameCount;
     }
 
     /**
