@@ -9,6 +9,10 @@ import com.badlogic.gdx.graphics.g3d.attributes.ColorAttribute;
 import com.badlogic.gdx.graphics.g3d.utils.ModelBuilder;
 import com.badlogic.gdx.math.Vector3;
 
+/**
+ * This class gives you a sphere on a given coordinate.
+ * The created BodyPart objects in the Body class are used as body parts for the representation of the body.
+ */
 public class BodyPart {
     Vector3 coords_;
     float size_, rotation_, data_scale_;
@@ -17,6 +21,12 @@ public class BodyPart {
     ModelBuilder modelBuilder_ = new ModelBuilder();
     Model model_;
 
+    /**
+     * This is the BodyPart constructor.
+     * @param coords
+     * @param size
+     * @param color
+     */
     public BodyPart(Vector3 coords, float size, Color color){
         coords_ = coords;
         size_ = size;
@@ -30,38 +40,39 @@ public class BodyPart {
         sphere_.materials.get(0).set(ColorAttribute.createDiffuse(color_));
     }
 
-//    public ModelInstance create(float x, float y, float z, float size, Vector3 axis, float rotation, Color color){
-//        x_ = x;
-//        y_ = y;
-//        z_ = z;
-//        size_ = size;
-//        rotation_ = rotation;
-//        axis_ = axis;
-//        Model model = modelBuilder.createSphere(size, size, size, 20, 20,
-//                new Material(),
-//                VertexAttributes.Usage.Position | VertexAttributes.Usage.Normal | VertexAttributes.Usage.TextureCoordinates);
-//        sphere = new ModelInstance(model);
-//        sphere.transform.setToTranslation(x, y, z);
-//        sphere.transform.rotate(axis, rotation);
-//        sphere.materials.get(0).set(ColorAttribute.createDiffuse(color));
-//
-//        return sphere;
-//    }
-
+    /**
+     * This function can be used to change the BodyPart object color.
+     * @param color
+     */
     public void change_color(Color color){
         color_ = color;
         sphere_.materials.get(0).set(ColorAttribute.createDiffuse(color_));
     }
 
+    /**
+     * This function can be used to change the object scale.
+     * IMPORTANT: Do NOT use scale before translating and rotating.
+     * Scaling must always be done as last.
+     * The order of transformations is important, translate -> rotate -> scale.
+     * @param data_scale
+     */
     public void set_scale(float data_scale){
         data_scale_ = data_scale;
         sphere_.transform.scale(data_scale_, data_scale_, data_scale_);
     }
 
+    /**
+     * This function returns the actual ModelInstance of the BodySphere object.
+     * @return Sphere ModelInstance
+     */
     public ModelInstance getInstance(){
         return sphere_;
     }
 
+    /**
+     * The object (sphere) will be translated to the given coordinate.
+     * @param coords
+     */
     public void update(Vector3 coords){
         coords_ = coords;
         sphere_.transform.setToTranslation(coords_);
