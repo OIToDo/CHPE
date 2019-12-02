@@ -2,8 +2,10 @@ package com.mygdx.game.Persistance;
 
 import android.content.Context;
 
+import com.mygdx.game.DebugLog;
 import com.mygdx.game.MockData;
 import com.mygdx.game.Persistance.Coordinate.NNCoordinate;
+import com.mygdx.game.Persistance.Video.NNVideo;
 import com.mygdx.game.Persistance.Video.NNVideoDAO;
 
 import org.junit.After;

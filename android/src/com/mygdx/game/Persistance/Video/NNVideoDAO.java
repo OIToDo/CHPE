@@ -105,7 +105,7 @@ public interface NNVideoDAO {
      * @param videoId the video id
      * @return the max values x
      */
-    @Query("SELECT max(coordinate.x) FROM frame, coordinate, frame_coordinate, video, video_frame WHERE coordinate.id == frame_coordinate.coordinate_id and frame_coordinate.frame_id == frame.id and video_frame.frame_id == frame.id and video_frame.video_id = :videoId")
+    @Query("SELECT max(coordinate.raw_x) FROM frame, coordinate, frame_coordinate, video, video_frame WHERE coordinate.id == frame_coordinate.coordinate_id and frame_coordinate.frame_id == frame.id and video_frame.frame_id == frame.id and video_frame.video_id = :videoId")
     long getMaxValuesX(long videoId);
 
     /**
@@ -114,7 +114,7 @@ public interface NNVideoDAO {
      * @param videoId the video id
      * @return the max values y
      */
-    @Query("SELECT max(coordinate.y) FROM frame, coordinate, frame_coordinate, video, video_frame WHERE coordinate.id == frame_coordinate.coordinate_id and frame_coordinate.frame_id == frame.id and video_frame.frame_id == frame.id and video_frame.video_id = :videoId")
+    @Query("SELECT max(coordinate.raw_y) FROM frame, coordinate, frame_coordinate, video, video_frame WHERE coordinate.id == frame_coordinate.coordinate_id and frame_coordinate.frame_id == frame.id and video_frame.frame_id == frame.id and video_frame.video_id = :videoId")
     long getMaxValuesY(long videoId);
 
 }

@@ -6,6 +6,7 @@ import com.mygdx.game.Persistance.PersistenceClient;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import androidx.test.core.app.ApplicationProvider;

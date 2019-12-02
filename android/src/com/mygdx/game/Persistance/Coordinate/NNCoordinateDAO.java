@@ -79,5 +79,19 @@ public interface NNCoordinateDAO {
     @Query("DELETE FROM coordinate")
     void nukeTable(); // Naming is about as clear as it can be.
 
+
+    @Query( "UPDATE coordinate SET  " +
+            "x = raw_x * :x_multiplier, " +
+            "y = raw_y * :y_multiplier  " +
+            "WHERE coordinate.id IN (SELECT coordinate.id " +
+            "FROM video, video_frame, frame, frame_coordinate, coordinate " +
+            "WHERE video_id = :video_id " +
+            "AND video.id = video_frame.video_id " +
+            "AND video_frame.frame_id = frame.id " +
+            "AND frame.id = frame_coordinate.frame_id " +
+            "AND frame_coordinate.coordinate_id = coordinate.id " +
+            "AND coordinate.x != 0 " +
+            "AND coordinate.y != 0)")
+    void normaliseCoordinates(long video_id, double x_multiplier, double y_multiplier);
 }
 

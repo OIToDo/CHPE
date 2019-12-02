@@ -1,5 +1,7 @@
 package com.mygdx.game.Persistance;
 
+import com.mygdx.game.Persistance.AppDatabase;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;

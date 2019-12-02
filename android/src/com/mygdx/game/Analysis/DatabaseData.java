@@ -1,7 +1,11 @@
 package com.mygdx.game.Analysis;
 
+import android.os.Debug;
+
+import com.mygdx.game.DebugLog;
 import com.mygdx.game.Persistance.*;
 import com.badlogic.gdx.math.Vector3;
+import com.mygdx.game.Persistance.AppDatabase;
 import com.mygdx.game.Persistance.Video.NNVideo;
 import com.mygdx.game.Persistance.Video.NNVideoDAO;
 import com.mygdx.game.PoseEstimation.NN.PoseModels.NNModelMPI.body_part;
@@ -30,10 +34,9 @@ public class DatabaseData implements Data {
     public Vector3 getCoord(int frame, body_part bp) {
         NNCoordinate nnCoordinate = this.nnVideoDAO.get_coordinates(frame,bp.ordinal(),
                 this.currentSession.id);
-
         if(bp.ordinal() == 4) {
         }
-        return new Vector3((float)0.0f, (float)  0.0f, 0);
+        return new Vector3((float) nnCoordinate.x, (float) nnCoordinate.y, 0);
     }
 
     /**

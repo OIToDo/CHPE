@@ -47,7 +47,7 @@ public class HomeScreen extends AndroidApplication {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        PersistenceClient.getInstance(getApplicationContext());
+        //PersistenceClient.getInstance(getApplicationContext());
         //MockData mockData = new MockData(PersistenceClient.getInstance(getApplicationContext()).getAppDatabase());
         AssetManager am = getApplicationContext().getAssets();
         InputStream is = null;
@@ -70,11 +70,9 @@ public class HomeScreen extends AndroidApplication {
             window.setStatusBarColor(0);
         }
         loader = new JSONLoader(r);
-        DebugLog.log(loader.toString());
-        DebugLog.log(String.valueOf(loader.getFrameCount()));
 
-        //MockData mockData1 = new MockData(PersistenceClient.getInstance(getApplicationContext()).getAppDatabase(), loader.toString());
-        //mockData1.executeInserts();
+        MockData mockData1 = new MockData(PersistenceClient.getInstance(getApplicationContext()).getAppDatabase(), loader.toString());
+        mockData1.executeInserts();
 
 
 
