@@ -20,14 +20,10 @@ import com.mygdx.game.persistance.PersistenceClient;
 
 import com.mygdx.game.Simulation.MyGdxGame;
 
-import org.json.JSONArray;
-
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
-import java.nio.Buffer;
 
 public class HomeScreen extends AndroidApplication {
     //Button declaration of on-screen buttons.
@@ -69,7 +65,7 @@ public class HomeScreen extends AndroidApplication {
         DebugLog.log(loader.toString());
         DebugLog.log(String.valueOf(loader.getFrameCount()));
 
-        MockData mockData = new MockData(PersistenceClient.getInstance(getApplicationContext()).getAppDatabase(), loader.getArray());
+        MockData mockData = new MockData(PersistenceClient.getInstance(getApplicationContext()).getAppDatabase(), loader.toString());
         mockData.executeInserts();
 
         super.onCreate(savedInstanceState);
