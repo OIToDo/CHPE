@@ -20,11 +20,13 @@ import com.badlogic.gdx.graphics.g3d.attributes.ColorAttribute;
 import com.badlogic.gdx.graphics.g3d.environment.DirectionalLight;
 import com.badlogic.gdx.graphics.g3d.utils.CameraInputController;
 import com.badlogic.gdx.graphics.g3d.utils.ModelBuilder;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.Analysis.Data;
 import com.mygdx.game.Analysis.DatabaseData;
 import com.mygdx.game.HomeScreen;
-import com.mygdx.game.Persistance.PersistenceClient;
+import com.mygdx.game.persistance.PersistenceClient;
 
 public class MyGdxGame implements ApplicationListener {
 	public PerspectiveCamera gameCam;
@@ -37,8 +39,6 @@ public class MyGdxGame implements ApplicationListener {
 	public Batch batch;
 	public Environment environment;
 	public BitmapFont font;
-	public BodyPart bodyPart;
-	public BodyLimb bodyLimb;
 	public Body body;
 	public Context context;
 	public Data data;
@@ -57,8 +57,6 @@ public class MyGdxGame implements ApplicationListener {
 
 		modelBatch = new ModelBatch();
 		modelBuilder = new ModelBuilder();
-		bodyPart = new BodyPart();
-		bodyLimb = new BodyLimb();
 		body = new Body();
 		environment = new Environment();
 		environment.set(new ColorAttribute(ColorAttribute.AmbientLight, 0.4f, 0.4f, 0.4f, 1f));
@@ -81,7 +79,7 @@ public class MyGdxGame implements ApplicationListener {
 		camController = new CameraInputController(gameCam);
 		Gdx.input.setInputProcessor(camController);
 
-		body.create(0,0,0,1f);
+		body.create(0,0,0,1f, data);
 
 		assets = new AssetManager();
 		assets.load("data/human.obj", Model.class);

@@ -2,83 +2,61 @@ package com.mygdx.game.PoseEstimation;
 
 
 import android.content.Context;
-import android.graphics.Bitmap;
+import android.content.res.AssetManager;
+import android.util.Log;
 
 
-import com.mygdx.game.PoseEstimation.NN.ModelParser;
-import com.mygdx.game.PoseEstimation.NN.NNInterpreter;
-import com.mygdx.game.PoseEstimation.NN.PoseModels.PoseModel;
-import com.mygdx.game.PoseEstimation.NN.PoseNet.Person;
-import com.mygdx.game.PoseEstimation.NN.PoseNet.PosenetHandler;
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.ArrayList;
 
 
-/**
- * The type Chpe.
- */
+import com.mygdx.game.PoseEstimation.nn.PoseModel;
+import com.mygdx.game.persistance.AppDatabase;
+import com.mygdx.game.persistance.Coordinate.NNCoordinateDAO;
+import com.mygdx.game.persistance.Relations.NNFrameCoordinateDAO;
+
+
 public class CHPE {
-    private Resolution resolution;
     private Context context;
-    private PoseModel poseModel;
-    private static final boolean BILINEAR_INTERPOLATION = true;
+    private AppDatabase db;
+    private PoseModel model;
+    private String points;
+    //private Net net;
 
-    /**
-     * Instantiates a new CHPE.
-     *
-     * @param context    The context
-     * @param resolution The resolution used for scaling
-     */
-    public CHPE(Context context, Resolution resolution, PoseModel model) {
+
+    public CHPE(Context context, AppDatabase db, PoseModel model) {
         this.context = context;
-        this.resolution = resolution;
-        this.poseModel = model;
-    }
+        this.db = db;
+        this.model = model;
 
-    public CHPE(Context context, Resolution resolution, final int model) {
-        this.context = context;
-        this.resolution = resolution;
-        parseModel(model);
-    }
-
-    private void parseModel(final int model) {
-        this.poseModel = ModelParser.parseModel(model);
     }
 
 
-    PoseModel getPoseModel(){
-        return this.poseModel;
+
+
+    public void ProcessFrame() {
+
     }
 
-    /**
-     * Process frame person based on the
-     *
-     * @param image  The supplied bitmap image
-     * @param nnInterpreter The nnInterpreter type (i.e. CPU/GPU/NNAPI)
-     * @return Instance of a Person found on the image
-     */
-    Person ProcessFrame(Bitmap image, NNInterpreter nnInterpreter) {
-        Bitmap scaledBitmap = Bitmap.createScaledBitmap(
-                image,
-                this.resolution.getModelWidth(),
-                this.resolution.getModelHeight(),
-                BILINEAR_INTERPOLATION // Simple interpolation to fill 'empty' spaces on image
-        );
-
-        PosenetHandler posenetHandler = new PosenetHandler(this.context,
-                this.poseModel.getModel(), // Instance of the model used
-                nnInterpreter, // Device on which the execution will take place
-                this.resolution); // Instance of resolution used for scaling
+    public void StoreFrame() {
 
 
-        return posenetHandler.estimateSinglePose(scaledBitmap); //
+        // Creating the point amount of Frame Frame
+        for (int i = 0; i < this.model.points; i++) {
+
+            NNCoordinateDAO nnCoordinateDAO = this.db.nnCoordinateDAO();
+            NNFrameCoordinateDAO nnFrameCoordinateDAO = this.db.nnFrameCoordinateDAO();
+        }
+        // Creating
+
     }
 
-    /**
-     * Over loader, uses GPU as default device
-     *
-     * @param image The supplied bitmap image
-     * @return Instance of a Person found on the image
-     */
-    Person ProcessFrame(Bitmap image) {
-        return ProcessFrame(image, NNInterpreter.GPU);
+    public void execute() {
+
     }
+
+
 }

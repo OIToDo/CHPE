@@ -1,14 +1,11 @@
-package com.mygdx.game.Analysis;
+package com.mygdx.game.persistance;
 
 import android.content.Context;
 
-import androidx.room.Room;
-import androidx.test.core.app.ApplicationProvider;
-import androidx.test.ext.junit.runners.AndroidJUnit4;
-
+import com.mygdx.game.DebugLog;
 import com.mygdx.game.MockData;
-import com.mygdx.game.persistance.AppDatabase;
 import com.mygdx.game.persistance.Coordinate.NNCoordinate;
+import com.mygdx.game.persistance.Video.NNVideo;
 import com.mygdx.game.persistance.Video.NNVideoDAO;
 
 import org.junit.After;
@@ -16,13 +13,15 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import androidx.room.Room;
+import androidx.test.core.app.ApplicationProvider;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
+
 import static org.junit.Assert.assertEquals;
 
 
-
 @RunWith(AndroidJUnit4.class)
-public class AnalysisTest {
-
+public class CohesionDAOTest {
     private AppDatabase appDatabase;
     private String databaseName = "test";
     private int frameCount = 24 * 5;

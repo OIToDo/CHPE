@@ -10,41 +10,60 @@ import com.badlogic.gdx.graphics.g3d.utils.ModelBuilder;
 import com.badlogic.gdx.math.Vector3;
 
 public class BodyPart {
-    // todo vec3 enzo. =)
-    float x_, y_, z_, size_, rotation_;
-    Vector3 axis_;
-    ModelInstance sphere;
-    ModelBuilder modelBuilder = new ModelBuilder();
-    public ModelInstance create(float x, float y, float z, float size, Vector3 axis, float rotation, Color color){
-        x_ = x;
-        y_ = y;
-        z_ = z;
+    Vector3 coords_;
+    float size_, rotation_, data_scale_;
+    Color color_;
+    ModelInstance sphere_;
+    ModelBuilder modelBuilder_ = new ModelBuilder();
+    Model model_;
+
+    public BodyPart(Vector3 coords, float size, Color color){
+        coords_ = coords;
         size_ = size;
-        rotation_ = rotation;
-        axis_ = axis;
-        Model model = modelBuilder.createSphere(size, size, size, 20, 20,
+        color_ = color;
+        model_ = modelBuilder_.createSphere(size, size, size, 20, 20,
                 new Material(),
                 VertexAttributes.Usage.Position | VertexAttributes.Usage.Normal | VertexAttributes.Usage.TextureCoordinates);
-        sphere = new ModelInstance(model);
-        sphere.transform.setToTranslation(x, y, z);
-        sphere.transform.rotate(axis, rotation);
-        sphere.materials.get(0).set(ColorAttribute.createDiffuse(color));
-
-        return sphere;
+        sphere_ = new ModelInstance(model_);
+        sphere_.transform.setToTranslation(coords_);
+        sphere_.transform.rotate(Vector3.Z, rotation_);
+        sphere_.materials.get(0).set(ColorAttribute.createDiffuse(color_));
     }
 
-    public void update(float x, float y, float z, float size, Vector3 axis, float rotation){
-        x_ = x;
-        y_ = y;
-        z_ = z;
-        size_ = size;
-        rotation_ = rotation;
-        axis_ = axis;
-        Model model = modelBuilder.createSphere(size, size, size, 20, 20,
-                new Material(),
-                VertexAttributes.Usage.Position | VertexAttributes.Usage.Normal | VertexAttributes.Usage.TextureCoordinates);
-        sphere = new ModelInstance(model);
-        sphere.transform.setToTranslation(x, y, z);
-        sphere.transform.rotate(axis, rotation);
+//    public ModelInstance create(float x, float y, float z, float size, Vector3 axis, float rotation, Color color){
+//        x_ = x;
+//        y_ = y;
+//        z_ = z;
+//        size_ = size;
+//        rotation_ = rotation;
+//        axis_ = axis;
+//        Model model = modelBuilder.createSphere(size, size, size, 20, 20,
+//                new Material(),
+//                VertexAttributes.Usage.Position | VertexAttributes.Usage.Normal | VertexAttributes.Usage.TextureCoordinates);
+//        sphere = new ModelInstance(model);
+//        sphere.transform.setToTranslation(x, y, z);
+//        sphere.transform.rotate(axis, rotation);
+//        sphere.materials.get(0).set(ColorAttribute.createDiffuse(color));
+//
+//        return sphere;
+//    }
+
+    public void change_color(Color color){
+        color_ = color;
+        sphere_.materials.get(0).set(ColorAttribute.createDiffuse(color_));
+    }
+
+    public void set_scale(float data_scale){
+        data_scale_ = data_scale;
+        sphere_.transform.scale(data_scale_, data_scale_, data_scale_);
+    }
+
+    public ModelInstance getInstance(){
+        return sphere_;
+    }
+
+    public void update(Vector3 coords){
+        coords_ = coords;
+        sphere_.transform.setToTranslation(coords_);
     }
 }

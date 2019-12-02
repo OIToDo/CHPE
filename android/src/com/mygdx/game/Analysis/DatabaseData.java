@@ -1,11 +1,11 @@
 package com.mygdx.game.Analysis;
 
-import com.mygdx.game.Persistance.*;
+import com.mygdx.game.persistance.*;
 import com.badlogic.gdx.math.Vector3;
-import com.mygdx.game.Persistance.Video.NNVideo;
-import com.mygdx.game.Persistance.Video.NNVideoDAO;
-import com.mygdx.game.PoseEstimation.NN.PoseModels.NNModelMPI.body_part;
-import com.mygdx.game.Persistance.Coordinate.NNCoordinate;
+import com.mygdx.game.persistance.Video.NNVideo;
+import com.mygdx.game.persistance.Video.NNVideoDAO;
+import com.mygdx.game.PoseEstimation.nn.MPI.body_part;
+import com.mygdx.game.persistance.Coordinate.NNCoordinate;
 
 /**
  * This class implements the Data interface, it retrieves the vector data
@@ -33,7 +33,7 @@ public class DatabaseData implements Data {
 
         if(bp.ordinal() == 4) {
         }
-        return new Vector3((float)0.0f, (float)  0.0f, 0);
+        return new Vector3((float) nnCoordinate.x, (float) nnCoordinate.y, 0);
     }
 
     /**

@@ -3,11 +3,8 @@ package com.mygdx.game;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.AssetManager;
-import android.graphics.Bitmap;
 import android.graphics.Color;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.Debug;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -19,7 +16,7 @@ import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
 import com.badlogic.gdx.math.Vector3;
 import com.mygdx.game.Analysis.JSONLoader;
-import com.mygdx.game.Persistance.PersistenceClient;
+import com.mygdx.game.persistance.PersistenceClient;
 
 import com.mygdx.game.Simulation.MyGdxGame;
 
@@ -31,9 +28,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.nio.Buffer;
-import java.util.HashMap;
-
-import wseemann.media.FFmpegMediaMetadataRetriever;
 
 public class HomeScreen extends AndroidApplication {
     //Button declaration of on-screen buttons.
@@ -75,10 +69,8 @@ public class HomeScreen extends AndroidApplication {
         DebugLog.log(loader.toString());
         DebugLog.log(String.valueOf(loader.getFrameCount()));
 
-        //MockData mockData = new MockData(PersistenceClient.getInstance(getApplicationContext()).getAppDatabase(), loader.toString());
-        //mockData.executeInserts();
-
-
+        MockData mockData = new MockData(PersistenceClient.getInstance(getApplicationContext()).getAppDatabase(), loader.getArray());
+        mockData.executeInserts();
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_screen);

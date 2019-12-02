@@ -8,37 +8,28 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 
 public class HelperClass {
-    private static ShapeRenderer debugRenderer = new ShapeRenderer();
+//    private static ShapeRenderer debugRenderer = new ShapeRenderer();
+//
+//    public static void DrawDebugLine(Vector2 start, Vector2 end, int lineWidth, Color color, Matrix4 projectionMatrix)
+//    {
+//        Gdx.gl.glLineWidth(lineWidth);
+//        debugRenderer.setProjectionMatrix(projectionMatrix);
+//        debugRenderer.begin(ShapeRenderer.ShapeType.Line);
+//        debugRenderer.setColor(color);
+//        debugRenderer.line(start, end);
+//        debugRenderer.end();
+//        Gdx.gl.glLineWidth(1);
+//    }
 
-    public static void DrawDebugLine(Vector2 start, Vector2 end, int lineWidth, Color color, Matrix4 projectionMatrix)
-    {
-        Gdx.gl.glLineWidth(lineWidth);
-        debugRenderer.setProjectionMatrix(projectionMatrix);
-        debugRenderer.begin(ShapeRenderer.ShapeType.Line);
-        debugRenderer.setColor(color);
-        debugRenderer.line(start, end);
-        debugRenderer.end();
-        Gdx.gl.glLineWidth(1);
-    }
-
-    public static float PythagorasTheorem(float x1, float y1, float x2, float y2){
-        double side1 = Math.abs(x1-x2);
-        double side2 = Math.abs(y1-y2);
+    public static float PythagorasTheorem(Vector2 coords1, Vector2 coords2){
+        double side1 = Math.abs(coords1.x-coords2.x);
+        double side2 = Math.abs(coords1.y-coords2.y);
         double length = Math.sqrt(Math.pow(side1, 2) + Math.pow(side2, 2));
         return (float)length;
     }
 
-    /**
-     * Gets angle.
-     *
-     * @param x1 the x 1
-     * @param y1 the y 1
-     * @param x2 the x 2
-     * @param y2 the y 2
-     * @return the angle
-     */
-    public static float getAngle(float x1, float y1, float x2, float y2) {
-        float angle = (float) Math.toDegrees(Math.atan2(y1 - y2, x1 - x2));
+    public static float getAngle(Vector2 coords1, Vector2 coords2) {
+        float angle = (float) Math.toDegrees(Math.atan2(coords1.y - coords2.y, coords1.x - coords2.x));
 
         if(angle < 0){
             angle += 360;
