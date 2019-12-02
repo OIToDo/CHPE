@@ -1,4 +1,7 @@
 android {
+    aaptOptions {
+        noCompress "tflite"
+    }
     buildToolsVersion "29.0.2"
     compileSdkVersion 29
     sourceSets {
@@ -108,6 +111,7 @@ dependencies {
     implementation 'androidx.room:room-runtime:2.2.1'
 
 
+    implementation "org.tensorflow:tensorflow-lite:+"
     testImplementation 'junit:junit:4.12'
     implementation 'junit:junit:4.12'
 
@@ -138,4 +142,8 @@ dependencies {
     // dependency to appear on your APK's compile classpath or the test APK
     // classpath.
     androidTestImplementation 'androidx.test.espresso:espresso-idling-resource:3.1.0'
+    implementation "androidx.core:core-ktx:+"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'

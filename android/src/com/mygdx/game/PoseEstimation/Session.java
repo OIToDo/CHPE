@@ -3,7 +3,6 @@ package com.mygdx.game.PoseEstimation;
 
 // Ensuring that sessions can be cancelled and continued later on.
 
-import android.bluetooth.BluetoothClass;
 import android.content.Context;
 import android.net.Uri;
 import android.util.Log;
@@ -31,6 +30,7 @@ public class Session {
     private AppDatabase appDatabase;
     private long videoId;
     private Resolution resolution;
+    private NNInterpreter nnInterpreter = NNInterpreter.CPU;
 
     /**
      * Instantiates a new Session.
@@ -105,10 +105,15 @@ public class Session {
      */
     public void runVideo() {
         while (this.videoSplicer.isNextFrameAvailable()) {
-            DebugLog.log("runVideo iter");
+            DebugLog.log(this.videoSplicer.getFrameCount() + "/" + this.videoSplicer.getFramesProcessed());
             try {
-                Person p = this.chpe.ProcessFrame(this.videoSplicer.getNextFrame(), NNInterpreter.CPU);
-                this.PersonToFrame(p);
+                this.PersonToFrame
+                        (
+                                this.chpe.ProcessFrame(
+                                        this.videoSplicer.getNextFrame(),
+                                        this.nnInterpreter
+                                )
+                        );
 
             } catch (InvalidFrameAccess invalidFrameAccess) {
                 Log.e("runVideo -> PoseNet - Iterator", "runVideo: ", invalidFrameAccess);
@@ -120,7 +125,7 @@ public class Session {
         this.nnInsert.insertPerson(person, this.videoId, this.videoSplicer.getFramesProcessed());
     }
 
-    private void normaliseData() {
-
+    public void normaliseData() {
+        this.nnInsert.normalise(this.videoId);
     }
 }

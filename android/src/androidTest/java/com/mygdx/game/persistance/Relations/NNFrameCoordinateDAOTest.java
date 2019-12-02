@@ -1,7 +1,7 @@
-package com.mygdx.game.persistance.Relations;
+package com.mygdx.game.Persistance.Relations;
 
 
-import com.mygdx.game.persistance.AppDatabase;
+import com.mygdx.game.Persistance.AppDatabase;
 
 import org.junit.runner.RunWith;
 

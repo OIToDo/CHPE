@@ -1,10 +1,10 @@
-package com.mygdx.game.persistance.Coordinate;
+package com.mygdx.game.Persistance.Coordinate;
 
 import android.content.Context;
 
 import com.mygdx.game.BuildConfig;
-import com.mygdx.game.persistance.AppDatabase;
-import com.mygdx.game.persistance.PersistenceClient;
+import com.mygdx.game.Persistance.AppDatabase;
+import com.mygdx.game.Persistance.PersistenceClient;
 
 import org.junit.After;
 import org.junit.Before;

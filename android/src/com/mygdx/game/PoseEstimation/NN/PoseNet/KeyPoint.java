@@ -3,15 +3,15 @@ package com.mygdx.game.PoseEstimation.NN.PoseNet;
 import com.mygdx.game.PoseEstimation.NN.PoseModels.NNModelPosenet;
 
 public class KeyPoint {
-    public NNModelPosenet.body_part bodyPart;
+    public NNModelPosenet.bodyPart bodyPart;
     public Position position = new Position();
     public Float score = 0.0f;
 
-    public NNModelPosenet.body_part getBodyPart() {
+    public NNModelPosenet.bodyPart getBodyPart() {
         return bodyPart;
     }
 
-    public void setBodyPart(NNModelPosenet.body_part bodyPart) {
+    public void setBodyPart(NNModelPosenet.bodyPart bodyPart) {
         this.bodyPart = bodyPart;
     }
 

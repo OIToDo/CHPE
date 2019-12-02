@@ -1,17 +1,7 @@
 package com.mygdx.game.Analysis;
 
-import android.os.Debug;
-
-import java.util.Set;
-import java.util.Map;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.ArrayList;
-import java.util.Vector;
-
-import com.mygdx.game.DebugLog;
 import com.badlogic.gdx.math.Vector3;
-import com.mygdx.game.PoseEstimation.nn.MPI.body_part;
+import com.mygdx.game.PoseEstimation.NN.PoseModels.NNModelMPI.body_part;
 /**
  * This class handles checking the vector data for certain FUTURE: Actions
  * and FUTURE: Patterns. For now these are just single functions with descriptive names.

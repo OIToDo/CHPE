@@ -1,9 +1,9 @@
-package com.mygdx.game.persistance.Frame;
+package com.mygdx.game.Persistance.Frame;
 
-import com.mygdx.game.persistance.AppDatabase;
-import com.mygdx.game.persistance.Coordinate.NNCoordinate;
-import com.mygdx.game.persistance.Frame.*;
-import com.mygdx.game.persistance.PersistenceClient;
+import com.mygdx.game.Persistance.AppDatabase;
+import com.mygdx.game.Persistance.Coordinate.NNCoordinate;
+import com.mygdx.game.Persistance.Frame.*;
+import com.mygdx.game.Persistance.PersistenceClient;
 
 import org.junit.After;
 import org.junit.Before;

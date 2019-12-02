@@ -1,8 +1,8 @@
-package com.mygdx.game.persistance.Relations;
+package com.mygdx.game.Persistance.Relations;
 
 
-import com.mygdx.game.persistance.AppDatabase;
-import com.mygdx.game.persistance.PersistenceClient;
+import com.mygdx.game.Persistance.AppDatabase;
+import com.mygdx.game.Persistance.PersistenceClient;
 
 import org.junit.After;
 import org.junit.Before;

@@ -1,8 +1,8 @@
-package com.mygdx.game.persistance.Video;
+package com.mygdx.game.Persistance.Video;
 import android.content.Context;
 
-import com.mygdx.game.persistance.AppDatabase;
-import com.mygdx.game.persistance.PersistenceClient;
+import com.mygdx.game.Persistance.AppDatabase;
+import com.mygdx.game.Persistance.PersistenceClient;
 
 import org.junit.After;
 import org.junit.Before;

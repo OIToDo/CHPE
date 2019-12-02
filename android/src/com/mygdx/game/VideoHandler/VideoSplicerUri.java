@@ -2,10 +2,12 @@ package com.mygdx.game.VideoHandler;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.media.MediaMetadataRetriever;
 import android.net.Uri;
 import android.util.Log;
 
+import com.mygdx.game.DebugLog;
 import com.mygdx.game.Exceptions.InvalidFrameAccess;
 
 /**
@@ -51,17 +53,17 @@ public class VideoSplicerUri implements VideoSplicer {
      * @param uri     the uri
      * @param context the context
      */
-    VideoSplicerUri(Uri uri, Context context) {
+    public VideoSplicerUri(Uri uri, Context context) {
         this.uri = uri;
 
         // Accessing the file
         this.mediaMetadataRetriever.setDataSource(context, uri);
 
         // Getting the video duration
-        //this.getVideoDuration();
+        this.getVideoDuration();
 
         // Getting the amount of frames in video
-        //this.getAmountOfFrames();
+        this.getAmountOfFrames();
 
     }
 
@@ -131,7 +133,7 @@ public class VideoSplicerUri implements VideoSplicer {
      * @return the boolean
      */
     public boolean isNextFrameAvailable() {
-        return this.framesProcessed + 1 < this.frameCount;
+        return this.framesProcessed + 1 <= this.frameCount;
     }
 
     /**
@@ -157,11 +159,16 @@ public class VideoSplicerUri implements VideoSplicer {
      */
     public Bitmap getNextFrame() throws InvalidFrameAccess {
         if (isNextFrameAvailable()) {
-
+            Bitmap mp = Bitmap.createBitmap(200, 200, Bitmap.Config.ALPHA_8);
             // TODO: return this.mediaMetadataRetriever.getFrameAtIndex(this.framesProcessed);
-            Bitmap mp = this.mediaMetadataRetriever.getFrameAtIndex(
-                    this.framesProcessed);
-            this.framesProcessed += 1;
+            try {
+                mp = this.mediaMetadataRetriever.getFrameAtIndex(
+                        this.framesProcessed);
+                this.framesProcessed += 1;
+
+            } catch (IllegalStateException ise) {
+                mp = Bitmap.createBitmap(200, 200, Bitmap.Config.ALPHA_8);
+            }
             return mp;
         }
         throw new InvalidFrameAccess("InvalidFrameAccess", new Throwable("Next Frame doesn't exist."));

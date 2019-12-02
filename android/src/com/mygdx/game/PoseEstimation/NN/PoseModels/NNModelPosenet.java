@@ -36,7 +36,7 @@ public class NNModelPosenet implements PoseModel {
     /**
      * The Body parts.
      */
-    public String[] body_parts = new String[]{
+    public String[] bodyParts = new String[]{
             "nose",
             "left_eye",
             "right_eye",
@@ -59,7 +59,7 @@ public class NNModelPosenet implements PoseModel {
     /**
      * The enum Body part.
      */
-    public enum body_part {
+    public enum bodyPart {
         /**
          * Head body part.
          */
@@ -143,7 +143,7 @@ public class NNModelPosenet implements PoseModel {
 
     @Override
     public String[] getBodyParts() {
-        return body_parts;
+        return bodyParts;
     }
 
 }
