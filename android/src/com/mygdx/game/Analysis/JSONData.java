@@ -64,9 +64,9 @@ public class JSONData implements Data {
     public Vector3 getCoord(int frame, body_part bp) {
         JSONObject bodyparts = (JSONObject) frames.get(frame);
         JSONArray coords = (JSONArray) bodyparts.get(bp.toString());
-        Double x = (Double) coords.get(0);
-        Double y = (Double) coords.get(1);
 
+        Number x = (Number) coords.get(0);
+        Number y = (Number) coords.get(1);
         return new Vector3(x.floatValue(), y.floatValue(), 0.0f);
     }
 

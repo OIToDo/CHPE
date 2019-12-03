@@ -21,12 +21,18 @@ import java.io.Reader;
 
 import static org.junit.Assert.assertEquals;
 
+/**
+ * Tests the Detection class.
+ */
 @RunWith(AndroidJUnit4.class)
 public class DetectionTest {
     Data data;
     Context context;
     Detection detect;
 
+    /**
+     * Reads the joint data from a json file.
+     */
     @Before
     public void before() {
         // initialize the json data
@@ -45,18 +51,27 @@ public class DetectionTest {
         detect = new Detection(data);
     }
 
+    /**
+     * Checks if handsfound returns the right result for the data set.
+     */
     @Test
     public void handsFoundTest() {
         boolean happened = detect.handsFound(1.0f);
         assertEquals(happened, false);
     }
 
+    /**
+     * Checks if handsidle returns the right result for the data set.
+     */
     @Test
     public void handsIdle() {
         boolean happened = detect.HandsIdle(1, 0.1);
         assertEquals(happened, false);
     }
 
+    /**
+     * Checks if handsabovehead returns the right result for the data set.
+     */
     @Test
     public void handsAboveHead() {
         boolean happened = detect.handsAboveHead(1.0f);

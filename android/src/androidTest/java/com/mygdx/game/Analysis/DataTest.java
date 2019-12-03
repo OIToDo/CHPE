@@ -31,6 +31,9 @@ import java.io.Reader;
 
 import static org.junit.Assert.assertEquals;
 
+/**
+ * Tests the Data interface for performing analysis and filtering.
+ */
 @RunWith(AndroidJUnit4.class)
 public class DataTest {
     Data data;
@@ -39,6 +42,10 @@ public class DataTest {
     Context context;
     AppDatabase appDatabase;
     JSONLoader loader;
+
+    /**
+     * Sets up the database and the right data.
+     */
     @Before
     public void before() {
         // initialize the json data
@@ -62,21 +69,33 @@ public class DataTest {
         dbData = new DatabaseData(this.appDatabase);
     }
 
+    /**
+     * Runs the interface from a JSONData object.
+     */
     @Test
     public void JSONTest() {
         data = jsonData;
         runAll();
     }
 
+    /**
+     * Runs the interface from a DatabaseData object.
+     */
     @Test
     public void DBTest() {
         data = dbData;
         runAll();
     }
 
+    /**
+     * Tests all the interface functions
+     */
     public void runAll() {
         setTest();
         getCoordTest();
+        getBodyPartCountTest();
+        getFrameCountTest();
+        getFramerateTest();
     }
 
     public void getCoordTest() {
@@ -93,6 +112,18 @@ public class DataTest {
         data.setY(0, MPI.body_part.head, to_set.y);
         Vector3 coord = data.getCoord(0, MPI.body_part.head);
         assertEquals(to_set, coord);
+    }
+
+    public void getBodyPartCountTest() {
+        assertEquals(data.getBodyPartCount(), 15);
+    }
+
+    public void getFrameCountTest() {
+        assertEquals(data.getFrameCount(), 99);
+    }
+
+    public void getFramerateTest() {
+        assertEquals(data.getFps(), 24, 0);
     }
 
     @After

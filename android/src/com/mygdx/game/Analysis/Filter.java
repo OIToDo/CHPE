@@ -5,6 +5,10 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.mygdx.game.PoseEstimation.nn.MPI.body_part;
 
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+
 /**
  * @author Nico van Bentum
  * This class can perform various filtering actions on a Data class.
@@ -76,20 +80,27 @@ public class Filter {
             sum += weight;
         }
 
-        Vector3 a = new Vector3(1,1,1);
-        Vector3 b = new Vector3(1,1,1);
-        Vector3 c = a.sub(b);
-
         for(body_part bp : body_part.values()) {
+            // create a vector for every coordinate of the body part
+            ArrayList<Vector2> coords = new ArrayList<Vector2>();
+            DebugLog.log(Integer.toString(offset));
+            DebugLog.log(Integer.toString(data.getFrameCount()-offset));
+
             for(int f = offset; f < data.getFrameCount()-offset; f++) {
                 Vector2 acc = new Vector2(0, 0);
                 for(int i = 0; i < kernel.length; i++) {
-                    acc.x += kernel[i] * data.getCoord(f + (i = offset), bp).x;
-                    acc.y += kernel[i] * data.getCoord(f + (i = offset), bp).y;
+                    acc.x += kernel[i] * data.getCoord(f + (i - offset), bp).x;
+                    acc.y += kernel[i] * data.getCoord(f + (i - offset), bp).y;
                 }
-                // TODO: right now it's filtering in-place which gives weird results, pls fix
-                data.setX(f, bp, acc.x / sum);
-                data.setY(f, bp, acc.y / sum);
+                // add the smoothed vector to the vector
+                coords.add(new Vector2(acc.x / sum, acc.y / sum));
+            }
+            // write the entire vector of coordinates for this specific  body part to
+            // the data object
+            DebugLog.log(Integer.toString(coords.size()));
+            for(int f = offset; f < coords.size(); f++) {
+                data.setX(f, bp, coords.get(f).x);
+                data.setY(f, bp, coords.get(f).y);
             }
         }
 
