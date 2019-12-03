@@ -83,15 +83,24 @@ public class FilterTest {
      */
     @Test
     public void testKernel() {
-        DebugLog.log(data.getCoord(3, MPI.body_part.l_wrist).toString());
+        // store the unfiltered vector
+        Vector3 before = data.getCoord(data.getFrameCount()-2, MPI.body_part.l_wrist);
 
+        // simple average filter
         double kernel[] = {1, 1, 1};
+
+        // calculate expected
+        Vector3 v1 = data.getCoord(data.getFrameCount()-1, MPI.body_part.l_wrist);
+        Vector3 v2 = data.getCoord(data.getFrameCount()-3, MPI.body_part.l_wrist);
+        Vector3 expected = new Vector3((v1.x + before.x + v2.x) / 3, (v1.y + before.y + v2.y) / 3, 0);
+
+        // apply filter
         filter.kernelFilter(kernel);
 
-        DebugLog.log(data.getCoord(3, MPI.body_part.l_wrist).toString());
-        Vector3 v = data.getCoord(3, MPI.body_part.l_wrist);
-        assertEquals(278.0, v.x, 0);
-        assertEquals(93.0, v.y, 0);
+        // get the filtered vector
+        Vector3 actual = data.getCoord(data.getFrameCount()-2, MPI.body_part.l_wrist);
+
+        assertEquals(expected, actual);
     }
 
     /**

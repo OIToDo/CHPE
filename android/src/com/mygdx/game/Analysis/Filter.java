@@ -83,8 +83,7 @@ public class Filter {
         for(body_part bp : body_part.values()) {
             // create a vector for every coordinate of the body part
             ArrayList<Vector2> coords = new ArrayList<Vector2>();
-            DebugLog.log(Integer.toString(offset));
-            DebugLog.log(Integer.toString(data.getFrameCount()-offset));
+
 
             for(int f = offset; f < data.getFrameCount()-offset; f++) {
                 Vector2 acc = new Vector2(0, 0);
@@ -97,13 +96,11 @@ public class Filter {
             }
             // write the entire vector of coordinates for this specific  body part to
             // the data object
-            DebugLog.log(Integer.toString(coords.size()));
-            for(int f = offset; f < coords.size(); f++) {
-                data.setX(f, bp, coords.get(f).x);
-                data.setY(f, bp, coords.get(f).y);
+            for(int f = 0; f < coords.size(); f++) {
+                data.setX(f + offset, bp, coords.get(f).x);
+                data.setY(f + offset, bp, coords.get(f).y);
             }
         }
-
     }
 
     
