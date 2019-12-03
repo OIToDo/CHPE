@@ -24,7 +24,7 @@ public class ActionTest {
     @Test
     public void OccurrenceTest() {
         Action action = new Action("action");
-        action.setOccurance(true);
-        assertEquals(action.Occured(), true);
+        action.setOccurrence(true);
+        assertEquals(action.occurred(), true);
     }
 }
