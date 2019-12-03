@@ -33,7 +33,6 @@ import androidx.room.RoomDatabase;
         exportSchema = false)
 
 public abstract class AppDatabase extends RoomDatabase {
-    private static AppDatabase appDatabase;
 
     /**
      * Nn frame dao nn frame dao.
@@ -61,7 +60,7 @@ public abstract class AppDatabase extends RoomDatabase {
      *
      * @return the nn video frame dao
      */
-    public abstract NNVideoFrameDAO nnVideoFrame();
+    public abstract NNVideoFrameDAO nnVideoFrameDAO();
 
     /**
      * Nn frame coordinate dao nn frame coordinate dao.

@@ -9,9 +9,6 @@ import com.mygdx.game.Persistance.Relations.NNVideoFrame;
 import com.mygdx.game.PoseEstimation.NN.PoseNet.KeyPoint;
 import com.mygdx.game.PoseEstimation.NN.PoseNet.Person;
 
-import java.util.Arrays;
-import java.util.List;
-
 // TODO: Convert sessionId to videoId
 
 
@@ -20,7 +17,6 @@ import java.util.List;
  */
 public class NNInserts {
 
-    private Resolution resolution; // Used for normalisations
     private AppDatabase appDatabase;
     private final String TAG = "NNInserts";
 
@@ -28,23 +24,10 @@ public class NNInserts {
      * Instantiates a new NN inserts.
      *
      * @param appDatabase the app database
-     * @param resolution  the resolution
      */
-    NNInserts(AppDatabase appDatabase, Resolution resolution) {
+    NNInserts(AppDatabase appDatabase) {
         this.appDatabase = appDatabase;
-        this.resolution = resolution;
 
-    }
-
-    /**
-     * Normalise ints list.
-     *
-     * @param integerList the raw integer values
-     * @return the list
-     */
-    public List<Double> normaliseInts(List<Integer> integerList) {
-        double x = 10.00, y = 10.00;
-        return Arrays.asList(x, y);
     }
 
 
@@ -56,9 +39,6 @@ public class NNInserts {
     private double[] setNormaliseCoordinates(long sessionId) {
         double y_limit = this.appDatabase.nnVideoDAO().getMaxValuesX(sessionId);
         double x_limit = this.appDatabase.nnVideoDAO().getMaxValuesY(sessionId);
-
-        DebugLog.log("Y_limit " + y_limit);
-        DebugLog.log("X_limit " + x_limit);
 
         double y_multiplier = 1 / y_limit;
         double x_multiplier = (y_limit / x_limit) * 1 / y_limit;
@@ -97,12 +77,13 @@ public class NNInserts {
     }
 
 
+    /**
+     * Normalise.
+     *
+     * @param videoId the video id
+     */
     public void normalise(long videoId) {
-        DebugLog.log("Normalise");
         double[] normalised = setNormaliseCoordinates(videoId);
-        DebugLog.log(Double.toString(normalised[0]));
-        DebugLog.log(Double.toString(normalised[1]));
-        DebugLog.log(Long.toString(videoId));
         this.appDatabase
                 .nnCoordinateDAO()
                 .normaliseCoordinates(videoId, normalised[0], normalised[1]);
@@ -120,7 +101,7 @@ public class NNInserts {
     private void linkFrameIdToVideo(long frameId, long videoId) {
         // Linking to the video
         this.appDatabase
-                .nnVideoFrame()
+                .nnVideoFrameDAO()
                 .insert(
                         new NNVideoFrame(videoId, frameId)
                 );

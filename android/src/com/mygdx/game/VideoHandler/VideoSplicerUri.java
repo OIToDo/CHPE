@@ -28,7 +28,13 @@ public class VideoSplicerUri implements VideoSplicer {
     private Uri uri;
 
     private MediaMetadataRetriever mediaMetadataRetriever = new MediaMetadataRetriever();
+    /**
+     * The Frame count.
+     */
     public int frameCount = -1;
+    /**
+     * The Frames processed.
+     */
     public int framesProcessed = 0;
 
     /**
@@ -105,7 +111,12 @@ public class VideoSplicerUri implements VideoSplicer {
     }
 
 
-
+    /**
+     * Gets video duration.
+     *
+     * @return the video duration
+     * @throws NumberFormatException the number format exception
+     */
     long getVideoDuration() throws NumberFormatException {
         try {
             String sTotalTime = this.mediaMetadataRetriever.extractMetadata(META_VIDEO_DURATION);
@@ -143,8 +154,6 @@ public class VideoSplicerUri implements VideoSplicer {
      * @return the next frame
      */
     public Bitmap getNextFrame(int frame) {
-        // TODO: return this.mediaMetadataRetriever.getFrameAtIndex(this.framesProcessed);
-
         Bitmap mp = this.mediaMetadataRetriever.getFrameAtIndex(
                 frame);
         return mp;
@@ -160,7 +169,6 @@ public class VideoSplicerUri implements VideoSplicer {
     public Bitmap getNextFrame() throws InvalidFrameAccess {
         if (isNextFrameAvailable()) {
             Bitmap mp = Bitmap.createBitmap(200, 200, Bitmap.Config.ALPHA_8);
-            // TODO: return this.mediaMetadataRetriever.getFrameAtIndex(this.framesProcessed);
             try {
                 mp = this.mediaMetadataRetriever.getFrameAtIndex(
                         this.framesProcessed);

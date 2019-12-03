@@ -54,7 +54,7 @@ public class AnalysisTest {
     @Test
     public void get_coordinates() {
 
-        NNCoordinate coordinate = this.nnVideoDAO.get_coordinates(2,0,0);
+        NNCoordinate coordinate = this.nnVideoDAO.getCoordinates(2,0,0);
         System.out.println(coordinate.x);
         System.out.println(coordinate.y);
         assertEquals(361, coordinate.x,0.0);

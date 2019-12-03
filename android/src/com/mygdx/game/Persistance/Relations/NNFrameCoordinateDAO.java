@@ -14,25 +14,25 @@ import androidx.room.Update;
 public interface NNFrameCoordinateDAO {
 
     /**
-     * Insert.
+     * Insert entity by entity
      *
-     * @param nnFrameCoordinate the nn frame coordinate
+     * @param nnFrameCoordinate the entity
      */
     @Insert
     void insert(NNFrameCoordinate nnFrameCoordinate);
 
     /**
-     * Update.
+     * Update entity by entity
      *
-     * @param nnFrameCoordinate the nn frame coordinate
+     * @param nnFrameCoordinate the entity
      */
     @Update
     void update(NNFrameCoordinate nnFrameCoordinate);
 
     /**
-     * Delete.
+     * Delete entity by entity
      *
-     * @param nnFrameCoordinate the nn frame coordinate
+     * @param nnFrameCoordinate the entity
      */
     @Delete
     void delete(NNFrameCoordinate nnFrameCoordinate);

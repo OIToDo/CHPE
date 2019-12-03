@@ -36,6 +36,9 @@ public class NNModelCOCO implements PoseModel {
                     {15, 17}
             };
 
+    /**
+     * The Body parts.
+     */
     public String[] body_parts = new String[]{
     };
 

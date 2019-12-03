@@ -13,26 +13,26 @@ import androidx.room.Update;
 public interface NNFrameDAO {
 
     /**
-     * Insert long.
+     * Insert entity and receive the insert ID
      *
-     * @param nnFrame the nn frame
-     * @return the long
+     * @param nnFrame the entity
+     * @return the insert ID
      */
     @Insert
     long insert(NNFrame nnFrame);
 
     /**
-     * Delete.
+     * Delete entity by entity
      *
-     * @param nnFrame the nn frame
+     * @param nnFrame the entity
      */
     @Delete
     void delete(NNFrame nnFrame);
 
     /**
-     * Update.
+     * Update entity by entity
      *
-     * @param nnFrame the nn frame
+     * @param nnFrame the entity
      */
     @Update
     void update(NNFrame nnFrame);
@@ -44,7 +44,7 @@ public interface NNFrameDAO {
     void nukeTable(); // Naming is about as clear as it can be.
 
     /**
-     * Gets by id.
+     * Gets a frame entity by id
      *
      * @param id the id
      * @return the by id

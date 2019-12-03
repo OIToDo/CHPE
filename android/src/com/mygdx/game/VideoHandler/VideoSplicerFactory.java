@@ -10,9 +10,19 @@ import com.mygdx.game.Exceptions.InvalidVideoSplicerType;
 import java.util.HashMap;
 
 
+/**
+ * The type Video splicer factory.
+ */
 public class VideoSplicerFactory {
 
 
+    /**
+     * Gets video splicer.
+     *
+     * @param m the m
+     * @return the video splicer
+     * @throws InvalidVideoSplicerType the invalid video splicer type
+     */
     public static VideoSplicer getVideoSplicer(String m) throws InvalidVideoSplicerType {
         if (URLUtil.isValidUrl(m)) {
 
@@ -28,6 +38,14 @@ public class VideoSplicerFactory {
                 new Throwable("Invalid splicer type: " + m));
     }
 
+    /**
+     * Gets video splicer.
+     *
+     * @param uri     the uri
+     * @param context the context
+     * @return the video splicer
+     * @throws InvalidVideoSplicerType the invalid video splicer type
+     */
     public static VideoSplicer getVideoSplicer(Uri uri, Context context) throws InvalidVideoSplicerType {
         if (android.os.Build.VERSION.SDK_INT > 28) {
             // Function call getFrameAtIndex based on frame count requires
@@ -42,6 +60,13 @@ public class VideoSplicerFactory {
                 new Throwable("Android SDK version too low, minimum of 24"));
     }
 
+    /**
+     * Gets video splicer.
+     *
+     * @param path the path
+     * @param t    the t
+     * @return the video splicer
+     */
     public static VideoSplicer getVideoSplicer(String path, boolean t) {
         return new VideoSplicerUriLegacy(path, new HashMap<String, String>());
 

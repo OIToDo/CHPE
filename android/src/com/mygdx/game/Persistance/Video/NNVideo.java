@@ -10,7 +10,10 @@ import androidx.room.PrimaryKey;
  */
 @Entity(tableName = "video")
 public class NNVideo {
-    //TODO: Create date field
+     /*
+    TODO: Future: Create date field
+    TODO: Future: Add Dynamic model type
+    */
 
 
     /**

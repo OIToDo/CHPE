@@ -44,6 +44,7 @@ public class NNModelMPI implements PoseModel {
             "r_wrist", "l_hip", "l_knee", "l_foot",
             "r_hip", "r_knee", "r_foot", "waist"
     };
+
     /**
      * The enum Body part.
      */

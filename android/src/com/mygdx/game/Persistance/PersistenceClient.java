@@ -1,7 +1,6 @@
 package com.mygdx.game.Persistance;
 
 import android.content.Context;
-import android.os.Debug;
 
 import com.mygdx.game.DebugLog;
 import com.mygdx.game.MockData;
@@ -34,7 +33,6 @@ public class PersistenceClient {
         // Ensure that the database name is NOT the actual database name
         //creating the app database with Room database builder
         // is the name of the database
-        DebugLog.log("DB INSTANTIATED");
         this.appDatabase = Room.databaseBuilder(mCtx,
                 AppDatabase.class,
                 databaseName)

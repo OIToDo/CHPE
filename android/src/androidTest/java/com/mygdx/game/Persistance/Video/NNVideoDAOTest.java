@@ -64,7 +64,6 @@ public class NNVideoDAOTest {
         assertEquals(this.height, this.nnVideoDAO.getLastSession().height, 0.0);
     }
 
-
     @After
     public void tearDown() throws Exception {
         this.nnVideoDAO.nukeTable();

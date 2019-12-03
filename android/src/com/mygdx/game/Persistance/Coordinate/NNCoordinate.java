@@ -5,29 +5,39 @@ import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 /**
- * The type Nn coordinate.
+ * Entity NNCoordinate.
  */
 @Entity(tableName = "coordinate")
 public class NNCoordinate {
 
     /**
      * The Id.
+     * Primary key for NNCoordinates
+     * Generated on insert or replace query
      */
     @PrimaryKey(autoGenerate = true)
     public long id;
     /**
      * The Raw x.
+     * The actual pixel value found in an image
+     * Will always be between the ranges of the video resolution
      */
     public int raw_x;
     /**
      * The Raw y.
+     * The actual pixel value found in an image
+     * Will always be between the ranges of the video resolution
      */
     public int raw_y;
     /**
      * The X.
+     * Normalised value based upon the raw_x and the range of the video resolution
+     * Value will always be between 0 and 1
      */
     public double x;
     /**
+     * Normalised value based upon the raw_y and the range of the video resolution
+     * Value will always be between 0 and 1
      * The Y.
      */
     public double y;
@@ -62,6 +72,7 @@ public class NNCoordinate {
     /**
      * Instantiates a new NNCoordinate.
      * Useful for updating the x and y values.
+     * Primary use case is when a smoothing occurs in the analysis.
      *
      * @param id the id
      * @param x  the x coordinate

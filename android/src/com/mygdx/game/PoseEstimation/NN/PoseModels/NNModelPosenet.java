@@ -1,5 +1,8 @@
 package com.mygdx.game.PoseEstimation.NN.PoseModels;
 
+/**
+ * The type Nn model posenet.
+ */
 public class NNModelPosenet implements PoseModel {
 
     /**

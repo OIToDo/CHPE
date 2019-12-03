@@ -22,18 +22,18 @@ public class NNFrame {
 
 
     /**
-     * Instantiates a new NN frame without data.
+     * Empty constructor, Instantiates a new NNFrame without data.
+     *
      */
     @Ignore
     NNFrame() {
     }
 
     /**
-     * Instantiates a new Nn frame based on a LONG id.
-     * Keep in mind that the value needs to be long, in the event that it isn't a long you will end
-     * up with a very odd frame count.
-     *
-     * @param id the id
+     * Instantiates a new NNFrame based on a LONG id.
+     * Keep in mind that the value needs to be long,
+     * in the event that it isn't a long you will end up with a very odd frame count.
+     * @param id the id as long
      */
     @Ignore
     NNFrame(long id) {
@@ -42,10 +42,5 @@ public class NNFrame {
     public NNFrame(int frame_count) {
         this.frame_count = frame_count;
     }
-
-    /*
-    TODO: define the modelType -> public String modelType;
-    Usable for analysis and 3d preview to instantiate the model.
-    */
 
 }

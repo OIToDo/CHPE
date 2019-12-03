@@ -13,7 +13,7 @@ import com.mygdx.game.Exceptions.InvalidVideoSplicerType;
 import com.mygdx.game.Persistance.AppDatabase;
 import com.mygdx.game.Persistance.PersistenceClient;
 import com.mygdx.game.Persistance.Video.NNVideo;
-import com.mygdx.game.PoseEstimation.NN.ModelParser;
+import com.mygdx.game.PoseEstimation.NN.ModelFactory;
 import com.mygdx.game.PoseEstimation.NN.NNInterpreter;
 import com.mygdx.game.PoseEstimation.NN.PoseNet.Person;
 import com.mygdx.game.VideoHandler.VideoSplicer;
@@ -48,7 +48,7 @@ public class Session {
         }
         this.appDatabase = PersistenceClient.getInstance(context).getAppDatabase();
         this.resolution = new Resolution(this.videoSplicer.getNextFrame(1));
-        this.chpe = new CHPE(context, this.resolution, ModelParser.POSENET_MODEL);
+        this.chpe = new CHPE(context, this.resolution, ModelFactory.POSENET_MODEL);
 
         this.initialiseDatabase(); // Preparing database for person entry
     }
@@ -67,7 +67,7 @@ public class Session {
         }
         this.appDatabase = PersistenceClient.getInstance(context).getAppDatabase();
         this.resolution = new Resolution(this.videoSplicer.getNextFrame(0));
-        this.chpe = new CHPE(context, this.resolution, ModelParser.POSENET_MODEL);
+        this.chpe = new CHPE(context, this.resolution, ModelFactory.POSENET_MODEL);
 
         this.initialiseDatabase(); // Preparing database for person entry
     }
@@ -76,15 +76,16 @@ public class Session {
     /**
      * Instantiates a new Session.
      *
-     * @param uri     the uri
-     * @param context the context
+     * @param uri          the uri
+     * @param context      the context
+     * @param videoSplicer the video splicer
      */
     public Session(Uri uri, Context context, VideoSplicer videoSplicer) {
 
         this.videoSplicer = videoSplicer;
         this.appDatabase = PersistenceClient.getInstance(context).getAppDatabase();
         this.resolution = new Resolution(1920, 1080, 257);
-        this.chpe = new CHPE(context, this.resolution, ModelParser.POSENET_MODEL);
+        this.chpe = new CHPE(context, this.resolution, ModelFactory.POSENET_MODEL);
 
         this.initialiseDatabase(); // Preparing database for person entry
     }
@@ -97,7 +98,7 @@ public class Session {
                 this.resolution.getScreenWidth(),
                 this.resolution.getScreenHeight()
         ));
-        this.nnInsert = new NNInserts(this.appDatabase, this.resolution);
+        this.nnInsert = new NNInserts(this.appDatabase);
     }
 
     /**
@@ -125,6 +126,9 @@ public class Session {
         this.nnInsert.insertPerson(person, this.videoId, this.videoSplicer.getFramesProcessed());
     }
 
+    /**
+     * Normalise data.
+     */
     public void normaliseData() {
         this.nnInsert.normalise(this.videoId);
     }

@@ -29,7 +29,13 @@ public class VideoSplicerUriLegacy extends VideoSplicerUri {
      * The Uri.
      */
     public Uri uri;
+    /**
+     * The Iter time us.
+     */
     public long iterTimeUs; // Used to indicate how long a single frame is on screen
+    /**
+     * The Total time.
+     */
     public long totalTime; // TODO: Update to allow longer video's. The current limit would be
     private long usToS, sToUS = 1000000; // Converting microseconds to seconds, double assignment for usability reasons.
 
@@ -45,6 +51,12 @@ public class VideoSplicerUriLegacy extends VideoSplicerUri {
         super(uri);
     }
 
+    /**
+     * Instantiates a new Video splicer uri legacy.
+     *
+     * @param uri     the uri
+     * @param context the context
+     */
     public VideoSplicerUriLegacy(Uri uri, Context context) {
         super(uri, context);
         this.uri = uri;
@@ -52,6 +64,12 @@ public class VideoSplicerUriLegacy extends VideoSplicerUri {
         initialiseVideoSplicerLegacy();
     }
 
+    /**
+     * Instantiates a new Video splicer uri legacy.
+     *
+     * @param uri the uri
+     * @param map the map
+     */
     public VideoSplicerUriLegacy(String uri, HashMap<String, String> map) {
         super(Uri.parse(uri), getApplicationContext());
         initialiseVideoSplicerLegacy();
@@ -85,6 +103,11 @@ public class VideoSplicerUriLegacy extends VideoSplicerUri {
     }
 
 
+    /**
+     * Gets random frame.
+     *
+     * @return the random frame
+     */
     public Bitmap getRandomFrame() {
         return this.mediaMetadataRetriever.getFrameAtTime(
                 (new Random().nextInt(this.frameCount) + 1) // getting a random int.
@@ -93,6 +116,12 @@ public class VideoSplicerUriLegacy extends VideoSplicerUri {
     }
 
 
+    /**
+     * Gets frame iter time.
+     *
+     * @return the frame iter time
+     * @throws ArithmeticException the arithmetic exception
+     */
     public long getFrameIterTime() throws ArithmeticException {
         try {
             return (this.totalTime / this.frameCount);

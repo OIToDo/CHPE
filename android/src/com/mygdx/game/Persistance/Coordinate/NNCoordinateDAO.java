@@ -9,30 +9,30 @@ import androidx.room.Update;
 
 
 /**
- * The interface Nn coordinate dao.
+ * The interface NNCoordinateDao.
  */
 @Dao
 public interface NNCoordinateDAO {
 
     /**
-     * Gets count.
-     *
-     * @return the count
+     * Returns the amount of entity's in the coordinate table.
+     * Used when estimating the size of the database.
+     * @return the count as an int
      */
     @Query("SELECT COUNT(*) FROM coordinate")
     int getCount();
 
     /**
-     * Insert long.
+     * Inserting an entity and returning the insert ID
      *
      * @param nnCoordinate the nn coordinate
-     * @return the long
+     * @return insert ID
      */
     @Insert
     long insert(NNCoordinate nnCoordinate);
 
     /**
-     * Update.
+     * Updating an entity by entity
      *
      * @param nnCoordinate the nn coordinate
      */
@@ -40,7 +40,7 @@ public interface NNCoordinateDAO {
     void update(NNCoordinate nnCoordinate);
 
     /**
-     * Delete.
+     * Deleting entity via entity
      *
      * @param nnCoordinate the nn coordinate
      */
@@ -48,27 +48,27 @@ public interface NNCoordinateDAO {
     void delete(NNCoordinate nnCoordinate);
 
     /**
-     * Get all coordinates nn coordinate [ ].
+     * Get all available coordinates in the database.
      *
-     * @return the nn coordinate [ ]
+     * @return ArrayList of NNCoordinate objects.
      */
     @Query("SELECT * FROM coordinate")
     NNCoordinate[] getAllCoordinates();
 
     /**
-     * Gets by id.
+     * Get an entity by primary key
      *
-     * @param id the id
-     * @return the by id
+     * @param id of the coordinate entity as int
+     * @return NNCoordinate entry, filled if found empty if not.
      */
     @Query("SELECT * FROM coordinate WHERE id == :id LIMIT 1")
     NNCoordinate getById(int id);
 
     /**
-     * Gets by id.
+     * Get an entity by primary key
      *
-     * @param id the id
-     * @return the by id
+     * @param id of the coordinate entity as long
+     * @return NNCoordinate entry, filled if found empty if not.
      */
     @Query("SELECT * FROM coordinate WHERE id == :id LIMIT 1")
     NNCoordinate getById(long id);
@@ -80,6 +80,14 @@ public interface NNCoordinateDAO {
     void nukeTable(); // Naming is about as clear as it can be.
 
 
+    /**
+     * Normalise coordinates.
+     * Range coordinates between 0 and 1
+     *
+     * @param video_id     the video id
+     * @param x_multiplier the x multiplier used for calculating x values
+     * @param y_multiplier the y multiplier used for calculating y values
+     */
     @Query( "UPDATE coordinate SET  " +
             "x = raw_x * :x_multiplier, " +
             "y = raw_y * :y_multiplier  " +

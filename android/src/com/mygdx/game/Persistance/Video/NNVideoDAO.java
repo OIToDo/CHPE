@@ -16,32 +16,32 @@ public interface NNVideoDAO {
     /**
      * Insert long.
      *
-     * @param nnSession the nn session
+     * @param nnVideo the nn session
      * @return the long
      */
     @Insert
-    long insert(NNVideo nnSession);
+    long insert(NNVideo nnVideo);
 
     /**
      * Update.
      *
-     * @param nnSession the nn session
+     * @param nnVideo the nn session
      */
     @Update
-    void update(NNVideo nnSession);
+    void update(NNVideo nnVideo);
 
     /**
      * Delete.
      *
-     * @param nnSession the nn session
+     * @param nnVideo the nn session
      */
     @Delete
-    void delete(NNVideo nnSession);
+    void delete(NNVideo nnVideo);
 
     /**
-     * Gets last session.
+     * Gets last video.
      *
-     * @return the last session
+     * @return the last session in NNVideo
      */
     @Query("SELECT * FROM video ORDER BY id DESC LIMIT 1")
     NNVideo getLastSession();
@@ -91,7 +91,7 @@ public interface NNVideoDAO {
      * @return the coordinates
      */
     @Query("SELECT coordinate.id, coordinate.x, coordinate.y, coordinate.raw_x, coordinate.raw_y from coordinate, frame, frame_coordinate, video_frame, video WHERE video.id = :videoId AND video.id = video_frame.video_id AND video_frame.frame_id = frame.id AND frame.frame_count = :frameCount AND frame_coordinate.frame_id = frame.id AND frame_coordinate.coordinate_id = coordinate.id LIMIT 1 OFFSET :bodyPart")
-    NNCoordinate get_coordinates(int frameCount, int bodyPart, long videoId);
+    NNCoordinate getCoordinates(int frameCount, int bodyPart, long videoId);
 
     /**
      * Nuke table.

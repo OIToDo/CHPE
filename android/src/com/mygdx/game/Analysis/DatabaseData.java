@@ -1,9 +1,5 @@
 package com.mygdx.game.Analysis;
 
-import android.os.Debug;
-
-import com.mygdx.game.DebugLog;
-import com.mygdx.game.Persistance.*;
 import com.badlogic.gdx.math.Vector3;
 import com.mygdx.game.Persistance.AppDatabase;
 import com.mygdx.game.Persistance.Video.NNVideo;
@@ -32,7 +28,7 @@ public class DatabaseData implements Data {
      * Implements Data's interface function for getting a single coordinate using Java's JSON library.
      */
     public Vector3 getCoord(int frame, body_part bp) {
-        NNCoordinate nnCoordinate = this.nnVideoDAO.get_coordinates(frame,bp.ordinal(),
+        NNCoordinate nnCoordinate = this.nnVideoDAO.getCoordinates(frame,bp.ordinal(),
                 this.currentSession.id);
         if(bp.ordinal() == 4) {
         }

@@ -70,7 +70,7 @@ public class MockData {
 
     private void insertSessionFrame(long fid, long sid) {
         NNVideoFrame nnSessionFrame = new NNVideoFrame(sid, fid);
-        NNVideoFrameDAO nnSessionFrameDAO = this.appDatabase.nnVideoFrame();
+        NNVideoFrameDAO nnSessionFrameDAO = this.appDatabase.nnVideoFrameDAO();
         nnSessionFrameDAO.insert(nnSessionFrame);
     }
 

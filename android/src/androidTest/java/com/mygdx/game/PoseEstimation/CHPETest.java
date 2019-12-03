@@ -20,7 +20,13 @@ import androidx.test.platform.app.InstrumentationRegistry;
 import static org.junit.Assert.assertEquals;
 
 
+/**
+ * Testing the workings of the CHPE based on images
+ */
 public class CHPETest {
+    /**
+     * The Collector is used to enable multiple asserts
+     */
     @Rule
     public ErrorCollector collector = new ErrorCollector();
 
@@ -29,6 +35,11 @@ public class CHPETest {
     private String examplePhoto = "example-human-pose.jpg";
     private Bitmap bitmap;
 
+    /**
+     * Sets up.
+     *
+     * @throws Exception the exception
+     */
     @Before
     public void setUp() throws Exception {
         // Importing the Example image
@@ -36,6 +47,9 @@ public class CHPETest {
     }
 
 
+    /**
+     * Validate settings.
+     */
     @Test
     public void validateSettings() {
         // Using multiple asserts are not good practice
@@ -49,18 +63,21 @@ public class CHPETest {
     /**
      * Tear down.
      * Currently serves no purpose, because all manipulated data is accessed and modified locally.
+     *
      * @throws Exception the exception
      */
     @After
     public void tearDown() throws Exception {
-
     }
 
+    /**
+     * Parse constructor, checking if the Factory is working as expected.
+     */
     @Test
     public void ParseConstructor() {
         CHPE chpePoseNet = new CHPE(this.context, new Resolution(this.bitmap), 3);
         CHPE chpeMPI = new CHPE(this.context, new Resolution(this.bitmap), 2);
-        CHPE chpe = new CHPE(this.context, new Resolution(this.bitmap), 99);
+        CHPE chpeCOCO = new CHPE(this.context, new Resolution(this.bitmap), 1);
 
 
         collector.checkThat(chpeMPI.getPoseModel().getModel(),
@@ -71,17 +88,20 @@ public class CHPETest {
                 CoreMatchers.is("posenet_model.tflite")
         );
 
-        collector.checkThat(chpe.getPoseModel().getModel(),
+        collector.checkThat(chpeCOCO.getPoseModel().getModel(),
                 CoreMatchers.is("pose/coco/pose_iter_440000.caffemodel")
         );
     }
 
+    /**
+     * Static constructor. Checking if the static constructor is working as expected.
+     */
     @Test
     public void StaticConstructor() {
 
         CHPE chpePoseNet = new CHPE(this.context, new Resolution(this.bitmap), new NNModelPosenet());
         CHPE chpeMPI = new CHPE(this.context, new Resolution(this.bitmap), new NNModelMPI());
-        CHPE chpe = new CHPE(this.context, new Resolution(this.bitmap), new NNModelCOCO());
+        CHPE chpeCOCO = new CHPE(this.context, new Resolution(this.bitmap), new NNModelCOCO());
 
 
         collector.checkThat(chpeMPI.getPoseModel().getModel(),
@@ -92,19 +112,26 @@ public class CHPETest {
                 CoreMatchers.is("posenet_model.tflite")
         );
 
-        collector.checkThat(chpe.getPoseModel().getModel(),
+        collector.checkThat(chpeCOCO.getPoseModel().getModel(),
                 CoreMatchers.is("pose/coco/pose_iter_440000.caffemodel")
         );
     }
-    /*
-    TODO: Enable: OpenGL ES 3.1
+
+
+
+    /**
+     * Process frame a frame with the GPU as NNInterpreter
+     */
     @Test
     public void ProcessFrameGPU() {
         CHPE chpe = new CHPE(this.targetContext, new Resolution(this.bitmap), new NNModelPosenet());
         Person p = chpe.ProcessFrame(this.bitmap, NNInterpreter.GPU);
         assertEquals(new NNModelPosenet().points, p.getKeyPoints().size());
     }
-    */
+
+    /**
+     * Process frame a frame with the CPU as NNInterpreter
+     */
     @Test
     public void ProcessFrameCPU() {
         CHPE chpe = new CHPE(this.context, new Resolution(this.bitmap), new NNModelPosenet());
@@ -112,6 +139,9 @@ public class CHPETest {
         assertEquals(new NNModelPosenet().points, p.getKeyPoints().size());
     }
 
+    /**
+     * Process frame a frame with the neural network API as NNInterpreter
+     */
     @Test
     public void ProcessFrameNNAPI() {
         CHPE chpe = new CHPE(this.context, new Resolution(this.bitmap), new NNModelPosenet());

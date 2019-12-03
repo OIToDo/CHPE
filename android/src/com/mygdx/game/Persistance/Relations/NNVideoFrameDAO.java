@@ -13,25 +13,25 @@ import androidx.room.Update;
 public interface NNVideoFrameDAO {
 
     /**
-     * Insert.
+     * Insert entity by entity
      *
-     * @param nnVideoFrame the nn video frame
+     * @param nnVideoFrame the entity
      */
     @Insert
     void insert(NNVideoFrame nnVideoFrame);
 
     /**
-     * Update.
+     * Update entity by entity
      *
-     * @param nnVideoFrame the nn video frame
+     * @param nnVideoFrame the entity
      */
     @Update
     void update(NNVideoFrame nnVideoFrame);
 
     /**
-     * Delete.
+     * Delete entity by entity
      *
-     * @param nnVideoFrame the nn video frame
+     * @param nnVideoFrame the entity
      */
     @Delete
     void delete(NNVideoFrame nnVideoFrame);

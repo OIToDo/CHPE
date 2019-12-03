@@ -3,9 +3,11 @@ package com.mygdx.game.PoseEstimation;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.util.Log;
 
 
-import com.mygdx.game.PoseEstimation.NN.ModelParser;
+import com.mygdx.game.Exceptions.InvalidModelParse;
+import com.mygdx.game.PoseEstimation.NN.ModelFactory;
 import com.mygdx.game.PoseEstimation.NN.NNInterpreter;
 import com.mygdx.game.PoseEstimation.NN.PoseModels.PoseModel;
 import com.mygdx.game.PoseEstimation.NN.PoseNet.Person;
@@ -26,6 +28,7 @@ public class CHPE {
      *
      * @param context    The context
      * @param resolution The resolution used for scaling
+     * @param model      the model
      */
     public CHPE(Context context, Resolution resolution, PoseModel model) {
         this.context = context;
@@ -33,6 +36,13 @@ public class CHPE {
         this.poseModel = model;
     }
 
+    /**
+     * Instantiates a new Chpe.
+     *
+     * @param context    the context
+     * @param resolution the resolution
+     * @param model      the model
+     */
     public CHPE(Context context, Resolution resolution, final int model) {
         this.context = context;
         this.resolution = resolution;
@@ -40,10 +50,19 @@ public class CHPE {
     }
 
     private void parseModel(final int model) {
-        this.poseModel = ModelParser.parseModel(model);
+        try {
+            this.poseModel = ModelFactory.getModel(model);
+        }catch (InvalidModelParse invalidModelParse){
+            Log.e(CHPE.class.getSimpleName(), invalidModelParse.getMessage());
+        }
     }
 
 
+    /**
+     * Get pose model pose model.
+     *
+     * @return the pose model
+     */
     PoseModel getPoseModel(){
         return this.poseModel;
     }
@@ -51,7 +70,7 @@ public class CHPE {
     /**
      * Process frame person based on the
      *
-     * @param image  The supplied bitmap image
+     * @param image         The supplied bitmap image
      * @param nnInterpreter The nnInterpreter type (i.e. CPU/GPU/NNAPI)
      * @return Instance of a Person found on the image
      */

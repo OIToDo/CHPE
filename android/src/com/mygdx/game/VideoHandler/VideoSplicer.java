@@ -4,20 +4,55 @@ import android.graphics.Bitmap;
 
 import com.mygdx.game.Exceptions.InvalidFrameAccess;
 
+/**
+ * The interface Video splicer.
+ */
 public interface VideoSplicer {
 
 
+    /**
+     * Is next frame available boolean.
+     *
+     * @return the boolean
+     */
     boolean isNextFrameAvailable();
 
+    /**
+     * Gets frames processed.
+     *
+     * @return the frames processed
+     */
     int getFramesProcessed();
 
+    /**
+     * Gets frame count.
+     *
+     * @return the frame count
+     */
     int getFrameCount();
 
+    /**
+     * Gets frames per second.
+     *
+     * @return the frames per second
+     */
     float getFramesPerSecond();
 
 
+    /**
+     * Gets next frame.
+     *
+     * @param frame the frame
+     * @return the next frame
+     */
     Bitmap getNextFrame(int frame);
 
+    /**
+     * Gets next frame.
+     *
+     * @return the next frame
+     * @throws InvalidFrameAccess the invalid frame access
+     */
     Bitmap getNextFrame() throws InvalidFrameAccess;
 
 }

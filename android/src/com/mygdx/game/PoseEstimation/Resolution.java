@@ -23,18 +23,38 @@ public class Resolution {
      */
     private int screenHeight;
 
+    /**
+     * Gets model width.
+     *
+     * @return the model width
+     */
     public int getModelWidth() {
         return modelWidth;
     }
 
+    /**
+     * Gets model height.
+     *
+     * @return the model height
+     */
     public int getModelHeight() {
         return modelHeight;
     }
 
+    /**
+     * Gets screen width.
+     *
+     * @return the screen width
+     */
     public int getScreenWidth() {
         return screenWidth;
     }
 
+    /**
+     * Gets screen height.
+     *
+     * @return the screen height
+     */
     public int getScreenHeight() {
         return screenHeight;
     }
@@ -84,6 +104,7 @@ public class Resolution {
      *
      * @param width the width
      * @return the width by ratio
+     * @throws NumberFormatException the number format exception
      */
     int getWidthByRatio(float width) throws NumberFormatException {
 
