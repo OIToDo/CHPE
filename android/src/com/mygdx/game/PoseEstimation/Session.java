@@ -102,11 +102,10 @@ public class Session {
     }
 
     /**
-     * Run video.
+     * Loops through a video and stores it continuously
      */
     public void runVideo() {
         while (this.videoSplicer.isNextFrameAvailable()) {
-            DebugLog.log(this.videoSplicer.getFrameCount() + "/" + this.videoSplicer.getFramesProcessed());
             try {
                 this.PersonToFrame
                         (
@@ -122,12 +121,15 @@ public class Session {
         }
     }
 
+
+
     private void PersonToFrame(Person person) {
         this.nnInsert.insertPerson(person, this.videoId, this.videoSplicer.getFramesProcessed());
     }
 
     /**
-     * Normalise data.
+     * The NormaliseData query.
+     * Should run after the run video run to normalise the data.
      */
     public void normaliseData() {
         this.nnInsert.normalise(this.videoId);

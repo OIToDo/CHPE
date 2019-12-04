@@ -78,18 +78,22 @@ public class NNInserts {
 
 
     /**
-     * Normalise.
+     * Normalising the data.
      *
-     * @param videoId the video id
+     * @param videoId the video id. The primary key inserted upon entry.
      */
-    public void normalise(long videoId) {
+    void normalise(long videoId) {
         double[] normalised = setNormaliseCoordinates(videoId);
         this.appDatabase
                 .nnCoordinateDAO()
                 .normaliseCoordinates(videoId, normalised[0], normalised[1]);
-        DebugLog.log("Normalise Finished");
     }
 
+    /**
+     * Links a coordinate to a video.
+     * @param frameId the frame id. The primary key inserted upon entry.
+     * @param coordinateId the video id. The primary key inserted upon entry.
+     */
     private void linkFrameToCoordinate(long frameId, long coordinateId) {
         this.appDatabase
                 .nnFrameCoordinateDAO()
@@ -98,6 +102,11 @@ public class NNInserts {
                 );
     }
 
+    /**
+     * Links the frame to a video.
+     * @param frameId the frame id. The primary key inserted upon entry.
+     * @param videoId the video id. The primary key inserted upon entry.
+     */
     private void linkFrameIdToVideo(long frameId, long videoId) {
         // Linking to the video
         this.appDatabase
