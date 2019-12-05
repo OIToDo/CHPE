@@ -11,6 +11,7 @@ import android.graphics.Color;
 import android.media.MediaMetadataRetriever;
 import android.net.Uri;
 import android.os.IBinder;
+import android.os.SystemClock;
 import android.util.Log;
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
@@ -23,6 +24,8 @@ public class ForegroundService extends Service {
      * Declaration of the name inside the notification
      */
     public String CHANNEL_ID = "ForegroundService";
+    static Thread thread;
+
     /**
      * Constructor
      */
@@ -74,14 +77,32 @@ public class ForegroundService extends Service {
         /**
          * Trying to open file-stream from copied Uri
          */
-        try{
-            MediaMetadataRetriever mediaMetadataRetriever = new MediaMetadataRetriever();
-            mediaMetadataRetriever.setDataSource(getApplication(), otherUri);
-        }catch (Exception e){
-            Log.d("Prep", e.getMessage());
-        }
+
+        /**
+            Launch a thread that performs the actual work
+         */
+        thread = new Thread(new Runnable() {
+            public void run() {
+                // do thread work
+                SystemClock.sleep(15000);
+            }
+        });
+        thread.start();
+
         return START_NOT_STICKY;
     }
+
+    /**
+     * Waits for the work thread to finish.
+     */
+    static void join() {
+        try {
+            ForegroundService.thread.join();
+        } catch(InterruptedException e) {
+            DebugLog.log(e.getMessage());
+        }
+    }
+
     /**
      * Necessary function overrides
      */
