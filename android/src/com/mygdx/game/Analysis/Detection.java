@@ -1,24 +1,16 @@
 package com.mygdx.game.Analysis;
 
-import android.os.Debug;
-
-import java.util.Set;
-import java.util.Map;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.ArrayList;
-import java.util.Vector;
-
-import com.mygdx.game.DebugLog;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.PoseEstimation.nn.MPI.body_part;
+
 /**
  * @author Nico van Bentum
  * This class handles checking the vector data for certain FUTURE: Actions
  * and FUTURE: Patterns. For now these are just single functions with descriptive names.
  * TODO: Implement more generic framework.
  */
-public class Detection {
+class Detection {
     /**
      * Interface to the vector data.
      */
@@ -28,7 +20,7 @@ public class Detection {
      * Constructor, initializes class fields.
      * @param data Data interface object.
      */
-    public Detection(final Data data) {
+    Detection(final Data data) {
         this.data = data;
     }
 
@@ -37,7 +29,7 @@ public class Detection {
      * @param v Input vector.
      * @return Vector with absolute values.
      */
-    public Vector3 abs(Vector3 v) {
+    private Vector3 abs(Vector3 v) {
         return new Vector3(
             Math.abs(v.x),
             Math.abs(v.y),
@@ -50,7 +42,7 @@ public class Detection {
      * @param dt Given amount of time for it to be true.
      * @return if the Action was detected or not.
      */
-    public boolean handsFound(float dt) {
+    boolean handsFound(float dt) {
         boolean inAction = false;
         float action_time = 0;
         for(int i = 0; i < data.getFrameCount(); i++) {
@@ -84,7 +76,7 @@ public class Detection {
      * @param dt How long the condition has to be true for (in seconds).
      * @return If the Action was detected or not.
      */
-    public boolean HandsIdle(float dt, double threshold) {
+    boolean HandsIdle(float dt, double threshold) {
         boolean inAction = false;
         float actionTime = 0;
 
@@ -115,14 +107,12 @@ public class Detection {
             if(inAction) {
                 if(movedHands) {
                     inAction = false;
-                    continue;
                 } else {
                     // add a second
                     actionTime += 1.0f / data.getFps();
                 }
             }
         }
-
         return false;
     }
 
@@ -131,7 +121,7 @@ public class Detection {
      * @param dt How long the condition has to be true for (in seconds).
      * @return If the Action was detected or not.
      */
-    public boolean handsAboveHead(float dt) {
+    boolean handsAboveHead(float dt) {
         boolean inAction = false;
         float action_time = 0;
         for(int i = 0; i < data.getFrameCount(); i++) {

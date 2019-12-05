@@ -10,7 +10,7 @@ public class Action {
      * @param name Name of the action.
      * Constructor.
      */
-    public Action(final String name) {
+    Action(final String name) {
         this.name = name;
     }
 
@@ -18,7 +18,7 @@ public class Action {
      * Requests if the Action has occurred or not.
      * @return Whether the Action occurred or not.
      */
-    public boolean occurred() {
+    boolean occurred() {
         return occurred;
     }
 
@@ -26,7 +26,7 @@ public class Action {
      * Sets the occurrence.
      * @param occ New occurrence to set.
      */
-    public void setOccurrence(boolean occ) {
+    void setOccurrence(boolean occ) {
         occurred = occ;
     }
 
@@ -38,8 +38,7 @@ public class Action {
 
     /**
      * Setter for the Action's name.
-     * @param new_name
-     * @return void
+     * @param new_name new name
      */
     public void setName(String new_name) { name = new_name; }
 

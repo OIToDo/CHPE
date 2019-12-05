@@ -1,10 +1,7 @@
 package com.mygdx.game.Analysis;
 
 import java.util.HashMap;
-
-import com.mygdx.game.PoseEstimation.nn.MPI;
 import com.mygdx.game.PoseEstimation.nn.MPI.body_part;
-import com.mygdx.game.persistance.*;
 
 /**
  * @author Nico van Bentum
@@ -12,11 +9,6 @@ import com.mygdx.game.persistance.*;
  * of vector coordinates for detecting human body language and actions.
  */
 public class Analysis {
-    /**
-     * An interface object to the vector data used needed for filtering and processing.
-     */
-    private final Data data;
-
     /**
      * A handle to the detection class that handles detecting specific Actions.
      */
@@ -32,7 +24,6 @@ public class Analysis {
      * @param data Object for interfacing with the data set.
      */
     public Analysis(final Data data) {
-        this.data = data;
         detection = new Detection(data);
         filter = new Filter(data);
     }

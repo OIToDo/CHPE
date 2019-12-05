@@ -13,7 +13,7 @@ import java.util.ArrayList;
  * @author Nico van Bentum
  * This class can perform various filtering actions on a Data class.
  */
-public class Filter {
+class Filter {
     /**
      * Data you want to filter.
      */
@@ -23,14 +23,14 @@ public class Filter {
      * Constructor, sets the data.
      * @param pData external data object.
      */
-    public Filter(Data pData) {
+    Filter(final Data pData) {
         data = pData;
     }
 
     /**
      * Looks for zeros in the entire data set and changes them to previous entry.
      */
-    public void resolveZeros() {
+    void resolveZeros() {
         for(body_part bp : body_part.values()) {
             for(int f = 1; f < data.getFrameCount(); f++) {
                 Vector3 previous = data.getCoord(f-1, bp);
@@ -49,7 +49,7 @@ public class Filter {
      * @param b second number
      * @return resulting absolute average.
      */
-    public double absAverage(double a, double b) {
+    double absAverage(double a, double b) {
         return a + Math.abs((a - b) / 2);
     }
 
@@ -60,7 +60,7 @@ public class Filter {
      * @param left first body part
      * @param right second body part
      */
-    public void averageOf(body_part toUpdate, body_part left, body_part right) {
+    void averageOf(body_part toUpdate, body_part left, body_part right) {
         for(int f = 0; f < data.getFrameCount(); f++) {
             double x = absAverage(data.getCoord(f, left).x, data.getCoord(f, right).x);
             double y = absAverage(data.getCoord(f, left).x, data.getCoord(f, right).x);
@@ -73,7 +73,7 @@ public class Filter {
      * Performs a linear performed weighted average kernel filtering over the data set.
      * @param kernel array of doubles to use as kernel
      */
-    public void kernelFilter(double kernel[]) {
+    void kernelFilter(double kernel[]) {
         int offset = kernel.length / 2;
         int sum = 0;
         for(double weight : kernel) {
@@ -84,14 +84,13 @@ public class Filter {
             // create a vector for every coordinate of the body part
             ArrayList<Vector2> coords = new ArrayList<Vector2>();
 
-
             for(int f = offset; f < data.getFrameCount()-offset; f++) {
                 Vector2 acc = new Vector2(0, 0);
                 for(int i = 0; i < kernel.length; i++) {
                     acc.x += kernel[i] * data.getCoord(f + (i - offset), bp).x;
                     acc.y += kernel[i] * data.getCoord(f + (i - offset), bp).y;
                 }
-                // add the smoothed vector to the vector
+                // add the smoothed vector to the ArrayList of coordinates
                 coords.add(new Vector2(acc.x / sum, acc.y / sum));
             }
             // write the entire vector of coordinates for this specific  body part to

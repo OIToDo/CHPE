@@ -115,8 +115,6 @@ public class JSONData implements Data {
      * Implements Data's interface for writing the data back to the data structure.
      * Does nothing for now.
      */
-    public void serialize() {
-        return;
-    }
+    public void serialize() {}
 
 }

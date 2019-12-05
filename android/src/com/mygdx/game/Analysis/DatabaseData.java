@@ -45,9 +45,6 @@ public class DatabaseData implements Data {
     public Vector3 getCoord(int frame, body_part bp) {
         NNCoordinate nnCoordinate = this.nnVideoDAO.get_coordinates(frame,bp.ordinal(),
                 this.currentSession.id);
-
-        if(bp.ordinal() == 4) {
-        }
         return new Vector3((float) nnCoordinate.x, (float) nnCoordinate.y, 0);
     }
 
@@ -79,10 +76,7 @@ public class DatabaseData implements Data {
      * Implements Data's interface for writing the data back to the data structure.
      * Does nothing for now.
      */
-    public void serialize() {
-        return;
-    }
-
+    public void serialize() {}
 
     /**
      * Implements Data's interface for setting the x component of a coordinate.
