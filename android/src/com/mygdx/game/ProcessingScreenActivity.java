@@ -39,7 +39,6 @@ public class ProcessingScreenActivity extends AndroidApplication {
         /**
          * Android Version control for colored status bar
          */
-
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
             Window window = getWindow();
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
