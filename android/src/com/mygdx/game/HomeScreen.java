@@ -86,6 +86,7 @@ public class HomeScreen extends AndroidApplication {
         DebugLog.log(String.valueOf(loader.getFrameCount()));
         MockData mockData = new MockData(PersistenceClient.getInstance(getApplicationContext()).getAppDatabase(), loader.getArray());
         //mockData.executeInserts();
+        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_screen);
         /**
          * Initializing Views & Buttons by finding id's
