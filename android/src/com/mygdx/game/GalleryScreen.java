@@ -152,10 +152,12 @@ public class GalleryScreen extends AppCompatActivity implements Serializable {
         if(videoIsSelected) {
             toast = Toast.makeText(getApplicationContext(), "Started video analysis, this could take a while", Toast.LENGTH_LONG);
             toast.show();
+            Intent pauseIntent = new Intent(this, ProcessingScreenActivity.class);
             Intent serviceIntent = new Intent(this, ForegroundService.class);
             serviceIntent.putExtra("URI", videoUri.toString());
             serviceIntent.setData(videoUri);
             ContextCompat.startForegroundService(this, serviceIntent);
+            startActivity(pauseIntent);
         }
         else {
             toast = Toast.makeText(getApplicationContext(), "Failed to load video path", Toast.LENGTH_LONG);
