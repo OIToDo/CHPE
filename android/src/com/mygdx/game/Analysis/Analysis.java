@@ -55,9 +55,10 @@ public class Analysis {
      * Filters and processes the data.
      * Most of this will be done in Python first because of faster - and visual - testing.
      */
-    protected void process() {
+    public void process() {
         filter.resolveZeros();
         filter.averageOf(body_part.waist, body_part.l_hip, body_part.r_hip);
+
         // TODO: random filter taken from the Python application for now, pls fix
         for(int i = 0; i < 10; i++) {
             double kernel[] = {3, 6, 9, 50, 9, 6, 3};

@@ -84,7 +84,7 @@ public class ForegroundService extends Service {
         thread = new Thread(new Runnable() {
             public void run() {
                 // do thread work
-                SystemClock.sleep(15000);
+                SystemClock.sleep(2000);
             }
         });
         thread.start();
