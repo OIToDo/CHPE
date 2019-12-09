@@ -21,6 +21,12 @@ public class HelperClass {
 //        Gdx.gl.glLineWidth(1);
 //    }
 
+    /**
+     * This function returns the distance between two coordinates(Vector2).
+     * @param coords1
+     * @param coords2
+     * @return
+     */
     public static float PythagorasTheorem(Vector2 coords1, Vector2 coords2){
         double side1 = Math.abs(coords1.x-coords2.x);
         double side2 = Math.abs(coords1.y-coords2.y);
@@ -28,6 +34,12 @@ public class HelperClass {
         return (float)length;
     }
 
+    /**
+     * This function returns the angle between two coordinates(Vector2).
+     * @param coords1
+     * @param coords2
+     * @return
+     */
     public static float getAngle(Vector2 coords1, Vector2 coords2) {
         float angle = (float) Math.toDegrees(Math.atan2(coords1.y - coords2.y, coords1.x - coords2.x));
 
@@ -35,9 +47,15 @@ public class HelperClass {
             angle += 360;
         }
 
-        return angle;
+        return angle - 90;
     }
 
+    /**
+     * This function returns the subtraction of two Vector3.
+     * @param vec_1
+     * @param vec_2
+     * @return
+     */
     public static Vector3 vec3Subtraction(Vector3 vec_1, Vector3 vec_2){
         Vector3 result = new Vector3();
         result.x = vec_1.x - vec_2.x;

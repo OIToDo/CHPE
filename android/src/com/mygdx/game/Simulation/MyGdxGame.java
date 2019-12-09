@@ -28,6 +28,10 @@ import com.mygdx.game.Analysis.DatabaseData;
 import com.mygdx.game.HomeScreen;
 import com.mygdx.game.persistance.PersistenceClient;
 
+/**
+ * This is the main application class.
+ * This is were all the magic happens and the applications gets its final form.
+ */
 public class MyGdxGame implements ApplicationListener {
 	public PerspectiveCamera gameCam;
 	public PerspectiveCamera guiCam;
@@ -43,11 +47,20 @@ public class MyGdxGame implements ApplicationListener {
 	public Context context;
 	public Data data;
 
+	//todo Make functions to change the clear color and the player model colors from this main class.
+	public Color backgroundColor;
+	public Color preppieColor;
+
 	public int fieldOfView = 67;
 	private int frame = 0;
 	private int tick = 0;
 	public boolean loading;
 
+	/**
+	 * The create function creates the application.
+	 * The cameras are created and identified here.
+	 * All the needed objects for the application are created and initialized here.
+	 */
 	@Override
 	public void create(){
 
@@ -79,7 +92,7 @@ public class MyGdxGame implements ApplicationListener {
 		camController = new CameraInputController(gameCam);
 		Gdx.input.setInputProcessor(camController);
 
-		body.create(0,0,0,1f, data);
+		body.create(1f, data);
 
 		assets = new AssetManager();
 		assets.load("data/human.obj", Model.class);
@@ -95,6 +108,10 @@ public class MyGdxGame implements ApplicationListener {
 		font.setColor(Color.RED);
 	}
 
+	/**
+	 * This function is no longer needed for the current project, but might be needed later when we want to use actual 3D models (obj i.e.).
+	 * What this function does is it pre-loads the asset beforehand. You do not want this to be done during rendering.
+	 */
 	private void doneLoading(){
 		Model human = assets.get("data/human.obj", Model.class);
 		ModelInstance humanInstance = new ModelInstance(human);
@@ -107,6 +124,9 @@ public class MyGdxGame implements ApplicationListener {
 		loading = false;
 	}
 
+	/**
+	 * This is the main loop, going at a freq. of 60Hz.
+	 */
 	@Override
 	public void render(){
 		if (loading && assets.update()) {
@@ -115,7 +135,7 @@ public class MyGdxGame implements ApplicationListener {
 		camController.update();
 
 		Gdx.gl.glViewport(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-		Gdx.gl.glClearColor(0f, 0f, 0f, 1);
+		Gdx.gl.glClearColor(0f, 0.631f, 0.882f, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
 
 		// |-------------- test environment ------------|
@@ -142,6 +162,9 @@ public class MyGdxGame implements ApplicationListener {
 		batch.end();
 	}
 
+	/**
+	 * This function will be executed to dispose large resources.
+	 */
 	@Override
 	public void dispose(){
 		shader.dispose();
