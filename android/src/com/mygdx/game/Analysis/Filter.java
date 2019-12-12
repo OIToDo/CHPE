@@ -63,7 +63,7 @@ class Filter {
     void averageOf(body_part toUpdate, body_part left, body_part right) {
         for(int f = 0; f < data.getFrameCount(); f++) {
             double x = absAverage(data.getCoord(f, left).x, data.getCoord(f, right).x);
-            double y = absAverage(data.getCoord(f, left).x, data.getCoord(f, right).x);
+            double y = absAverage(data.getCoord(f, left).y, data.getCoord(f, right).y);
             data.setX(f, toUpdate, x);
             data.setY(f, toUpdate, y);
         }

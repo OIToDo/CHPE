@@ -85,7 +85,7 @@ public class HomeScreen extends AndroidApplication {
         DebugLog.log(loader.toString());
         DebugLog.log(String.valueOf(loader.getFrameCount()));
         MockData mockData = new MockData(PersistenceClient.getInstance(getApplicationContext()).getAppDatabase(), loader.getArray());
-        //mockData.executeInserts();
+        mockData.executeInserts();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_screen);
         /**
@@ -148,8 +148,6 @@ public class HomeScreen extends AndroidApplication {
     /**
      * Opens up a new Activity by setting an Intent
      * @author Gianluca Piccardo
-     * @param this current class
-     * @param PreviousresultActivity.class class to go to
      * @return void
      */
     public void openPreviousResultScreen(){
@@ -159,8 +157,6 @@ public class HomeScreen extends AndroidApplication {
     /**
      * Opens up a new Activity by setting an Intent
      * @author Gianluca Piccardo
-     * @param this current class
-     * @param CurrenresultActivity.class class to go to
      * @return void
      */
     public void openJUMP(){
@@ -170,8 +166,6 @@ public class HomeScreen extends AndroidApplication {
     /**
      * Opens up a new Activity by setting an Intent
      * @author Gianluca Piccardo
-     * @param this current class
-     * @param GalleryScreen.class class to go to
      * @return void
      */
     public void openLoadVideoScreen(){
