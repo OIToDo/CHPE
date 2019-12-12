@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="400dp"
+    android:layout_height="380dp"
+    android:layout_gravity="center">
+
+    <Button
+        android:id="@+id/ok_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="32dp"
+        android:background="@drawable/ok_button"
+        android:layout_marginBottom="24dp"
+        android:text="✓" />
+
+    <Button
+        android:id="@+id/cancel_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="24dp"
+        android:layout_marginStart="32dp"
+        android:background="@drawable/ok_button"
+        android:text="X" />
+
+    <VideoView
+        android:id="@+id/videoView2"
+        android:layout_width="400dp"
+        android:layout_height="225dp">
+</VideoView>
+
+    <FrameLayout
+        android:id="@+id/videoViewWrapper"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true" >
+    </FrameLayout>
+
+</RelativeLayout>
