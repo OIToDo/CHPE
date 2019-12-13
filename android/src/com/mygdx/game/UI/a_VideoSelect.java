@@ -1,9 +1,14 @@
 package com.mygdx.game.UI;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
+import android.Manifest;
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -19,6 +24,7 @@ import com.mygdx.game.R;
 
 public class a_VideoSelect extends AppCompatActivity {
     final int SELECT_VIDEO_REQUEST = 1;
+    private static final int PERMISSION_CODE = 2;
 
     Uri videoUri;
     Dialog dialog;
@@ -26,6 +32,25 @@ public class a_VideoSelect extends AppCompatActivity {
     ImageButton b_selectVideo;
     MediaController mediaController;
     boolean videoIsSelected = false;
+
+    public void requestPermissions() {
+        ActivityCompat.requestPermissions(this,
+                new String[]{
+                        Manifest.permission.READ_EXTERNAL_STORAGE,
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                        Manifest.permission.INTERNET,
+                        Manifest.permission.CAMERA,
+                        Manifest.permission.FOREGROUND_SERVICE,
+                        Manifest.permission.WAKE_LOCK
+                },
+                1);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        openVideoGallery();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +63,7 @@ public class a_VideoSelect extends AppCompatActivity {
         b_selectVideo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openVideoGallery();
+                requestPermissions();
             }
         });
     }
@@ -51,7 +76,8 @@ public class a_VideoSelect extends AppCompatActivity {
         b_OK.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dialog.dismiss();
+                Intent intent = new Intent(getApplicationContext(), a_Loading.class);
+                startActivity(intent);
             }
         });
 
@@ -69,7 +95,7 @@ public class a_VideoSelect extends AppCompatActivity {
         videoView.setVideoURI(videoUri);
         videoIsSelected = true;
 
-        mediaController = new MediaController(this);
+/*        mediaController = new MediaController(this);
         mediaController.setAnchorView(videoView);
         videoView.setMediaController(mediaController);
 
@@ -77,7 +103,8 @@ public class a_VideoSelect extends AppCompatActivity {
 
         ((FrameLayout) dialog.findViewById(R.id.videoViewWrapper))
                 .addView(mediaController);
-        mediaController.setVisibility(View.VISIBLE);
+        mediaController.setVisibility(View.VISIBLE);*/
+        videoView.start();
     }
 
     public void openVideoGallery() {
@@ -102,7 +129,6 @@ public class a_VideoSelect extends AppCompatActivity {
             if (requestCode == SELECT_VIDEO_REQUEST) {
                 Toast toast = Toast.makeText(getApplicationContext(), "nee", Toast.LENGTH_LONG);
                 toast.show();
-                b_selectVideo.setVisibility(View.GONE);
                 showDialog();
                 initializePlayer(data.getData().toString());
             }
