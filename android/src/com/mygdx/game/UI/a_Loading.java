@@ -1,8 +1,13 @@
 package com.mygdx.game.UI;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;
 
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -74,12 +79,34 @@ public class a_Loading extends AppCompatActivity {
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
+                        notifyUser();
                         b_Results.setVisibility(View.VISIBLE);
                     }
                 });
             }
         });
         startService();
+    }
+
+    public void notifyUser() {
+        int importance = NotificationManager.IMPORTANCE_LOW;
+        final String CHANNEL_ID = "notifyUser";
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, new Intent(getApplicationContext(), a_Results.class), PendingIntent.FLAG_UPDATE_CURRENT);
+        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        NotificationChannel notificationChannel = new NotificationChannel(CHANNEL_ID, "notifyUser", importance);
+        notificationChannel.setDescription("Your video has been processed");
+        notificationChannel.enableLights(true);
+        notificationChannel.setLightColor(Color.RED);
+        notificationManager.createNotificationChannel(notificationChannel);
+        Notification notification = new NotificationCompat.Builder(this, "ForeGroundService")
+                .setContentTitle("TEST")
+                .setContentText("NICO JE ZUS")
+                .setSmallIcon(R.drawable.testplaatje)
+                .setContentIntent(pendingIntent)
+                .setOngoing(true)
+                .setChannelId(CHANNEL_ID)
+                .build();
+        notificationManager.notify(12, notification);
     }
 
     public void startService() {
