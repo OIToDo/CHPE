@@ -4,6 +4,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="315dp"
+    android:background="@drawable/pop_up_background"
     android:layout_gravity="center">
 
     <Button
