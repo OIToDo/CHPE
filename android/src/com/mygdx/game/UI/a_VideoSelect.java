@@ -9,6 +9,7 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -94,16 +95,24 @@ public class a_VideoSelect extends AppCompatActivity {
         videoUri = Uri.parse(name);
         videoView.setVideoURI(videoUri);
         videoIsSelected = true;
-
-/*        mediaController = new MediaController(this);
-        mediaController.setAnchorView(videoView);
-        videoView.setMediaController(mediaController);
-
-        ((ViewGroup) mediaController.getParent()).removeView(mediaController);
-
-        ((FrameLayout) dialog.findViewById(R.id.videoViewWrapper))
-                .addView(mediaController);
-        mediaController.setVisibility(View.VISIBLE);*/
+        videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+            @Override
+            public void onPrepared(MediaPlayer mp) {
+                mp.setOnVideoSizeChangedListener(new MediaPlayer.OnVideoSizeChangedListener() {
+                    @Override
+                    public void onVideoSizeChanged(MediaPlayer mp, int width, int height) {
+                        MediaController mediaController = new MediaController(a_VideoSelect.this);
+                        mediaController.setVisibility(View.VISIBLE);
+                        videoView.setMediaController(mediaController);
+                        mediaController.setAnchorView(videoView);
+                        ((ViewGroup) mediaController.getParent()).removeView(mediaController);
+                        ((FrameLayout) dialog.findViewById(R.id.framertje))
+                                .addView(mediaController);
+                    }
+                });
+            }
+        });
+        videoView.setVideoURI(videoUri);
         videoView.start();
     }
 

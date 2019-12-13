@@ -30,7 +30,18 @@
     <VideoView
         android:id="@+id/videoView2"
         android:layout_width="match_parent"
-        android:layout_height="225dp">
-</VideoView>
+        android:layout_height="225dp" />
+
+    <FrameLayout
+        android:id="@+id/framertje"
+        android:layout_width="match_parent"
+        android:layout_height="78dp"
+        android:layout_below="@+id/videoView2"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="-65dp"
+        android:layout_marginEnd="0dp"
+        android:orientation="horizontal" />
 
 </RelativeLayout>
