@@ -13,8 +13,13 @@ import android.net.Uri;
 import android.os.IBinder;
 import android.os.SystemClock;
 import android.util.Log;
+import android.widget.Toast;
+
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
+
+import com.mygdx.game.UI.a_Loading;
+
 /**
  * Class where the neural network will analyze the video footage
  * @author Gianluca Piccardo
@@ -25,6 +30,11 @@ public class ForegroundService extends Service {
      */
     public String CHANNEL_ID = "ForegroundService";
     static Thread thread;
+    static Runnable work;
+
+    public static void setWork(Runnable r) {
+        work = r;
+    }
 
     /**
      * Constructor
@@ -54,8 +64,7 @@ public class ForegroundService extends Service {
          * Creating NotificationChannel & NotificationManager with necessary Intents
          */
         int importance = NotificationManager.IMPORTANCE_DEFAULT;
-        Intent processScreenActivity = new Intent(this, ProcessingScreenActivity.class);
-        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, processScreenActivity, 0);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, new Intent(getApplicationContext(), a_Loading.class), PendingIntent.FLAG_UPDATE_CURRENT);
         NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         NotificationChannel notificationChannel = new NotificationChannel(CHANNEL_ID, "JointFinder", importance);
         notificationChannel.setDescription("Channel for neural network");
@@ -75,32 +84,19 @@ public class ForegroundService extends Service {
          */
         startForeground(7, notification);
         /**
-         * Trying to open file-stream from copied Uri
-         */
-
-        /**
             Launch a thread that performs the actual work
          */
         thread = new Thread(new Runnable() {
             public void run() {
-                // do thread work
-                SystemClock.sleep(2000);
+                work.run();
+                //DebugLog.log("LOGGER: DONE WORKING");
+                stopForeground(true);
+                stopSelf();
             }
         });
         thread.start();
 
         return START_NOT_STICKY;
-    }
-
-    /**
-     * Waits for the work thread to finish.
-     */
-    static void join() {
-        try {
-            ForegroundService.thread.join();
-        } catch(InterruptedException e) {
-            DebugLog.log(e.getMessage());
-        }
     }
 
     /**
