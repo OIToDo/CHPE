@@ -13,6 +13,7 @@ import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -59,6 +60,20 @@ public class a_VideoSelect extends AppCompatActivity {
         setContentView(R.layout.layout_video_select);
         AAL.setTitleBar(getWindow());
         dialog = new Dialog(this);
+        mediaController = new MediaController(a_VideoSelect.this) {
+            @Override
+            public void show(int timeout) {
+                super.show(timeout);
+                setVisibility(VISIBLE);
+            }
+
+            @Override
+            public void hide() {
+                super.hide();
+                setVisibility(INVISIBLE);
+            }
+        };
+
 
         b_selectVideo = findViewById(R.id.select_button);
         b_selectVideo.setOnClickListener(new View.OnClickListener() {
@@ -101,8 +116,7 @@ public class a_VideoSelect extends AppCompatActivity {
                 mp.setOnVideoSizeChangedListener(new MediaPlayer.OnVideoSizeChangedListener() {
                     @Override
                     public void onVideoSizeChanged(MediaPlayer mp, int width, int height) {
-                        MediaController mediaController = new MediaController(a_VideoSelect.this);
-                        mediaController.setVisibility(View.VISIBLE);
+                        mediaController.hide();
                         videoView.setMediaController(mediaController);
                         mediaController.setAnchorView(videoView);
                         ((ViewGroup) mediaController.getParent()).removeView(mediaController);
