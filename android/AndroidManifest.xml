@@ -7,15 +7,16 @@
 
     <application
         android:allowBackup="false"
+        android:alwaysRetainTaskState="true"
         android:appCategory="game"
         android:icon="@drawable/ic_launcher_foreground"
         android:isGame="false"
-        android:alwaysRetainTaskState="true"
         android:label="Prepper"
         android:screenOrientation="portrait"
         android:theme="@style/Theme.AppCompat.NoActionBar"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".UI.a_Archive"></activity>
+        <activity android:name=".UI.a_Results"></activity>
+        <activity android:name=".UI.a_Archive" />
         <activity android:name=".UI.a_VideoSelect" />
 
         <uses-library
@@ -29,8 +30,9 @@
         <activity android:name=".CurrentResultActivity" />
         <activity android:name=".PreviousResultActivity" />
         <activity android:name=".GalleryScreen" />
-        <activity android:name=".UI.a_Loading"
-            android:launchMode="singleTask"/>
+        <activity
+            android:name=".UI.a_Loading"
+            android:launchMode="singleTask" />
         <activity
             android:name=".UI.a_Home"
             android:screenOrientation="portrait"

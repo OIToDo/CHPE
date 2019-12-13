@@ -19,6 +19,7 @@ import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
 
 import com.mygdx.game.UI.a_Loading;
+import com.mygdx.game.UI.a_Results;
 
 /**
  * Class where the neural network will analyze the video footage

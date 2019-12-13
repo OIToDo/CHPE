@@ -3,11 +3,14 @@ package com.mygdx.game.UI;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.SystemClock;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -23,12 +26,24 @@ public class a_Loading extends AppCompatActivity {
     TextView progressText;
     ProgressBar progressBar;
     Handler handler = new Handler();
+    Button b_Results;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_loading);
         AAL.setTitleBar(getWindow());
+
+        b_Results = findViewById(R.id.resultsButton);
+        b_Results.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Context context = getApplicationContext();
+                Intent intent = new Intent(context, a_Results.class);
+                startActivity(intent);
+            }
+        });
+        b_Results.setVisibility(View.INVISIBLE);
 
         // get the progress bar and set its precision
         progressText = findViewById(R.id.progressTextView);
@@ -56,9 +71,14 @@ public class a_Loading extends AppCompatActivity {
                     }
                     progress += 1;
                 }
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        b_Results.setVisibility(View.VISIBLE);
+                    }
+                });
             }
         });
-
         startService();
     }
 
