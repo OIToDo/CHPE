@@ -1,5 +1,6 @@
 package com.mygdx.game.UI;
 
+import android.content.Context;
 import android.graphics.Color;
 import android.view.View;
 import android.view.Window;
@@ -18,4 +19,9 @@ class AAL {
             window.setStatusBarColor(0);
         }
     }
+
+    static void requestPermissions(Context context, String[] permissions) {
+
+    }
+
 }

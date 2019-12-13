@@ -3,11 +3,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.mygdx.game">
 
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
     <application
         android:allowBackup="false"
         android:appCategory="game"
         android:icon="@drawable/ic_launcher_foreground"
         android:isGame="false"
+        android:alwaysRetainTaskState="true"
         android:label="Prepper"
         android:screenOrientation="portrait"
         android:theme="@style/Theme.AppCompat.NoActionBar"
@@ -26,7 +29,8 @@
         <activity android:name=".CurrentResultActivity" />
         <activity android:name=".PreviousResultActivity" />
         <activity android:name=".GalleryScreen" />
-        <activity android:name=".UI.a_Loading" />
+        <activity android:name=".UI.a_Loading"
+            android:launchMode="singleTask"/>
         <activity
             android:name=".UI.a_Home"
             android:screenOrientation="portrait"
