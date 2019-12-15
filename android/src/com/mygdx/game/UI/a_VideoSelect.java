@@ -12,6 +12,7 @@ import android.content.pm.PackageManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Debug;
 import android.provider.MediaStore;
 import android.view.MotionEvent;
 import android.view.View;
@@ -20,9 +21,12 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.MediaController;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.VideoView;
 import com.mygdx.game.R;
+
+import org.w3c.dom.Text;
 
 public class a_VideoSelect extends AppCompatActivity {
     final int SELECT_VIDEO_REQUEST = 1;
@@ -34,6 +38,7 @@ public class a_VideoSelect extends AppCompatActivity {
     ImageButton b_selectVideo;
     MediaController mediaController;
     boolean videoIsSelected = false;
+    String filepath;
 
     public void requestPermissions() {
         ActivityCompat.requestPermissions(this,
@@ -89,6 +94,9 @@ public class a_VideoSelect extends AppCompatActivity {
         videoView = dialog.findViewById(R.id.videoView2);
         Button b_OK = dialog.findViewById(R.id.ok_button);
         Button b_Cancel = dialog.findViewById(R.id.cancel_button);
+        TextView textView = dialog.findViewById(R.id.textView4);
+        textView.setText(filepath);
+
         b_OK.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -96,7 +104,6 @@ public class a_VideoSelect extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
         b_Cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -108,6 +115,7 @@ public class a_VideoSelect extends AppCompatActivity {
 
     public void initializePlayer(String name) {
         videoUri = Uri.parse(name);
+        //filepath = videoUri.getPath();
         videoView.setVideoURI(videoUri);
         videoIsSelected = true;
         videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
@@ -150,8 +158,9 @@ public class a_VideoSelect extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
             if (requestCode == SELECT_VIDEO_REQUEST) {
-                Toast toast = Toast.makeText(getApplicationContext(), "nee", Toast.LENGTH_LONG);
+                Toast toast = Toast.makeText(getApplicationContext(), data.getData().getPath(), Toast.LENGTH_LONG);
                 toast.show();
+                filepath = data.getData().getPath();
                 showDialog();
                 initializePlayer(data.getData().toString());
             }

@@ -8,6 +8,7 @@
     <string name="Video_Select">Video Select</string>
     <string name="Start_Analysis">Start Analysis</string>
     <string name="progress_value">0%</string>
+   <!-- <string name="filepath">Your filepath is: </string>-->
 
 </resources>
 

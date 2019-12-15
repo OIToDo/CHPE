@@ -7,6 +7,18 @@
     android:background="@drawable/pop_up_background"
     android:layout_gravity="center">
 
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="match_parent"
+        android:text=""
+        android:layout_centerInParent="true"
+        android:layout_height="20sp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginEnd="0dp"
+        android:layout_marginBottom="80dp" />
     <Button
         android:id="@+id/ok_button"
         android:layout_width="wrap_content"

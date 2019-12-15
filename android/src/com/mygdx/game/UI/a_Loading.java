@@ -99,10 +99,11 @@ public class a_Loading extends AppCompatActivity {
         notificationChannel.setLightColor(Color.RED);
         notificationManager.createNotificationChannel(notificationChannel);
         Notification notification = new NotificationCompat.Builder(this, "ForeGroundService")
-                .setContentTitle("TEST")
-                .setContentText("NICO JE ZUS")
+                .setContentTitle("Prepper")
+                .setContentText("Neural Network is done.")
                 .setSmallIcon(R.drawable.testplaatje)
                 .setContentIntent(pendingIntent)
+                .setAutoCancel(true)
                 .setOngoing(true)
                 .setChannelId(CHANNEL_ID)
                 .build();
