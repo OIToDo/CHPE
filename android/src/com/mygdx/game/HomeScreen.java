@@ -72,7 +72,7 @@ public class HomeScreen extends AndroidApplication {
         loader = new JSONLoader(r);
 
         MockData mockData1 = new MockData(PersistenceClient.getInstance(getApplicationContext()).getAppDatabase(), loader.toString());
-        mockData1.executeInserts();
+        //mockData1.executeInserts();
 
 
 

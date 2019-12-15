@@ -53,7 +53,7 @@ public class NNInserts {
      * @param videoId    the video id based on the database insert
      * @param frameCount the nth frame count to ensure it's placed in order.
      */
-    void insertPerson(Person person, long videoId, int frameCount) {
+    void insertPerson(Person person, long videoId, long frameCount) {
 
         // Creating new frame for the instance
         NNFrame nnFrame = new NNFrame(frameCount);

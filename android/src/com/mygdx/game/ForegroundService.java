@@ -11,16 +11,19 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.IBinder;
 
+import com.mygdx.game.PoseEstimation.Session;
+import com.mygdx.game.VideoHandler.VideoSplicer;
+import com.mygdx.game.VideoHandler.VideoSplicerUri;
+import com.mygdx.game.VideoHandler.VideoSplicerUriLegacy;
+
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
-
-import com.mygdx.game.PoseEstimation.Session;
-import com.mygdx.game.VideoHandler.VideoSplicerUri;
 
 public class ForegroundService extends Service {
     public String CHANNEL_ID = "ForegroundService";
     public static final int NOTIF_ID = 7;
     public Notification notification;
+    public Thread thread;
 
     @Override
     public void onCreate() {
@@ -50,19 +53,18 @@ public class ForegroundService extends Service {
                 .build();
 
         startForeground(NOTIF_ID, this.notification);
-        new Thread(new Runnable() {
+        thread = new Thread(new Runnable() {
             public void run() {
                 //String videoPath = intent.getStringExtra("videoPath");
-
                 Uri otherUri = intent.getData();
-                VideoSplicerUri videoSplicerUri = new VideoSplicerUri(otherUri, getApplication());
+                VideoSplicer videoSplicerUri = new VideoSplicerUriLegacy(otherUri, getApplication());
                 Session session = new Session(otherUri, getApplication(), videoSplicerUri);
                 session.runVideo();
                 session.normaliseData();
-
             }
-        }).start();
-        stopSelf();
+        });
+
+        thread.start();
 
         return START_NOT_STICKY;
     }

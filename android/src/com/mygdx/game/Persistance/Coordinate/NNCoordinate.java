@@ -78,6 +78,7 @@ public class NNCoordinate {
      * @param x  the x coordinate
      * @param y  the y coordinate
      */
+    @Ignore
     public NNCoordinate(int id, int x, int y) {
         this.id = id;
         this.x = x;

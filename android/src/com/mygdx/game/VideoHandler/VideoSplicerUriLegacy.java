@@ -4,15 +4,14 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.media.MediaMetadataRetriever;
 import android.net.Uri;
-import android.util.Log;
 
+import com.mygdx.game.DebugLog;
 import com.mygdx.game.Exceptions.InvalidFrameAccess;
 
 import java.security.InvalidParameterException;
 import java.util.HashMap;
 import java.util.Random;
 
-import static android.media.MediaMetadataRetriever.OPTION_CLOSEST;
 import static android.media.MediaMetadataRetriever.OPTION_CLOSEST_SYNC;
 import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
 
@@ -20,7 +19,7 @@ import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
  * The type Video splicer.
  */
 public class VideoSplicerUriLegacy extends VideoSplicerUri {
-    private static final String TAG = VideoSplicerUri.class.getSimpleName();
+    private static final String TAG = VideoSplicerUriLegacy.class.getSimpleName();
     /**
      * The M uri.
      */
@@ -36,10 +35,9 @@ public class VideoSplicerUriLegacy extends VideoSplicerUri {
     /**
      * The Total time.
      */
-    public long totalTime; // TODO: Update to allow longer video's. The current limit would be
-    private long usToS, sToUS = 1000000; // Converting microseconds to seconds, double assignment for usability reasons.
+    private long totalTime; // TODO: Update to allow longer video's. The current limit would be the size of an integer.
 
-    private MediaMetadataRetriever mediaMetadataRetriever = new MediaMetadataRetriever();
+    private static long microSecondsToMiliseconds = 1000;
 
 
     /**
@@ -76,14 +74,28 @@ public class VideoSplicerUriLegacy extends VideoSplicerUri {
     }
 
 
-
-    private void initialiseVideoSplicerLegacy(){
+    private void initialiseVideoSplicerLegacy() {
         this.totalTime = getVideoDuration();
+
         // Calculating the iter frame count based on those values
         this.iterTimeUs = getFrameIterTime();
 
+
+        // DebugLog.log(this.iterTimeUs + " duur frame per seconde");
+        //this.frameCount = getAmountOfFrames();
+        getAmountOfFrames();
+
     }
 
+    private void getAmountOfFrames() {
+        DebugLog.log(this.totalTime + " totale duur");
+        DebugLog.log(this.iterTimeUs + " duur frame per seconde");
+        long l = this.iterTimeUs / microSecondsToMiliseconds;
+        DebugLog.log(l + " geconverteerde frame tijd");
+
+        this.frameCount = totalTime / l;
+        DebugLog.log(this.frameCount + " frame count");
+    }
 
 
     /**
@@ -95,59 +107,31 @@ public class VideoSplicerUriLegacy extends VideoSplicerUri {
     @Override
     public Bitmap getNextFrame(int frame) {
 
-        if(frame == 0 || frame < 0 || frame > this.frameCount){
+        if (frame == 0 || frame < 0 || frame > this.frameCount) {
             throw new InvalidParameterException("Value must between 1 - " + this.frameCount);
         }
         return this.mediaMetadataRetriever.getFrameAtTime(
                 frame * this.iterTimeUs);
     }
 
-
-    /**
-     * Gets random frame.
-     *
-     * @return the random frame
-     */
-    public Bitmap getRandomFrame() {
-        return this.mediaMetadataRetriever.getFrameAtTime(
-                (new Random().nextInt(this.frameCount) + 1) // getting a random int.
-                        // Ensuring that the frame isn't zero.
-                        * this.iterTimeUs, OPTION_CLOSEST_SYNC );
-    }
-
-
     /**
      * Gets frame iter time.
      *
      * @return the frame iter time
-     * @throws ArithmeticException the arithmetic exception
      */
-    public long getFrameIterTime() throws ArithmeticException {
-        try {
-            return (this.totalTime / this.frameCount);
-        } catch (ArithmeticException ae) {
-            // TODO: Notify user of invalid file.
-            throw new ArithmeticException(ae.toString());
-        }
-    }
+    private long getFrameIterTime() {
 
-    private void calculateFramesPerSecond() throws ArithmeticException {
-        try {
-            this.iterTimeUs = (this.sToUS * 60) / (this.getFrameIterTime());
-        } catch (ArithmeticException ae) {
-            // TODO: Notify user of invalid file.
-            throw new ArithmeticException(ae.toString());
-        }
-    }
+        Bitmap bp;
+        long ms = 0;
 
-    @Override
-    public float getFramesPerSecond() {
-        try {
-            return this.sToUS / (this.getFrameIterTime());
-        } catch (ArithmeticException ae) {
-            // TODO: Notify user of invalid file.
-            throw new ArithmeticException(ae.toString());
-        }
+        // Get initial frame
+        bp = getFrameAtTime(ms);
+        do{
+            ms+=1; // Warning: Terribly slow. TODO: Dynamic increment
+        }while(bp.sameAs(getFrameAtTime(ms)) );
+
+        return ms;
+
     }
 
     /**
@@ -167,6 +151,13 @@ public class VideoSplicerUriLegacy extends VideoSplicerUri {
             return mp;
         }
         throw new InvalidFrameAccess("InvalidFrameAccess", new Throwable("Next Frame doesn't exist."));
+    }
+
+
+    private Bitmap getFrameAtTime(long ms) {
+        return this.mediaMetadataRetriever.getFrameAtTime(
+                ms);
+
     }
 
 

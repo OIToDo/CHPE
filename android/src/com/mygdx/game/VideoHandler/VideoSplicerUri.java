@@ -2,7 +2,6 @@ package com.mygdx.game.VideoHandler;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.media.MediaMetadataRetriever;
 import android.net.Uri;
 import android.util.Log;
@@ -16,7 +15,7 @@ import com.mygdx.game.Exceptions.InvalidFrameAccess;
 public class VideoSplicerUri implements VideoSplicer {
     private static final String TAG = VideoSplicerUri.class.getSimpleName();
     private static final int META_VIDEO_FRAME_COUNT = 32;
-    private static final int META_VIDEO_FRAME_RATE = 25;
+    private static final int META_VIDEO_FRAME_RATE = 25; // METADATA_KEY_CAPTURE_FRAMERATE
     private static final int META_VIDEO_DURATION = 9;
     /**
      * The M uri.
@@ -27,15 +26,15 @@ public class VideoSplicerUri implements VideoSplicer {
      */
     private Uri uri;
 
-    private MediaMetadataRetriever mediaMetadataRetriever = new MediaMetadataRetriever();
+    MediaMetadataRetriever mediaMetadataRetriever = new MediaMetadataRetriever();
     /**
      * The Frame count.
      */
-    public int frameCount = -1;
+    long frameCount = -1;
     /**
      * The Frames processed.
      */
-    public int framesProcessed = 0;
+    long framesProcessed = 0;
 
     /**
      * Instantiates a new Video splicer.
@@ -69,8 +68,6 @@ public class VideoSplicerUri implements VideoSplicer {
         this.getVideoDuration();
 
         // Getting the amount of frames in video
-        this.getAmountOfFrames();
-
     }
 
 
@@ -88,7 +85,7 @@ public class VideoSplicerUri implements VideoSplicer {
      *
      * @return the frame count
      */
-    public int getFrameCount() {
+    public long getFrameCount() {
         return this.frameCount;
     }
 
@@ -97,19 +94,9 @@ public class VideoSplicerUri implements VideoSplicer {
      *
      * @return the frames processed
      */
-    public int getFramesProcessed() {
+    public long getFramesProcessed() {
         return framesProcessed;
     }
-
-    /**
-     * Get frames per second float.
-     *
-     * @return the float
-     */
-    public float getFramesPerSecond() {
-        return Float.parseFloat(this.mediaMetadataRetriever.extractMetadata(META_VIDEO_FRAME_RATE));
-    }
-
 
     /**
      * Gets video duration.
@@ -122,6 +109,7 @@ public class VideoSplicerUri implements VideoSplicer {
             String sTotalTime = this.mediaMetadataRetriever.extractMetadata(META_VIDEO_DURATION);
             return Long.parseLong(sTotalTime);
         } catch (NumberFormatException nfe) {
+            DebugLog.log("125: Line Exception" + nfe);
             throw new NumberFormatException();
         }
 
@@ -167,11 +155,17 @@ public class VideoSplicerUri implements VideoSplicer {
      * @throws InvalidFrameAccess the invalid frame access
      */
     public Bitmap getNextFrame() throws InvalidFrameAccess {
+
+        // TODO: Replace frameCount validator
+
+        if (this.frameCount == -1) {
+            this.getAmountOfFrames();
+        }
         if (isNextFrameAvailable()) {
-            Bitmap mp = Bitmap.createBitmap(200, 200, Bitmap.Config.ALPHA_8);
+            Bitmap mp;
             try {
                 mp = this.mediaMetadataRetriever.getFrameAtIndex(
-                        this.framesProcessed);
+                        Math.toIntExact(this.framesProcessed)); //TODO: Solve type cast juggling
                 this.framesProcessed += 1;
 
             } catch (IllegalStateException ise) {

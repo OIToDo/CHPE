@@ -27,12 +27,13 @@ public class DatabaseData implements Data {
     /**
      * Implements Data's interface function for getting a single coordinate using Java's JSON library.
      */
-    public Vector3 getCoord(int frame, body_part bp) {
-        NNCoordinate nnCoordinate = this.nnVideoDAO.getCoordinates(frame,bp.ordinal(),
-                this.currentSession.id);
+    public Vector3 getCoord(long frame, body_part bp) {
+        //NNCoordinate nnCoordinate = this.nnVideoDAO.getCoordinates(frame,bp.ordinal(),
+        //        this.currentSession.id);
         if(bp.ordinal() == 4) {
         }
-        return new Vector3((float) nnCoordinate.x, (float) nnCoordinate.y, 0);
+        //return new Vector3((float) nnCoordinate.x, (float) nnCoordinate.y, 0);
+        return new Vector3(0.0f, 0.0f, 0);
     }
 
     /**
@@ -46,7 +47,7 @@ public class DatabaseData implements Data {
     /**
      * Implements Data's interface function for getting the frame count using the read JSON data.
      */
-    public int getFrameCount() {
+    public long getFrameCount() {
         return this.currentSession.frame_count;
     }
 

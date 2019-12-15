@@ -1,13 +1,23 @@
 package com.mygdx.game.PoseEstimation;
 
+import android.content.Context;
 
-/*
- * The Current VideoSplicer only works based on intents.
- * The test suite needs to be adapted for this.
- */
+import com.mygdx.game.R;
+
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.junit.MockitoJUnitRunner;
+
+import static junit.framework.TestCase.assertTrue;
+
+@RunWith(MockitoJUnitRunner.class)
 public class VideoSplicerTest {
-    private String exampleVideo = "example-video.mp4";
 
 
-
+    @Test
+    public void readStringFromContext() {
+        assertTrue(true);
+    }
 }
+
+

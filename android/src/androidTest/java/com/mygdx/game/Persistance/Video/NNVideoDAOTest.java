@@ -16,6 +16,9 @@ import androidx.test.ext.junit.runners.AndroidJUnit4;
 import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
 import static org.junit.Assert.assertEquals;
 
+/**
+ * The type Nn video dao test.
+ */
 @RunWith(AndroidJUnit4.class)
 public class NNVideoDAOTest {
     private AppDatabase appDatabase;
@@ -24,8 +27,12 @@ public class NNVideoDAOTest {
     private int width=1920;
     private int height=1080;
     private NNVideoDAO nnVideoDAO;
-    private long insertId;
 
+    /**
+     * Sets up the configuration for tests
+     *
+     * @throws Exception the exception
+     */
     @Before
     public void setUp() throws Exception {
         Context context = getApplicationContext();
@@ -38,10 +45,13 @@ public class NNVideoDAOTest {
         nnSession.height = this.height;
         nnSession.width = this.width;
         this.nnVideoDAO = this.appDatabase.nnVideoDAO();
-        this.insertId = nnVideoDAO.insert(nnSession);
+        this.nnVideoDAO.insert(nnSession);
 
     }
 
+    /**
+     * Gets frames per second.
+     */
     @Test
     public void getFramesPerSecond() {
         assertEquals(this.framesPerSecond,
@@ -49,21 +59,35 @@ public class NNVideoDAOTest {
                 0.0);
     }
 
+    /**
+     * Gets frame count.
+     */
     @Test
     public void getFrameCount() {
         assertEquals(this.frameCount, this.nnVideoDAO.getLastSession().frame_count, 0.0);
     }
 
+    /**
+     * Get width.
+     */
     @Test
     public void getWidth(){
         assertEquals(this.width, this.nnVideoDAO.getLastSession().width, 0.0);
     }
 
+    /**
+     * Get height.
+     */
     @Test
     public void getHeight(){
         assertEquals(this.height, this.nnVideoDAO.getLastSession().height, 0.0);
     }
 
+    /**
+     * Tear down.
+     *
+     * @throws Exception the exception
+     */
     @After
     public void tearDown() throws Exception {
         this.nnVideoDAO.nukeTable();

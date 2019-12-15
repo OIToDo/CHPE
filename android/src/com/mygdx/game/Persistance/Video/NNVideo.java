@@ -28,7 +28,7 @@ public class NNVideo {
     /**
      * The Frame count.
      */
-    public int frame_count;
+    public long frame_count;
     /**
      * The Width.
      */
@@ -44,7 +44,7 @@ public class NNVideo {
         this.id = id;
     }
     @Ignore
-    public NNVideo(float frames_per_second, int frame_count, int width, int height) {
+    public NNVideo(float frames_per_second, long frame_count, int width, int height) {
         this.frames_per_second = frames_per_second;
         this.frame_count = frame_count;
         this.width = width;

@@ -24,8 +24,9 @@ public class BasePersistenceDAOTest {
     }
 
     @After
-    public void closeDb() {
-        this.appDatabase.close();
+    // Ensures that other tasks are able to access a clear DB
+    public void clearDb() {
+        this.appDatabase.clearAllTables();
     }
 
     @Test

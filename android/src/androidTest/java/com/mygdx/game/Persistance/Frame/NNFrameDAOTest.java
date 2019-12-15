@@ -33,7 +33,7 @@ public class NNFrameDAOTest {
     }
 
     @After
-    public void closeDb() {
+    public void clearDB() {
         this.appDatabase.clearAllTables();
     }
 

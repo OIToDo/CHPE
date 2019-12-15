@@ -36,7 +36,7 @@ public class NNCoordinateTest {
     }
 
     @After
-    public void closeDb() {
+    public void clearDb() {
         this.appDatabase.clearAllTables();
     }
 

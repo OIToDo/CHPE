@@ -11,7 +11,7 @@ buildscript {
         google()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.5.2'
+        classpath 'com.android.tools.build:gradle:3.5.3'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
@@ -69,6 +69,13 @@ project(":android") {
         natives "com.badlogicgames.gdx:gdx-box2d-platform:$gdxVersion:natives-x86"
         natives "com.badlogicgames.gdx:gdx-box2d-platform:$gdxVersion:natives-x86_64"
         androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+        // Optional -- Robolectric environment
+        testImplementation 'androidx.test:core:1.2.0'
+        // Optional -- Mockito framework
+        testImplementation 'org.mockito:mockito-core:2.7.22'
+
+        // required if you want to use Mockito for Android tests
+        testImplementation 'org.mockito:mockito-android:2.7.22'
     }
 }
 

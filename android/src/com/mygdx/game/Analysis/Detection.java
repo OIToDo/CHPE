@@ -32,7 +32,7 @@ public class Detection {
     public boolean handsFound(float dt) {
         boolean inAction = false;
         float action_time = 0;
-        for(int i = 0; i < data.getFrameCount(); i++) {
+        for(long i = 0; i < data.getFrameCount(); i++) {
             if(action_time >= dt) {
                 return true;
             }

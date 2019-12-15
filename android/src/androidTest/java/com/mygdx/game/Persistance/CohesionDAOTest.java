@@ -30,6 +30,9 @@ import androidx.test.ext.junit.runners.AndroidJUnit4;
 import static org.junit.Assert.assertEquals;
 
 
+/**
+ * The type Cohesion dao test.
+ */
 @RunWith(AndroidJUnit4.class)
 public class CohesionDAOTest {
 
@@ -42,6 +45,11 @@ public class CohesionDAOTest {
     private String databaseName = "test";
     private Context context = ApplicationProvider.getApplicationContext();
 
+    /**
+     * Sets up.
+     *
+     * @throws Exception the exception
+     */
     @Before
     public void setUp() throws Exception {
         // Ensure that the database name is NOT the actual database name
@@ -58,6 +66,7 @@ public class CohesionDAOTest {
 
     }
 
+    // Imports the example database
     private void importDB(){
         // Initialising with mock data
         AssetManager am = this.context.getAssets();
@@ -75,16 +84,25 @@ public class CohesionDAOTest {
 
     }
 
+    /**
+     * Tear down. Done when the unit tests of this specific class are done.
+     *
+     * @throws Exception the exception
+     */
     @After
     public void tearDown() throws Exception {
+        this.appDatabase.clearAllTables();
     }
 
+    /**
+     * Validating of the getCoordinates function call works
+     * Function used to test across different tables and columns.
+     */
     @Test
     public void getCoordinates() {
 
         NNVideo nnVideo = this.appDatabase.nnVideoDAO().getLastSession();
         NNCoordinate coordinate = this.appDatabase.nnVideoDAO().getCoordinates(0,0,nnVideo.id);
-
 
         // Normalised values
         collector.checkThat(0.6083333333333334, CoreMatchers.is(coordinate.x));

@@ -22,22 +22,14 @@ public interface VideoSplicer {
      *
      * @return the frames processed
      */
-    int getFramesProcessed();
+    long getFramesProcessed();
 
     /**
      * Gets frame count.
      *
      * @return the frame count
      */
-    int getFrameCount();
-
-    /**
-     * Gets frames per second.
-     *
-     * @return the frames per second
-     */
-    float getFramesPerSecond();
-
+    long getFrameCount();
 
     /**
      * Gets next frame.
