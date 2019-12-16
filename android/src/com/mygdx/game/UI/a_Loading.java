@@ -1,6 +1,7 @@
 package com.mygdx.game.UI;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;
 
@@ -11,10 +12,12 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.SystemClock;
 import android.view.View;
+import android.view.animation.Animation;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -28,6 +31,8 @@ import com.mygdx.game.R;
 public class a_Loading extends AppCompatActivity {
     int progress = 0;
     final int MAX = 10000;
+    ConstraintLayout constraintLayout;
+    AnimationDrawable animationDrawable;
     TextView progressText;
     ProgressBar progressBar;
     Handler handler = new Handler();
@@ -38,7 +43,11 @@ public class a_Loading extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_loading);
         AAL.setTitleBar(getWindow());
-
+        constraintLayout = findViewById(R.id.constraint_loading);
+        animationDrawable = (AnimationDrawable) constraintLayout.getBackground();
+        animationDrawable.setEnterFadeDuration(1);
+        animationDrawable.setExitFadeDuration(1);
+        animationDrawable.start();
         b_Results = findViewById(R.id.resultsButton);
         b_Results.setOnClickListener(new View.OnClickListener() {
             @Override
