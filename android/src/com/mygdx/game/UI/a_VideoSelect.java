@@ -10,6 +10,8 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
@@ -34,7 +36,6 @@ import org.w3c.dom.Text;
 public class a_VideoSelect extends AppCompatActivity {
     final int SELECT_VIDEO_REQUEST = 1;
     private static final int PERMISSION_CODE = 2;
-
     Uri videoUri;
     Dialog dialog;
     VideoView videoView;
@@ -100,6 +101,7 @@ public class a_VideoSelect extends AppCompatActivity {
         Button b_Cancel = dialog.findViewById(R.id.cancel_button);
         TextView textView = dialog.findViewById(R.id.textView4);
         textView.setText(filepath);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
         b_OK.setOnClickListener(new View.OnClickListener() {
             @Override
