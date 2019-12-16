@@ -36,7 +36,6 @@ import org.w3c.dom.Text;
 public class a_VideoSelect extends AppCompatActivity {
     public static final String[] allPermissions = new String[] {
             Manifest.permission.INTERNET,
-            Manifest.permission.FOREGROUND_SERVICE,
             Manifest.permission.READ_EXTERNAL_STORAGE,
             Manifest.permission.WRITE_EXTERNAL_STORAGE,
             Manifest.permission.CAMERA,
@@ -55,7 +54,9 @@ public class a_VideoSelect extends AppCompatActivity {
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        openVideoGallery();
+        if(AAL.permissionsGranted(getApplicationContext(), allPermissions)) {
+            openVideoGallery();
+        }
     }
 
     @Override
@@ -86,8 +87,10 @@ public class a_VideoSelect extends AppCompatActivity {
                 // if all permissions were granted already we can just open the video gallery
                 // if not, request the missing permissions
                 if(AAL.permissionsGranted(getApplicationContext(), allPermissions)) {
+                    DebugLog.log("logger: Opening gallery");
                     openVideoGallery();
                 } else {
+                    DebugLog.log("logger: Not opening gallery");
                     AAL.requestPermissions(getApplicationContext(), a_VideoSelect.this, allPermissions);
                 }
             }
