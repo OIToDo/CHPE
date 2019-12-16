@@ -34,26 +34,28 @@ import com.mygdx.game.R;
 import org.w3c.dom.Text;
 
 public class a_VideoSelect extends AppCompatActivity {
-    final int SELECT_VIDEO_REQUEST = 1;
-    private static final int PERMISSION_CODE = 2;
+    public static final String[] allPermissions = new String[] {
+            Manifest.permission.INTERNET,
+            Manifest.permission.FOREGROUND_SERVICE,
+            Manifest.permission.READ_EXTERNAL_STORAGE,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE,
+            Manifest.permission.CAMERA,
+            Manifest.permission.WAKE_LOCK
+    };
     Uri videoUri;
     Dialog dialog;
+    String filepath;
     VideoView videoView;
     ImageButton b_selectVideo;
     MediaController mediaController;
     boolean videoIsSelected = false;
-    String filepath;
+    final int SELECT_VIDEO_REQUEST = 1;
+    private static final int PERMISSION_CODE = 2;
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         openVideoGallery();
-    }
-
-    public void requestStuff(String[] arr) {
-        DebugLog.log("logger: requesting permissions for: ");
-        for(String pm : arr) DebugLog.log("logger: " + pm);
-        ActivityCompat.requestPermissions(this, arr, 3);
     }
 
     @Override
@@ -78,18 +80,16 @@ public class a_VideoSelect extends AppCompatActivity {
         };
 
         b_selectVideo = findViewById(R.id.select_button);
-        final Activity a = this;
         b_selectVideo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AAL.requestPermissions(getApplicationContext(), a_VideoSelect.this, new String[] {
-                        Manifest.permission.INTERNET,
-                        Manifest.permission.FOREGROUND_SERVICE,
-                        Manifest.permission.READ_EXTERNAL_STORAGE,
-                        Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                        Manifest.permission.CAMERA,
-                        Manifest.permission.WAKE_LOCK
-                });
+                // if all permissions were granted already we can just open the video gallery
+                // if not, request the missing permissions
+                if(AAL.permissionsGranted(getApplicationContext(), allPermissions)) {
+                    openVideoGallery();
+                } else {
+                    AAL.requestPermissions(getApplicationContext(), a_VideoSelect.this, allPermissions);
+                }
             }
         });
     }

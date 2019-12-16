@@ -16,7 +16,6 @@ import com.mygdx.game.DebugLog;
 import java.util.ArrayList;
 
 class AAL {
-
     static void setTitleBar(Window window) {
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
@@ -29,20 +28,26 @@ class AAL {
         }
     }
 
-    static void requestPermissions(Context context, Activity activity, String[] permissions) {
-        ArrayList<String> deniedPermissions = new ArrayList<>();
+    static boolean permissionsGranted(Context context, String[] permissions) {
         for(String permission : permissions) {
-            if (ActivityCompat.checkSelfPermission(context, permission) == PackageManager.PERMISSION_GRANTED) {
-                DebugLog.log("logger: " + permission + " granted");
-            } else {
-                deniedPermissions.add(permission);
-                DebugLog.log("logger: " + permission + " denied");
+            if(ActivityCompat.checkSelfPermission(context, permission) != PackageManager.PERMISSION_GRANTED) {
+                return false;
             }
         }
+        return true;
+    }
+
+    static void requestPermissions(Context context, Activity activity, String[] permissions) {
+        ArrayList<String> deniedPermissions = new ArrayList<>();
+        // collect missing permissions just to be safe
+        for(String permission : permissions) {
+            if (ActivityCompat.checkSelfPermission(context, permission) == PackageManager.PERMISSION_DENIED) {
+                deniedPermissions.add(permission);
+            }
+        }
+        // convert the ArrayList to a c-style array for argument passing
         String[] arr = new String[deniedPermissions.size()];
         arr = deniedPermissions.toArray(arr);
-        DebugLog.log("logger: requesting permissions for: ");
-        for(String pm : deniedPermissions) DebugLog.log("logger: " + pm);
         ActivityCompat.requestPermissions(activity, arr, 1);
     }
 }
