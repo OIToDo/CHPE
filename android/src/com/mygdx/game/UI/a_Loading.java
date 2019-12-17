@@ -13,6 +13,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.AnimationDrawable;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.SystemClock;
@@ -30,7 +32,7 @@ import com.mygdx.game.R;
 
 public class a_Loading extends AppCompatActivity {
     int progress = 0;
-    final int MAX = 10000;
+    final int MAX = 25000;
     ConstraintLayout constraintLayout;
     AnimationDrawable animationDrawable;
     TextView progressText;
@@ -45,8 +47,8 @@ public class a_Loading extends AppCompatActivity {
         AAL.setTitleBar(getWindow());
         constraintLayout = findViewById(R.id.constraint_loading);
         animationDrawable = (AnimationDrawable) constraintLayout.getBackground();
-        animationDrawable.setEnterFadeDuration(1);
-        animationDrawable.setExitFadeDuration(1);
+        animationDrawable.setEnterFadeDuration(1000);
+        animationDrawable.setExitFadeDuration(1000);
         animationDrawable.start();
         b_Results = findViewById(R.id.resultsButton);
         b_Results.setOnClickListener(new View.OnClickListener() {
@@ -98,22 +100,28 @@ public class a_Loading extends AppCompatActivity {
     }
 
     public void notifyUser() {
-        int importance = NotificationManager.IMPORTANCE_LOW;
+        Uri alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+        int importance = NotificationManager.IMPORTANCE_HIGH;
         final String CHANNEL_ID = "notifyUser";
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, new Intent(getApplicationContext(), a_Results.class), PendingIntent.FLAG_UPDATE_CURRENT);
         NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+
         NotificationChannel notificationChannel = new NotificationChannel(CHANNEL_ID, "notifyUser", importance);
         notificationChannel.setDescription("Your video has been processed");
+        notificationChannel.getLockscreenVisibility();
         notificationChannel.enableLights(true);
-        notificationChannel.setLightColor(Color.RED);
+        notificationChannel.enableVibration(true);
         notificationManager.createNotificationChannel(notificationChannel);
+
         Notification notification = new NotificationCompat.Builder(this, "ForeGroundService")
                 .setContentTitle("Prepper")
                 .setContentText("Neural Network is done.")
                 .setSmallIcon(R.drawable.testplaatje)
                 .setContentIntent(pendingIntent)
                 .setAutoCancel(true)
-                .setOngoing(true)
+                .setColorized(true)
+                .setColor(0xff0000ff)
+                .setLights(0xff0000ff, 1111, 1111)
                 .setChannelId(CHANNEL_ID)
                 .build();
         notificationManager.notify(12, notification);
