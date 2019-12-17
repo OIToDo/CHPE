@@ -29,7 +29,7 @@ public class a_Home extends AppCompatActivity {
         b_archive.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                launchIntent(a_Results.class);
+                launchIntent(a_Archive.class);
             }
         });
 

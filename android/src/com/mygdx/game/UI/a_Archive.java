@@ -10,8 +10,8 @@ public class a_Archive extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        AAL.setTitleBar(getWindow());
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_archive);
+        AAL.setTitleBar(getWindow());
     }
 }
