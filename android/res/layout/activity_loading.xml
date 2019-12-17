@@ -2,9 +2,9 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/constraint_loading"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/constraint_loading"
     android:background="@drawable/gradient_list"
     tools:context=".UI.a_Loading">
 
@@ -38,12 +38,13 @@
     <Button
         android:id="@+id/resultsButton"
         style="@style/Widget.AppCompat.Button.Borderless"
-        android:layout_width="116dp"
-        android:layout_height="30dp"
-        android:layout_marginTop="5dp"
+        android:layout_width="134dp"
+        android:layout_height="42dp"
+        android:layout_marginTop="20dp"
         android:background="@drawable/cancel_button"
         android:text="Results"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/progressBar" />
 
