@@ -19,7 +19,7 @@
         android:isGame="false"
         android:label="Prepper"
         android:screenOrientation="portrait"
-        android:theme="@style/Theme.AppCompat.NoActionBar"
+        android:theme="@style/PrepperTheme"
         tools:ignore="GoogleAppIndexingWarning">
         <activity android:name=".UI.a_Results"></activity>
         <activity android:name=".UI.a_Archive" />
