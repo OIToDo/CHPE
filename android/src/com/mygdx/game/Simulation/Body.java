@@ -117,10 +117,6 @@ public class Body {
                     (jointCoords.get(i).x * -data_scale) - (jointCoords.get(body_part.waist.ordinal()).x * -data_scale)),
                     (jointCoords.get(i).y * data_scale) - (jointCoords.get(body_part.waist.ordinal()).y * data_scale),
                     (jointCoords.get(i).z * data_scale) - (jointCoords.get(body_part.waist.ordinal()).z * data_scale)));
-            DebugLog.log("kanker: " + new Vector3((
-                    (jointCoords.get(i).x * -data_scale) - (jointCoords.get(body_part.waist.ordinal()).x * -data_scale)),
-                    (jointCoords.get(i).y * data_scale) - (jointCoords.get(body_part.waist.ordinal()).y * data_scale),
-                    (jointCoords.get(i).z * data_scale) - (jointCoords.get(body_part.waist.ordinal()).z * data_scale)));
         }
 
         //update limbs --------------------------------------------------------------------------------------------------|
