@@ -6,6 +6,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.Analysis.Data;
+import com.mygdx.game.DebugLog;
 import com.mygdx.game.PoseEstimation.nn.MPI.body_part;
 
 import java.util.HashMap;
@@ -113,6 +114,10 @@ public class Body {
         for (int i = 0; i < jointCoords.size; i++){
             jointCoords.set(i, vec3Subtraction(data.getCoord(frame, body_part.values()[i]), data.getCoord(frame, body_part.values()[body_part.waist.ordinal()])));
             jointMap.get(body_part.values()[i]).update(new Vector3((
+                    (jointCoords.get(i).x * -data_scale) - (jointCoords.get(body_part.waist.ordinal()).x * -data_scale)),
+                    (jointCoords.get(i).y * data_scale) - (jointCoords.get(body_part.waist.ordinal()).y * data_scale),
+                    (jointCoords.get(i).z * data_scale) - (jointCoords.get(body_part.waist.ordinal()).z * data_scale)));
+            DebugLog.log("kanker: " + new Vector3((
                     (jointCoords.get(i).x * -data_scale) - (jointCoords.get(body_part.waist.ordinal()).x * -data_scale)),
                     (jointCoords.get(i).y * data_scale) - (jointCoords.get(body_part.waist.ordinal()).y * data_scale),
                     (jointCoords.get(i).z * data_scale) - (jointCoords.get(body_part.waist.ordinal()).z * data_scale)));
