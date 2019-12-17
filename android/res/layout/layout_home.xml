@@ -9,13 +9,12 @@
 
     <Button
         android:id="@+id/b_archive"
-        style="@style/Widget.AppCompat.Button.Borderless"
         android:layout_width="160dp"
         android:layout_height="48dp"
         android:layout_marginStart="16dp"
         android:layout_marginBottom="128dp"
-        android:background="@drawable/archive_button"
-        android:text="ARCHIEF"
+        android:background="@drawable/btn_transparent"
+        android:text="@string/btn_archive"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
