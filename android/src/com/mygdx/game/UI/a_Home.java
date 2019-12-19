@@ -17,6 +17,11 @@ public class a_Home extends AppCompatActivity {
     Button b_start;
 
     @Override
+    public void onBackPressed() {
+        finishAffinity();
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_home);
@@ -30,6 +35,7 @@ public class a_Home extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 launchIntent(a_Results.class);
+                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
             }
         });
 

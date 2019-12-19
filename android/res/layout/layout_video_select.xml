@@ -16,6 +16,22 @@
         app:layout_constraintGuide_percent=".05"
         app:layout_constraintStart_toStartOf="parent"/>
 
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/horizontalCenterGuideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="0dp"
+        app:layout_constraintGuide_percent=".50" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/verticalCenterGuideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="0dp"
+        app:layout_constraintGuide_percent=".50" />
+
     <ImageButton
         android:id="@+id/homeButton"
         android:layout_width="69dp"
@@ -30,10 +46,6 @@
         android:id="@+id/select_button"
         android:layout_width="119dp"
         android:layout_height="116dp"
-        android:layout_marginStart="146dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="147dp"
-        android:layout_marginBottom="307dp"
         android:background="@null"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

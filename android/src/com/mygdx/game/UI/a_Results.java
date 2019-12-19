@@ -21,6 +21,18 @@ public class a_Results extends AppCompatActivity {
     LinearLayoutManager layoutManager;
 
     @Override
+    public void onStop() {
+        super.onStop();
+        finish();
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_results);
@@ -32,6 +44,7 @@ public class a_Results extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(a_Results.this, a_Home.class);
                 startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
         });
 
