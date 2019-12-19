@@ -31,7 +31,6 @@ public class a_Results extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(a_Results.this, a_Home.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
             }
         });
