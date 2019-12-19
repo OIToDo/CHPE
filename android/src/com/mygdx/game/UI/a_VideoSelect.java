@@ -114,6 +114,7 @@ public class a_VideoSelect extends AppCompatActivity {
         b_OK.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                dialog.dismiss();
                 Intent intent = new Intent(getApplicationContext(), a_Loading.class);
                 startActivity(intent);
             }

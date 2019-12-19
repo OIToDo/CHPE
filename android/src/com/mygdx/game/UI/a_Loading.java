@@ -1,33 +1,29 @@
 package com.mygdx.game.UI;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.core.app.NotificationCompat;
-import androidx.core.content.ContextCompat;
-
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.graphics.drawable.AnimationDrawable;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.SystemClock;
 import android.view.View;
-import android.view.animation.Animation;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.app.NotificationCompat;
+import androidx.core.content.ContextCompat;
+
 import com.mygdx.game.DebugLog;
 import com.mygdx.game.ForegroundService;
-import com.mygdx.game.ProcessingScreenActivity;
 import com.mygdx.game.R;
 
 public class a_Loading extends AppCompatActivity {
@@ -99,8 +95,13 @@ public class a_Loading extends AppCompatActivity {
         startService();
     }
 
+    @Override
+    public void onStop() {
+        super.onStop();
+        finish();
+    }
+
     public void notifyUser() {
-        Uri alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         int importance = NotificationManager.IMPORTANCE_HIGH;
         final String CHANNEL_ID = "notifyUser";
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, new Intent(getApplicationContext(), a_Results.class), PendingIntent.FLAG_UPDATE_CURRENT);
