@@ -1,17 +1,46 @@
 package com.mygdx.game.UI;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 
 import com.mygdx.game.R;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+
 public class a_Results extends AppCompatActivity {
+    RecyclerView cardList;
+    c_CardAdapter cardAdapter;
+    LinearLayoutManager layoutManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_results);
         AAL.setTitleBar(getWindow());
+
+        cardList = findViewById(R.id.resultCardList);
+        layoutManager = new LinearLayoutManager(this);
+        cardList.setLayoutManager(layoutManager);
+        cardAdapter = new c_CardAdapter(this, getCardList());
+        cardList.setAdapter(cardAdapter);
+        cardAdapter.notifyDataSetChanged();
+    }
+
+    private ArrayList<c_ResultCard> getCardList() {
+        ArrayList<c_ResultCard> cards = new ArrayList<>();
+
+        c_ResultCard card = new c_ResultCard();
+        card.setTitle("Hands Above Head");
+        card.setDescription("Did you keep your hands above your head? @4:31");
+        card.setImage(R.drawable.ic_launcher);
+        for (int i = 0; i < 10; i++) {
+            cards.add(card);
+        }
+
+        return cards;
     }
 }

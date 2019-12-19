@@ -43,7 +43,7 @@ public class a_Loading extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_loading);
+        setContentView(R.layout.layout_loading);
         AAL.setTitleBar(getWindow());
         constraintLayout = findViewById(R.id.constraint_loading);
         animationDrawable = (AnimationDrawable) constraintLayout.getBackground();

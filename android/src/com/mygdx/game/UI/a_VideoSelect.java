@@ -2,22 +2,18 @@ package com.mygdx.game.UI;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
-import android.app.Activity;
 import android.app.Dialog;
-import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Debug;
 import android.provider.MediaStore;
-import android.view.MotionEvent;
+import android.provider.OpenableColumns;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -31,7 +27,7 @@ import android.widget.VideoView;
 import com.mygdx.game.DebugLog;
 import com.mygdx.game.R;
 
-import org.w3c.dom.Text;
+import java.io.File;
 
 public class a_VideoSelect extends AppCompatActivity {
     public static final String[] allPermissions = new String[] {
@@ -50,7 +46,6 @@ public class a_VideoSelect extends AppCompatActivity {
     MediaController mediaController;
     boolean videoIsSelected = false;
     final int SELECT_VIDEO_REQUEST = 1;
-    private static final int PERMISSION_CODE = 2;
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -99,7 +94,7 @@ public class a_VideoSelect extends AppCompatActivity {
     }
 
     public void showDialog() {
-        dialog.setContentView(R.layout.video_popup);
+        dialog.setContentView(R.layout.layout_dialog);
         videoView = dialog.findViewById(R.id.videoView2);
         Button b_OK = dialog.findViewById(R.id.ok_button);
         Button b_Cancel = dialog.findViewById(R.id.cancel_button);
@@ -125,7 +120,6 @@ public class a_VideoSelect extends AppCompatActivity {
 
     public void initializePlayer(String name) {
         videoUri = Uri.parse(name);
-        //filepath = videoUri.getPath();
         videoView.setVideoURI(videoUri);
         videoIsSelected = true;
         videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
@@ -163,6 +157,31 @@ public class a_VideoSelect extends AppCompatActivity {
         startActivityForResult(intent, SELECT_VIDEO_REQUEST);
     }
 
+    /*
+    Source: https://stackoverflow.com/questions/5568874/how-to-extract-the-file-name-from-uri-returned-from-intent-action-get-content/25005243#25005243
+     */
+    public String getFileName(Uri uri) {
+        String result = null;
+        if (uri.getScheme().equals("content")) {
+            Cursor cursor = getContentResolver().query(uri, null, null, null, null);
+            try {
+                if (cursor != null && cursor.moveToFirst()) {
+                    result = cursor.getString(cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME));
+                }
+            } finally {
+                cursor.close();
+            }
+        }
+        if (result == null) {
+            result = uri.getPath();
+            int cut = result.lastIndexOf('/');
+            if (cut != -1) {
+                result = result.substring(cut + 1);
+            }
+        }
+        return result;
+    }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -171,6 +190,8 @@ public class a_VideoSelect extends AppCompatActivity {
                 Toast toast = Toast.makeText(getApplicationContext(), data.getData().getPath(), Toast.LENGTH_LONG);
                 toast.show();
                 filepath = data.getData().getPath();
+                File f = new File(data.getData().getPath());
+                filepath = getFileName(data.getData());
                 showDialog();
                 initializePlayer(data.getData().toString());
             }
