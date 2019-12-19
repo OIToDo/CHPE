@@ -56,7 +56,7 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginStart="16dp"
-            android:gravity="left|bottom"
+            android:gravity="start|bottom"
             android:maxLines="1"
             android:text="Hands Above Head"
             android:textColor="#000000"

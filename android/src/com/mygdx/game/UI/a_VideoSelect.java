@@ -42,6 +42,7 @@ public class a_VideoSelect extends AppCompatActivity {
     Dialog dialog;
     String filepath;
     VideoView videoView;
+    ImageButton b_Home;
     ImageButton b_selectVideo;
     MediaController mediaController;
     boolean videoIsSelected = false;
@@ -60,6 +61,14 @@ public class a_VideoSelect extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_video_select);
         AAL.setTitleBar(getWindow());
+
+        b_Home = findViewById(R.id.homeButton);
+        b_Home.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         dialog = new Dialog(this);
         mediaController = new MediaController(a_VideoSelect.this) {

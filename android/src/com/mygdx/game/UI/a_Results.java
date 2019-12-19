@@ -4,7 +4,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageView;
 
 import com.mygdx.game.R;
 
@@ -12,6 +15,7 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class a_Results extends AppCompatActivity {
+    ImageView b_Home;
     RecyclerView cardList;
     c_CardAdapter cardAdapter;
     LinearLayoutManager layoutManager;
@@ -21,6 +25,16 @@ public class a_Results extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_results);
         AAL.setTitleBar(getWindow());
+
+        b_Home = findViewById(R.id.homeButton);
+        b_Home.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(a_Results.this, a_Home.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+            }
+        });
 
         cardList = findViewById(R.id.resultCardList);
         layoutManager = new LinearLayoutManager(this);
