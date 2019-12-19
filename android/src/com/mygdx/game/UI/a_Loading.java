@@ -111,6 +111,8 @@ public class a_Loading extends AppCompatActivity {
         notificationChannel.getLockscreenVisibility();
         notificationChannel.enableLights(true);
         notificationChannel.enableVibration(true);
+        notificationChannel.shouldShowLights();
+        notificationChannel.shouldVibrate();
         notificationManager.createNotificationChannel(notificationChannel);
 
         Notification notification = new NotificationCompat.Builder(this, "ForeGroundService")
@@ -120,6 +122,7 @@ public class a_Loading extends AppCompatActivity {
                 .setContentIntent(pendingIntent)
                 .setAutoCancel(true)
                 .setColorized(true)
+                .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
                 .setColor(0xff0000ff)
                 .setLights(0xff0000ff, 1111, 1111)
                 .setChannelId(CHANNEL_ID)
