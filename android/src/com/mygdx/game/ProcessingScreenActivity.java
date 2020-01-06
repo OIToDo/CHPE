@@ -61,7 +61,7 @@ public class ProcessingScreenActivity extends AppCompatActivity {
         Thread t = new Thread(new Runnable() {
             @Override
             public void run() {
-                ForegroundService.join();
+                //ForegroundService.join();
                 stopService(serviceIntent);
                 startActivity(doneIntent);
             }
