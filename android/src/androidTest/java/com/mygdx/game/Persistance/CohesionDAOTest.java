@@ -79,7 +79,7 @@ public class CohesionDAOTest {
         Reader r = new InputStreamReader(is);
         JSONLoader loader = new JSONLoader(r);
 
-        MockData mockData1 = new MockData(this.appDatabase, loader.toString());
+        MockData mockData1 = new MockData(this.appDatabase, loader.getArray());
         mockData1.executeInserts();
 
     }

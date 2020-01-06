@@ -91,7 +91,7 @@ public interface NNVideoDAO {
      * @return the coordinates
      */
     @Query("SELECT coordinate.id, coordinate.x, coordinate.y, coordinate.raw_x, coordinate.raw_y from coordinate, frame, frame_coordinate, video_frame, video WHERE video.id = :videoId AND video.id = video_frame.video_id AND video_frame.frame_id = frame.id AND frame.frame_count = :frameCount AND frame_coordinate.frame_id = frame.id AND frame_coordinate.coordinate_id = coordinate.id LIMIT 1 OFFSET :bodyPart")
-    NNCoordinate getCoordinates(int frameCount, int bodyPart, long videoId);
+    NNCoordinate getCoordinates(long frameCount, int bodyPart, long videoId);
 
     /**
      * Nuke table.

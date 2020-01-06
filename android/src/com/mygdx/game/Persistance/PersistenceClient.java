@@ -43,19 +43,8 @@ public class PersistenceClient {
                         Executors.newSingleThreadScheduledExecutor().execute(new Runnable() {
                             @Override
                             public void run() {
-                                try {
-                                    new MockData(
-                                            getInstance(mCtx).getAppDatabase(),
-                                            new JSONArray(
-                                                    new InputStreamReader(
-                                                            mCtx.getAssets().open("data/wave.json"))
-                                            )
-                                    ).executeInserts();
-                                } catch (JSONException jse) {
-                                    DebugLog.log("Invalid JSON");
-                                } catch (IOException e) {
-                                    DebugLog.log("Unable to load asset norm json");
-                                }
+                                getInstance(mCtx).getAppDatabase();
+
                             }
                         });
                     }

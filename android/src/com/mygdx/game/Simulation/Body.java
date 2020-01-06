@@ -1,27 +1,20 @@
 package com.mygdx.game.Simulation;
 
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.VertexAttributes;
-import com.badlogic.gdx.graphics.g3d.Material;
-import com.badlogic.gdx.graphics.g3d.Model;
-import com.badlogic.gdx.graphics.g3d.ModelBatch;
 import com.badlogic.gdx.graphics.g3d.ModelInstance;
-import com.badlogic.gdx.graphics.g3d.attributes.ColorAttribute;
-import com.badlogic.gdx.graphics.g3d.utils.ModelBuilder;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.Analysis.Data;
 import com.mygdx.game.PoseEstimation.NN.PoseModels.NNModelMPI;
-import com.mygdx.game.PoseEstimation.NN.PoseModels.PoseModel;
 
 import java.util.HashMap;
-
+;
 import static com.mygdx.game.Simulation.HelperClass.vec3Subtraction;
 
 /**
  * The body class combines BodyPart and BodyLimb objects to create the layout of the human body into a singular object.
- * This class provides functionality to update the position of these arranged BodyParts and Limbs.
+ * This class provides functionality to update the position of these arranged BodyParts and Limbs according to the provides data from the database.
  */
 public class Body {
     public float scale;
@@ -37,12 +30,16 @@ public class Body {
     // Prevent from creating a copy upon every time this method is called.
     private static final int body_part_size = NNModelMPI.body_part.values().length;
 
-    ModelBuilder modelBuilder = new ModelBuilder();
-
+    // Array to store joint coordinates from the data
     public Array<Vector3> jointCoords = new Array<>();
-    //Joint coords
 
-    public void create(float x, float y, float z, float scaleInstance, Data data){
+    /**
+     * This function currently defines the object with its parameters.
+     * Will be replaced with a constructor in the future.
+     * @param scaleInstance
+     * @param data
+     */
+    public void create(float scaleInstance, Data data){
         scale = scaleInstance;
 
         // check if scale is a positive number
@@ -74,7 +71,7 @@ public class Body {
         for (int i = 0; i < jointCoords.size; i++) {
             jointCoords.set(i, vec3Subtraction(data.getCoord(0, NNModelMPI.body_part.values()[i]), data.getCoord(0, NNModelMPI.body_part.values()[NNModelMPI.body_part.waist.ordinal()])));
         }
-        for (int[] pp : new NNModelMPI().getPosePairs()){
+        for (int[] pp : new NNModelMPI().POSE_PAIRS){
             limbArray.add(new BodyLimb(
                     new Vector2(jointCoords.get(pp[0]).x * - data_scale, jointCoords.get(pp[0]).y * data_scale),
                     new Vector2(jointCoords.get(pp[1]).x * - data_scale, jointCoords.get(pp[1]).y * data_scale), limbDiameter * scale * 0.7f, 0, Color.ORANGE));
@@ -82,8 +79,8 @@ public class Body {
     }
 
     /**
-     *
-     * @return
+     * Returns all the BodyLimb objects as a ModelInstance Array.
+     * @return Array filled with ModelInstances.
      */
     public Array<ModelInstance> getLimbArray(){
         Array<ModelInstance> result = new Array<>();
@@ -94,8 +91,8 @@ public class Body {
     }
 
     /**
-     *
-     * @return
+     * Returns all the BodyPart objects as a ModelInstance Array.
+     * @return Array filled with ModelInstances.
      */
     public Array<ModelInstance> getJointArray(){
         Array<ModelInstance> result = new Array<>();
@@ -105,23 +102,8 @@ public class Body {
         return result;
     }
 
-//    public void create_limb(Vector3 joint_1, Vector3 joint_2, float ds, int index){
-//        float data_scale = ds;
-//        float length = HelperClass.PythagorasTheorem(joint_1.x * data_scale, joint_1.y * data_scale, joint_2.x * data_scale, joint_2.y * data_scale);
-//        float rotation = HelperClass.getAngle(joint_1.x * data_scale, joint_1.y * data_scale, joint_2.x * data_scale, joint_2.y * data_scale);
-//        Model model = modelBuilder.createCylinder(limbDiameter * scale, length, limbDiameter * scale, 20,
-//                new Material(),
-//                VertexAttributes.Usage.Position | VertexAttributes.Usage.Normal | VertexAttributes.Usage.TextureCoordinates);
-//        limbArray.set(index, new ModelInstance(model));
-//        limbArray.get(index).transform.setToTranslation(-joint_1.x * data_scale - (0.5f * (-joint_1.x * data_scale - -joint_2.x * data_scale)),
-//                joint_1.y * data_scale - (0.5f * (joint_1.y * data_scale - joint_2.y * data_scale)),
-//                0f);
-//        limbArray.get(index).transform.rotate(Vector3.Z, -rotation - 90);
-//        limbArray.get(index).materials.get(0).set(ColorAttribute.createDiffuse(Color.ORANGE));
-//    }
-
     /**
-     *
+     * This update function updates al the BodyLimb and BodyPart object with the data for the given frame.
      * @param frame
      * @param data
      */

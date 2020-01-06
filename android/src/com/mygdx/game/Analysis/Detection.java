@@ -2,18 +2,39 @@ package com.mygdx.game.Analysis;
 
 import com.badlogic.gdx.math.Vector3;
 import com.mygdx.game.PoseEstimation.NN.PoseModels.NNModelMPI.body_part;
+import com.badlogic.gdx.utils.Array;
+
 /**
+ * @author Nico van Bentum
  * This class handles checking the vector data for certain FUTURE: Actions
  * and FUTURE: Patterns. For now these are just single functions with descriptive names.
  * TODO: Implement more generic framework.
  */
-public class Detection {
+class Detection {
+    /**
+     * Interface to the vector data.
+     */
+    private final Data data;
+
     /**
      * Constructor, initializes class fields.
      * @param data Data interface object.
      */
-    public Detection(final Data data) {
+    Detection(final Data data) {
         this.data = data;
+    }
+
+    /**
+     * Helper function for getting the absolute values of a Vector3.
+     * @param v Input vector.
+     * @return Vector with absolute values.
+     */
+    private Vector3 abs(Vector3 v) {
+        return new Vector3(
+            Math.abs(v.x),
+            Math.abs(v.y),
+            Math.abs(v.z)
+        );
     }
 
     /**
@@ -21,15 +42,7 @@ public class Detection {
      * @param dt Given amount of time for it to be true.
      * @return if the Action was detected or not.
      */
-
-    public Vector3 abs(Vector3 v) {
-        return new Vector3(
-                v.x < 0 ? v.x * -1 : v.x,
-                v.y < 0 ? v.y * -1 : v.y,
-                v.z < 0 ? v.z * -1 : v.z
-        );
-    }
-    public boolean handsFound(float dt) {
+    boolean handsFound(float dt) {
         boolean inAction = false;
         float action_time = 0;
         for(long i = 0; i < data.getFrameCount(); i++) {
@@ -51,7 +64,7 @@ public class Detection {
                     inAction = false;
                     continue;
                 }
-                action_time += 1 / data.getFps();
+                action_time += 1.0f / data.getFps();
             }
         }
 
@@ -63,9 +76,7 @@ public class Detection {
      * @param dt How long the condition has to be true for (in seconds).
      * @return If the Action was detected or not.
      */
-    public boolean HandsIdle(float dt) {
-        // TODO: this algorithm doesnt make any sense, pls fix
-        int threshold = 10;
+    boolean HandsIdle(float dt, double threshold) {
         boolean inAction = false;
         float actionTime = 0;
 
@@ -76,7 +87,7 @@ public class Detection {
         };
 
         // check for delta movement every second
-        for(int i = 1; i < data.getFrameCount(); i += data.getFps()) {
+        for(long i = 1; i < data.getFrameCount(); i += data.getFps()) {
             if(actionTime >= dt) {
                 return true;
             }
@@ -96,14 +107,12 @@ public class Detection {
             if(inAction) {
                 if(movedHands) {
                     inAction = false;
-                    continue;
                 } else {
                     // add a second
-                    actionTime += 1.0f;
+                    actionTime += 1.0f / data.getFps();
                 }
             }
         }
-
         return false;
     }
 
@@ -112,10 +121,10 @@ public class Detection {
      * @param dt How long the condition has to be true for (in seconds).
      * @return If the Action was detected or not.
      */
-    public boolean handsAboveHead(float dt) {
+    boolean handsAboveHead(float dt) {
         boolean inAction = false;
         float action_time = 0;
-        for(int i = 0; i < data.getFrameCount(); i++) {
+        for(long i = 0; i < data.getFrameCount(); i++) {
             if(action_time >= dt) {
                 return true;
             }
@@ -140,9 +149,4 @@ public class Detection {
         }
         return false;
     }
-
-    /**
-     * Interface to the vector data.
-     */
-    private final Data data;
 }

@@ -26,7 +26,7 @@ public class NNModelMPI implements PoseModel {
     /**
      * The Points.
      */
-    public final int points = 15;
+    public int points = 15;
     /**
      * The Protocol buffer.
      */

@@ -29,9 +29,6 @@ android {
     }
 
     buildTypes {
-        def DEBUG_DB = "SERVER_URL"
-        def DB = "SERVER_URL"
-
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
@@ -154,8 +151,9 @@ dependencies {
     implementation "androidx.core:core-ktx:+"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     testImplementation 'org.robolectric:robolectric:4.3'
-}
 
 
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+}
+

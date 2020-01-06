@@ -8,73 +8,108 @@ import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.media.MediaMetadataRetriever;
 import android.net.Uri;
 import android.os.IBinder;
-
-import com.mygdx.game.PoseEstimation.Session;
-import com.mygdx.game.VideoHandler.VideoSplicer;
-import com.mygdx.game.VideoHandler.VideoSplicerUri;
-import com.mygdx.game.VideoHandler.VideoSplicerUriLegacy;
+import android.os.SystemClock;
+import android.util.Log;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
 
-public class ForegroundService extends Service {
-    public String CHANNEL_ID = "ForegroundService";
-    public static final int NOTIF_ID = 7;
-    public Notification notification;
-    public Thread thread;
+import com.mygdx.game.UI.a_Loading;
+import com.mygdx.game.UI.a_Results;
 
+/**
+ * Class where the neural network will analyze the video footage
+ * @author Gianluca Piccardo
+ */
+public class ForegroundService extends Service {
+    /**
+     * Declaration of the name inside the notification
+     */
+    public String CHANNEL_ID = "ForegroundService";
+    static Thread thread;
+    static Runnable work;
+
+    public static void setWork(Runnable r) {
+        work = r;
+    }
+
+    /**
+     * Constructor
+     */
     @Override
     public void onCreate() {
         super.onCreate();
     }
-
+    /**
+     * Function that starts as soon the Service is called upon
+     * Notificationchannel and Notication is created
+     * Uri's are copied and service gets started
+     * @author Gianluca Piccardo
+     * @param intent what intents to use
+     * @param flags what permissions have been set
+     * @param startID A unique integer representing this specific request to start
+     * @return STICKY_NOT_STICKY The return value indicates what semantics the system should use for the
+     * service's current started state.
+     */
     @Override
-    public int onStartCommand(final Intent intent, final int flags, final int startID) {
-        String videoPath = intent.getStringExtra("DING");
-        String TAG = "SOEP";
+    public int onStartCommand(Intent intent, int flags, int startID) {
+        /**
+         * Creating Uri for MediaMetadataRetriever
+         */
+        Uri otherUri = intent.getData();
+        /**
+         * Creating NotificationChannel & NotificationManager with necessary Intents
+         */
         int importance = NotificationManager.IMPORTANCE_DEFAULT;
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, new Intent(getApplicationContext(), a_Loading.class), PendingIntent.FLAG_UPDATE_CURRENT);
         NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-        NotificationChannel notificationChannel = new NotificationChannel(CHANNEL_ID, "TEST", importance);
-        notificationChannel.setDescription("WERKT HET AL?");
+        NotificationChannel notificationChannel = new NotificationChannel(CHANNEL_ID, "JointFinder", importance);
+        notificationChannel.setDescription("Channel for neural network");
         notificationChannel.enableLights(true);
         notificationChannel.setLightColor(Color.RED);
         notificationManager.createNotificationChannel(notificationChannel);
-        Intent currentResultIntent = new Intent(this, CurrentResultActivity.class);
-        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, currentResultIntent, 0);
-        this.notification = new NotificationCompat.Builder(this, "ForeGroundService")
-                .setContentTitle("ForegroundService")
-                .setContentText(videoPath)
+        Notification notification = new NotificationCompat.Builder(this, "ForeGroundService")
+                .setContentTitle("PREPPER")
+                .setContentText("Processing video in neural network")
                 .setSmallIcon(R.drawable.testplaatje)
                 .setContentIntent(pendingIntent)
                 .setOngoing(true)
                 .setChannelId(CHANNEL_ID)
                 .build();
-
-        startForeground(NOTIF_ID, this.notification);
+        /**
+         * Starting actual notification on Foreground
+         */
+        startForeground(7, notification);
+        /**
+            Launch a thread that performs the actual work
+         */
         thread = new Thread(new Runnable() {
             public void run() {
-                //String videoPath = intent.getStringExtra("videoPath");
-                Uri otherUri = intent.getData();
-                VideoSplicer videoSplicerUri = new VideoSplicerUriLegacy(otherUri, getApplication());
-                Session session = new Session(otherUri, getApplication(), videoSplicerUri);
-                session.runVideo();
-                session.normaliseData();
+                work.run();
+                //DebugLog.log("LOGGER: DONE WORKING");
+                stopForeground(true);
+                stopSelf();
             }
         });
-
         thread.start();
 
         return START_NOT_STICKY;
     }
 
-
+    /**
+     * Necessary function overrides
+     */
     @Override
     public void onDestroy() {
         super.onDestroy();
     }
-
+    /**
+     * Necessary function overrides
+     */
     @Nullable
     @Override
     public IBinder onBind(Intent intent) {
