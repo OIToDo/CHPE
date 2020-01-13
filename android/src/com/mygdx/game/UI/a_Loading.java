@@ -135,6 +135,7 @@ public class a_Loading extends AppCompatActivity {
         Toast toast = Toast.makeText(getApplicationContext(), "Started video analysis, this could take a while", Toast.LENGTH_LONG);
         toast.show();
         Intent serviceIntent = new Intent(this, ForegroundService.class);
+        serviceIntent.setData(getIntent().getData());
         ContextCompat.startForegroundService(this, serviceIntent);
     }
 }
