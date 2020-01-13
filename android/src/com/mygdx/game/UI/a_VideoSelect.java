@@ -116,6 +116,7 @@ public class a_VideoSelect extends AppCompatActivity {
             public void onClick(View v) {
                 dialog.dismiss();
                 Intent intent = new Intent(getApplicationContext(), a_Loading.class);
+                intent.setData(videoUri);
                 startActivity(intent);
             }
         });
