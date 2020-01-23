@@ -13,7 +13,9 @@ A video consists of frames. These amount of frames shown every second ([FPS](htt
 are variable. Each frame has 15 or 18 coordinates (depending on the model used).
 
 How is this put into a database?
+
 ![ERD Diagram](https://i.gyazo.com/c0f051018e065b8fe9e8e5a9418dfb35.png)
+
 1. For each video a record is added in the video table
 2. For each frame of a video, a record is added in the frame table
 3. For every coordinate a record will be added in the coordinate table
@@ -31,7 +33,9 @@ The though behind all these steps, is that it can take a really long time to pro
 
 ### Persistance package:
 Class diagram:
+
 ![enter image description here](https://i.gyazo.com/2ac7816b370d100b44b9098771c2a172.png)
+
 The persistance package is the implementation of our database, the database functions as [ORM](https://blog.bitsrc.io/what-is-an-orm-and-why-you-should-use-it-b2b6f75f5e2a "What is an ORM and Why You Should Use it"). 
 
 The classes are as following:
@@ -44,4 +48,3 @@ Furthermore we have the following Database Access Objects (DOA) as shown in the 
 * The NN-naming is chosen as a prefix to indicate that that files have something to do with the neural network. In addition to this, it is also an indication to the programmers that what happens with the NN-classes (not all of these are within the Persistance package) interacts with the database and should therefore not be interrupted.
 *  
 
-// todo Finish
