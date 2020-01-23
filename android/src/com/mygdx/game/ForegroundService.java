@@ -8,18 +8,13 @@ import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
-import android.media.MediaMetadataRetriever;
 import android.net.Uri;
 import android.os.IBinder;
-import android.os.SystemClock;
-import android.util.Log;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
 
 import com.mygdx.game.UI.a_Loading;
-import com.mygdx.game.UI.a_Results;
 
 /**
  * Class where the neural network will analyze the video footage
@@ -33,6 +28,10 @@ public class ForegroundService extends Service {
     static Thread thread;
     static Runnable work;
 
+    /**
+     * This function sets the work that the foreground service will perform on start command.
+     * @param r Android runnable that contains the work.
+     */
     public static void setWork(Runnable r) {
         work = r;
     }
