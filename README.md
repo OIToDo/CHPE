@@ -70,3 +70,12 @@ For the functioning and cohesion the following activity diagram is made to clari
 ![Diagram process logic](https://i.imgur.com/9BYD0Sc.png)
 
 ### Exceptions:
+![Exceptions diagram](https://i.imgur.com/EpJeycq.png)
+
+The last package is the *Exceptions*. The exceptions are made to detect edge cases and make procedures for them. Within the system a couple of exceptions are possible that are so specific that a regular exception doesn't measure up. Below are some case where these exception will appear:
+* InvalidFrameAccess
+This exception can take place when the VideoSplicer has an older API, but the frame rate is variable (e.g. the frame rate goes from 23 to 24) the retrieving of the frames can go out-of-bounce when this happens. This moment the only way to count the frames is extremely intensive by comparing every other frame with the frame before that one every millisecond. This trade-off is very small and we don't expect to retrieve variable frame rates very often. Depending on the situation we could say enough frames have been processed based on the complete duration of the video. If we are missing a "lot" of frames we could address this to the user.
+* InvalidModelParse
+A model that is not supported is being used. This can cause interpreter issues e.g. for the GPU or the neural network API is being used while this one doesn't exist in the version of Android that is being used. For this exception we can use the CPU as a fallback.
+* InvalidVideoSplicerType
+When the Android version being used is too low, that even the legacy version of the VideoSplicer doesn't work as it is supposed to.
