@@ -1,3 +1,4 @@
+
 # Camera Human Pose Estimation (CHPE) mobile app
 ### Introduction:
 The Archimedes Institute ([Utrecht Science Park](https://www.utrechtsciencepark.nl/en/home/about-the-park?gclid=Cj0KCQiApaXxBRDNARIsAGFdaB_tQooIpPlGFwhje32Y_yqTvd-EZJwY-UG-r5NI4e3RL78rgCUtVYIaApj8EALw_wcB "Utrecht Science Park - About the park")) had a request for an application that can analyse people their presentations. To be exact, they want to be able to get statistics on the usage of gestures and your stance during a presentation. Based on this data they want to provide an analyses for the user. 
@@ -34,7 +35,7 @@ The though behind all these steps, is that it can take a really long time to pro
 ### Persistance package:
 Class diagram:
 
-![enter image description here](https://i.gyazo.com/2ac7816b370d100b44b9098771c2a172.png)
+![Persistance Package diagram](https://i.gyazo.com/2ac7816b370d100b44b9098771c2a172.png)
 
 The persistance package is the implementation of our database, the database functions as [ORM](https://blog.bitsrc.io/what-is-an-orm-and-why-you-should-use-it-b2b6f75f5e2a "What is an ORM and Why You Should Use it"). 
 
@@ -46,5 +47,26 @@ Within this class the access to the AppDatabase instance is settled. It is not d
 
 Furthermore we have the following Database Access Objects (DOA) as shown in the image and we have some notes to come with this package: 
 * The NN-naming is chosen as a prefix to indicate that that files have something to do with the neural network. In addition to this, it is also an indication to the programmers that what happens with the NN-classes (not all of these are within the Persistance package) interacts with the database and should therefore not be interrupted.
-*  
+*  Android room is used, so the code you end up with (found in the *generate* folder with the suffix '_impl') can be different.
+* Adjusting the scheme may result in having to upgrade the database version.  Upgrade of the database version also results into automatic script creation for switching between versions.
+* The AppDatabase currently runs on the main thread of the CPU, hereby it is desirable to execute tasks, regarding the preparation of query's, on a different rhead to make sure the UI doesn't experience more delay. 
+### VideoHandler:
+![VideoHandler diagram](https://i.imgur.com/emws6TD.png)
 
+The VideoHandler task is to process the video images. The VideoHandler need to be able to give data on a video and return frames from a specific fragment.
+In version 28 of android a  handful of functions have been added within Android to process many of the VideoHandler functions with native api calls. For this reason a VideoSplicer legacy class was made as a manual implementation for older versions of android.
+The factory can be used best to decide which version of the VideoSplicers needs to be used.
+### Pose Estimation:
+![Pose Estimation diagram](https://i.imgur.com/UouDPaF.png)
+
+Short clarification:
+* A session in short is the iteration of a video to data (points). The VideoSplicer is used to obtain a frame, process it and add it into the database.
+* The NNInserts is responsible for sending the data to the database. Besides sending to the database the NNInsert is also responsible for normalization of the data.
+* The NNInterpreter is a enum that holds the type of interpreter used by the model. For example, it can either be run from via neural network api, but also via CPU or GPU.
+* CHPE (Camera Human Pose Estimation) is the class that takes a bitmap as input and returns this to data. 
+* The resolution class simply stores the data obtained from the splicer and can create scaled bitmaps.
+
+For the functioning and cohesion the following activity diagram is made to clarify the process:
+![Diagram process logic](https://i.imgur.com/9BYD0Sc.png)
+
+### Exceptions:
