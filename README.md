@@ -9,6 +9,8 @@ Upon selecting your input a machine learning model ([TensorFlow.js version of Po
 After obtaining the person's coordinates from the video file, the input is normalized and thrown into a database.
 That bring us to the database.
 
+___
+
 ### Explanation ERD:
 A video consists of frames. These amount of frames shown every second ([FPS](https://en.wikipedia.org/wiki/Frame_rate "Frame rate - Wiki")) 
 are variable. Each frame has 15 or 18 coordinates (depending on the model used).
