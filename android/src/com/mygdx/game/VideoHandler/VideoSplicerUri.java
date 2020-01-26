@@ -2,6 +2,7 @@ package com.mygdx.game.VideoHandler;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.media.MediaMetadata;
 import android.media.MediaMetadataRetriever;
 import android.net.Uri;
 import android.util.Log;
@@ -68,6 +69,13 @@ public class VideoSplicerUri implements VideoSplicer {
         this.getVideoDuration();
 
         // Getting the amount of frames in video
+    }
+
+    public VideoSplicerUri(MediaMetadataRetriever retriever){
+        this.mediaMetadataRetriever = retriever;
+
+        this.getVideoDuration();
+        this.getAmountOfFrames();
     }
 
 

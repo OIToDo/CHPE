@@ -54,9 +54,9 @@ public class CHPETest {
     public void validateSettings() {
         // Using multiple asserts are not good practice
         // because if the first one fail and the remaining asserts will not
-        collector.checkThat(this.bitmap.getByteCount(), CoreMatchers.is(3724476));
-        collector.checkThat(this.bitmap.getHeight(), CoreMatchers.is(1317));
-        collector.checkThat(this.bitmap.getWidth(), CoreMatchers.is(707));
+        collector.checkThat(this.bitmap.getByteCount(), CoreMatchers.is(4894720));
+        collector.checkThat(this.bitmap.getHeight(), CoreMatchers.is(1280));
+        collector.checkThat(this.bitmap.getWidth(), CoreMatchers.is(956));
     }
 
 

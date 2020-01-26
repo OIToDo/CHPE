@@ -100,10 +100,10 @@ public class Resolution {
     }
 
     /**
-     * Gets width by ratio.
+     * Gets width by a ratio.
      *
      * @param width the width
-     * @return the width by ratio
+     * @return the width by a ratio
      * @throws NumberFormatException the number format exception
      */
     int getWidthByRatio(float width) throws NumberFormatException {
@@ -120,10 +120,10 @@ public class Resolution {
     }
 
     /**
-     * Gets height by ratio.
+     * Gets height by a ratio.
      *
      * @param height the height
-     * @return the height by ratio
+     * @return the height by a ratio
      */
     int getHeightByRatio(float height) {
         if (height > this.screenHeight) {

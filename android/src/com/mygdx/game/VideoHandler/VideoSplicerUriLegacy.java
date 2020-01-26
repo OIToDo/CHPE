@@ -49,6 +49,11 @@ public class VideoSplicerUriLegacy extends VideoSplicerUri {
         super(uri);
     }
 
+    VideoSplicerUriLegacy(MediaMetadataRetriever metadataRetriever){
+        super(metadataRetriever);
+        initialiseVideoSplicerLegacy();
+    }
+
     /**
      * Instantiates a new Video splicer uri legacy.
      *
