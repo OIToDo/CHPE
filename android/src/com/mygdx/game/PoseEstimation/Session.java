@@ -38,7 +38,7 @@ public class Session {
      * @param uri     the uri
      * @param context the context
      */
-// TODO: Run benchmark configuration
+    // TODO: Run benchmark configuration
     public Session(String uri, Context context) {
 
         try {
@@ -80,7 +80,7 @@ public class Session {
      * @param context      the context
      * @param videoSplicer the video splicer
      */
-    public Session(Uri uri, Context context, VideoSplicer videoSplicer) {
+    Session(Context context, VideoSplicer videoSplicer) {
 
         this.videoSplicer = videoSplicer;
         this.appDatabase = PersistenceClient.getInstance(context).getAppDatabase();
@@ -104,7 +104,7 @@ public class Session {
     /**
      * Loops through a video and stores it continuously
      */
-    public void runVideo() {
+    void runVideo() {
         while (this.videoSplicer.isNextFrameAvailable()) {
             try {
                 this.PersonToFrame
@@ -120,7 +120,6 @@ public class Session {
             }
         }
     }
-
 
 
     private void PersonToFrame(Person person) {

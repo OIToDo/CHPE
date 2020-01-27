@@ -66,7 +66,7 @@ public class PersistenceClient {
      * Gets instance.
      *
      * @param mCtx              the m ctx
-     * @param debugDatabaseName the debug database name
+     * @param debugDatabaseName a database name
      * @return the instance
      */
     public static synchronized PersistenceClient getInstance(Context mCtx, String debugDatabaseName) {

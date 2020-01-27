@@ -75,9 +75,9 @@ public class VideoSplicerFactoryTest {
             fail();
         } catch (InvalidVideoSplicerType ivs) {
             // Intentionally left blank
-        } catch (NoSuchFieldException nfe){
+        } catch (NoSuchFieldException nfe) {
             fail();
-        } catch (Exception ex){
+        } catch (Exception ex) {
             fail();
         }
     }
@@ -85,8 +85,6 @@ public class VideoSplicerFactoryTest {
     @After
     public void revertingSDKVersion() {
     }
-
-
 
 
     private void setFinalStatic(Field field, Object newValue) throws Exception {
