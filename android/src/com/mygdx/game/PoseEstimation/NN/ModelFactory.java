@@ -29,6 +29,7 @@ public class ModelFactory {
      *
      * @param modelId the model id
      * @return the model
+     * @throws InvalidModelParse the invalid model parse
      */
     public static PoseModel getModel(int modelId) throws InvalidModelParse {
         PoseModel model;

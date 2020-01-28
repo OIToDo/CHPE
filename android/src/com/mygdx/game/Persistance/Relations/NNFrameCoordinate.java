@@ -51,6 +51,7 @@ public class NNFrameCoordinate {
     /**
      * Instantiates a new NNFrame coordinate.
      * The only way to instantiate this object is with both ID's
+     *
      * @param frame_id      the frame id
      * @param coordinate_id the coordinate id
      */

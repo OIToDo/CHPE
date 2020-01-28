@@ -11,12 +11,16 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 
+/**
+ * The ModelFactoryTest.
+ * Validates whether the correct NN Model returns.
+ */
 public class ModelFactoryTest {
 
 
     /**
      * Exception parser.
-     * Testing if the exception is thrown under the right circumstances
+     * Testing if an exception is thrown under the right circumstances
      */
     @Test
     public void ExceptionParser(){

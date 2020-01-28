@@ -37,12 +37,31 @@ public class NNVideo {
      * The Height.
      */
     public int height;
+
+    /**
+     * Instantiates a new Nn video.
+     */
     public NNVideo() {
     }
+
+    /**
+     * Instantiates a new Nn video.
+     *
+     * @param id the id
+     */
     @Ignore
     public NNVideo(long id) {
         this.id = id;
     }
+
+    /**
+     * Instantiates a new Nn video.
+     *
+     * @param frames_per_second the frames per second
+     * @param frame_count       the frame count
+     * @param width             the width
+     * @param height            the height
+     */
     @Ignore
     public NNVideo(float frames_per_second, long frame_count, int width, int height) {
         this.frames_per_second = frames_per_second;

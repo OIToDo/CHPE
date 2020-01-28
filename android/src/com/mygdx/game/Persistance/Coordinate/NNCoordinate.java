@@ -41,11 +41,13 @@ public class NNCoordinate {
      * The Y.
      */
     public double y;
+
     /**
      * Instantiates a new NNCoordinate.
      */
     public NNCoordinate() {
     }
+
     /**
      * Instantiates a new NNCoordinate.
      * Useful when inserting new coordinates.
@@ -59,6 +61,7 @@ public class NNCoordinate {
         this.raw_x = raw_x;
         this.raw_y = raw_y;
     }
+
     /**
      * Instantiates a new NNCoordinate based on it's id.
      * Useful when values need to be gathered based on the ID.
@@ -69,6 +72,7 @@ public class NNCoordinate {
     public NNCoordinate(int id) {
         this.id = id;
     }
+
     /**
      * Instantiates a new NNCoordinate.
      * Useful for updating the x and y values.

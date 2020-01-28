@@ -8,6 +8,9 @@ import android.media.MediaMetadataRetriever;
 
 import androidx.test.platform.app.InstrumentationRegistry;
 
+import static com.mygdx.game.VideoHandler.HelperTests.getBlue;
+import static com.mygdx.game.VideoHandler.HelperTests.getGreen;
+import static com.mygdx.game.VideoHandler.HelperTests.getRed;
 import com.mygdx.game.Exceptions.InvalidFrameAccess;
 import com.mygdx.game.R;
 
@@ -22,14 +25,23 @@ import org.mockito.junit.MockitoJUnitRunner;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
+/**
+ * The type Video splicer legacy test.
+ */
 @RunWith(MockitoJUnitRunner.class)
 public class VideoSplicerLegacyTest {
+    /**
+     * The Collector stores assert results and allows the tests to continue.
+     */
     @Rule
     public ErrorCollector collector = new ErrorCollector();
 
     private Context targetContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
     private VideoSplicerUriLegacy videoSplicerUri;
 
+    /**
+     * Sets up the MediaMetaDataRetriever for later use.
+     */
     @Before
     public void setUp() {
         final AssetFileDescriptor afd = targetContext.getResources().openRawResourceFd(R.raw.example_video);
@@ -38,11 +50,17 @@ public class VideoSplicerLegacyTest {
         this.videoSplicerUri = new VideoSplicerUriLegacy(metadataRetriever);
     }
 
+    /**
+     * Validate frame count if the expected frame count is as expected.
+     */
     @Test
     public void validateFrameCount() {
         assertEquals(900, videoSplicerUri.getFrameCount());
     }
 
+    /**
+     * Attempts to invoke an Exception when trying to access an invalidFrame
+     */
     @Test
     public void OutsideOfScopeCall() {
         videoSplicerUri.framesProcessed = 900;
@@ -54,6 +72,9 @@ public class VideoSplicerLegacyTest {
         }
     }
 
+    /**
+     * Iterates through a video and attempts to validate pixel data based on a predefined video.
+     */
     @Test
     public void DummyIteration() {
         // Validating frames
@@ -88,17 +109,6 @@ public class VideoSplicerLegacyTest {
 
     }
 
-    private int getRed(int red) {
-        return Color.red(red);
-    }
-
-    private int getBlue(int blue) {
-        return Color.blue(blue);
-    }
-
-    private int getGreen(int green) {
-        return Color.green(green);
-    }
 
 
 }

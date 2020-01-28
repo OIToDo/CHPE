@@ -47,6 +47,7 @@ public class NNVideoFrame {
     /**
      * Instantiates a new NNVideoFrame.
      * The only way to instantiate this object is with both ID's
+     *
      * @param video_id the video id
      * @param frame_id the frame id
      */

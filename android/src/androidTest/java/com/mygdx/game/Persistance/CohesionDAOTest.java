@@ -37,38 +37,31 @@ import static org.junit.Assert.assertEquals;
 public class CohesionDAOTest {
 
     /**
-     * The Collector is used to enable multiple asserts
+     * The Collector enables multiple asserts
      */
     @Rule
     public ErrorCollector collector = new ErrorCollector();
     private AppDatabase appDatabase;
-    private String databaseName = "test";
     private Context context = ApplicationProvider.getApplicationContext();
 
     /**
      * Sets up.
-     *
-     * @throws Exception the exception
      */
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         // Ensure that the database name is NOT the actual database name
-        this.appDatabase = Room.databaseBuilder(context, AppDatabase.class, databaseName)
+        this.appDatabase = Room.databaseBuilder(context, AppDatabase.class, "test")
                 .allowMainThreadQueries() // TODO: Multi-threaded agent
                 .build();
         this.appDatabase.clearAllTables();
 
         // Importing DEMO data
         importDB();
-
-
-
-
     }
 
     // Imports the example database
-    private void importDB(){
-        // Initialising with mock data
+    private void importDB() {
+        // Initializing with mock data
         AssetManager am = this.context.getAssets();
         InputStream is = null;
         try {
@@ -85,12 +78,11 @@ public class CohesionDAOTest {
     }
 
     /**
-     * Tear down. Done when the unit tests of this specific class are done.
-     *
-     * @throws Exception the exception
+     * Tear down. Done when the unit tests of this specific class finished.
      */
+
     @After
-    public void tearDown() throws Exception {
+    public void tearDown()  {
         this.appDatabase.clearAllTables();
     }
 
@@ -102,9 +94,9 @@ public class CohesionDAOTest {
     public void getCoordinates() {
 
         NNVideo nnVideo = this.appDatabase.nnVideoDAO().getLastSession();
-        NNCoordinate coordinate = this.appDatabase.nnVideoDAO().getCoordinates(0,0,nnVideo.id);
+        NNCoordinate coordinate = this.appDatabase.nnVideoDAO().getCoordinates(0, 0, nnVideo.id);
 
-        // Normalised values
+        // Normalized values
         collector.checkThat(0.6083333333333334, CoreMatchers.is(coordinate.x));
         collector.checkThat(0.34765625, CoreMatchers.is(coordinate.y));
     }

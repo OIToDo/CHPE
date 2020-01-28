@@ -27,6 +27,9 @@ public class VideoSplicerUri implements VideoSplicer {
      */
     private Uri uri;
 
+    /**
+     * The Media metadata retriever.
+     */
     MediaMetadataRetriever mediaMetadataRetriever = new MediaMetadataRetriever();
     /**
      * The Frame count.
@@ -71,6 +74,11 @@ public class VideoSplicerUri implements VideoSplicer {
         // Getting the amount of frames in video
     }
 
+    /**
+     * Instantiates a new Video splicer uri.
+     *
+     * @param retriever the retriever
+     */
     public VideoSplicerUri(MediaMetadataRetriever retriever){
         this.mediaMetadataRetriever = retriever;
 

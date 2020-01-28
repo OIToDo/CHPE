@@ -34,9 +34,7 @@ public class NNVideoDAOTest {
      * @throws Exception the exception
      */
     @Before
-    public void setUp() throws Exception {
-        Context context = getApplicationContext();
-
+    public void setUp() {
         // Ensure that the database name is NOT the actual database name
         this.appDatabase = PersistenceClient.getInstance(ApplicationProvider.getApplicationContext(), "debugDB").getAppDatabase();
         NNVideo nnSession = new NNVideo();
@@ -50,7 +48,7 @@ public class NNVideoDAOTest {
     }
 
     /**
-     * Gets frames per second.
+     * FPS validator.
      */
     @Test
     public void getFramesPerSecond() {
@@ -60,7 +58,7 @@ public class NNVideoDAOTest {
     }
 
     /**
-     * Gets frame count.
+     * Gets frame count validator.
      */
     @Test
     public void getFrameCount() {
@@ -68,7 +66,7 @@ public class NNVideoDAOTest {
     }
 
     /**
-     * Get width.
+     * Get width validator.
      */
     @Test
     public void getWidth(){
@@ -76,7 +74,7 @@ public class NNVideoDAOTest {
     }
 
     /**
-     * Get height.
+     * Get height validator.
      */
     @Test
     public void getHeight(){
@@ -86,10 +84,9 @@ public class NNVideoDAOTest {
     /**
      * Tear down.
      *
-     * @throws Exception the exception
      */
     @After
-    public void tearDown() throws Exception {
+    public void tearDown()  {
         this.nnVideoDAO.nukeTable();
     }
 }

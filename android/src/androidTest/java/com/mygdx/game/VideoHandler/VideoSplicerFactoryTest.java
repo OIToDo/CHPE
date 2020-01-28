@@ -27,12 +27,18 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
 
+/**
+ * The type Video splicer factory test.
+ */
 @RunWith(MockitoJUnitRunner.class)
 public class VideoSplicerFactoryTest {
     private final int defaultSDK = android.os.Build.VERSION.SDK_INT;
     private MediaMetadataRetriever metadataRetriever;
     private Context targetContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
 
+    /**
+     * Sets up.
+     */
     @Before
     public void setUp() {
 
@@ -44,6 +50,9 @@ public class VideoSplicerFactoryTest {
     }
 
 
+    /**
+     * New sdk validation.
+     */
     @Test
     public void newSDKValidation() {
         try {
@@ -54,6 +63,9 @@ public class VideoSplicerFactoryTest {
         }
     }
 
+    /**
+     * Old sdk validation.
+     */
     @Test
     @TargetApi(24)
     public void oldSDKValidation() {
@@ -65,23 +77,26 @@ public class VideoSplicerFactoryTest {
         }
     }
 
+    /**
+     * Invalid sdk validation.
+     */
     @Test
     @TargetApi(22)
     public void invalidSDKValidation() {
-
         try {
             setFinalStatic(android.os.Build.VERSION.class.getField("SDK_INT"), 20);
             VideoSplicer videoSplicer = VideoSplicerFactory.getVideoSplicer(this.metadataRetriever);
             fail();
         } catch (InvalidVideoSplicerType ivs) {
             // Intentionally left blank
-        } catch (NoSuchFieldException nfe) {
-            fail();
-        } catch (Exception ex) {
+        } catch (Exception e) {
             fail();
         }
     }
 
+    /**
+     * Reverting sdk version.
+     */
     @After
     public void revertingSDKVersion() {
     }

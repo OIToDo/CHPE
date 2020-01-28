@@ -94,7 +94,7 @@ public class CHPETest {
     }
 
     /**
-     * Static constructor. Checking if the static constructor is working as expected.
+     * A static constructor. Checking if the static constructor is working as expected.
      */
     @Test
     public void StaticConstructor() {
@@ -116,7 +116,6 @@ public class CHPETest {
                 CoreMatchers.is("pose/coco/pose_iter_440000.caffemodel")
         );
     }
-
 
 
     /**

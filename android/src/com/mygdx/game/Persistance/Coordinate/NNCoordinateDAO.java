@@ -17,6 +17,7 @@ public interface NNCoordinateDAO {
     /**
      * Returns the amount of entity's in the coordinate table.
      * Used when estimating the size of the database.
+     *
      * @return the count as an int
      */
     @Query("SELECT COUNT(*) FROM coordinate")

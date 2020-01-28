@@ -23,12 +23,16 @@ public class NNFrame {
 
     /**
      * Empty constructor, Instantiates a new NNFrame without data.
-     *
      */
     NNFrame() {
     }
 
 
+    /**
+     * Instantiates a new Nn frame.
+     *
+     * @param frame_count the frame count
+     */
     @Ignore
     public NNFrame(long frame_count) {
         this.frame_count = frame_count;

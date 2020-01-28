@@ -1,18 +1,11 @@
 package com.mygdx.game.VideoHandler;
 
 
-import android.content.ContentResolver;
 import android.content.Context;
 import android.content.res.AssetFileDescriptor;
-import android.content.res.Resources;
-import android.graphics.Bitmap;
-import android.graphics.Color;
 import android.media.MediaMetadataRetriever;
-import android.net.Uri;
 
 import androidx.test.platform.app.InstrumentationRegistry;
-
-import com.mygdx.game.DebugLog;
 
 import com.mygdx.game.Exceptions.InvalidFrameAccess;
 import com.mygdx.game.R;
@@ -25,23 +18,31 @@ import org.junit.rules.ErrorCollector;
 import org.junit.runner.RunWith;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 
+import static com.mygdx.game.VideoHandler.HelperTests.getBlue;
+import static com.mygdx.game.VideoHandler.HelperTests.getGreen;
+import static com.mygdx.game.VideoHandler.HelperTests.getRed;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
 
+/**
+ * The type Video splicer uri test.
+ */
 @RunWith(MockitoJUnitRunner.class)
 public class VideoSplicerUriTest {
+    /**
+     * The Collector.
+     */
     @Rule
     public ErrorCollector collector = new ErrorCollector();
 
     private Context targetContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
     private VideoSplicerUri videoSplicerUri;
 
+    /**
+     * Sets up.
+     */
     @Before
     public void setUp() {
         final AssetFileDescriptor afd = targetContext.getResources().openRawResourceFd(R.raw.example_video);
@@ -50,11 +51,17 @@ public class VideoSplicerUriTest {
         this.videoSplicerUri = new VideoSplicerUri(metadataRetriever);
     }
 
+    /**
+     * Validate frame count.
+     */
     @Test
     public void validateFrameCount() {
         assertEquals(900, videoSplicerUri.getFrameCount());
     }
 
+    /**
+     * Outside of scope call.
+     */
     @Test
     public void OutsideOfScopeCall() {
         videoSplicerUri.framesProcessed = 900;
@@ -66,6 +73,9 @@ public class VideoSplicerUriTest {
         }
     }
 
+    /**
+     * Dummy iteration.
+     */
     @Test
     public void DummyIteration() {
         // Validating frames
@@ -99,18 +109,5 @@ public class VideoSplicerUriTest {
         collector.checkThat(74, CoreMatchers.is(getGreen(pixel16)));
 
     }
-
-    private int getRed(int red){
-        return Color.red(red);
-    }
-
-    private int getBlue(int blue){
-        return Color.blue(blue);
-    }
-
-    private int getGreen(int green){
-        return Color.green(green);
-    }
-
 
 }

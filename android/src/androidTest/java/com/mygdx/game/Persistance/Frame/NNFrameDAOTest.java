@@ -1,7 +1,7 @@
 package com.mygdx.game.Persistance.Frame;
 
 import com.mygdx.game.Persistance.AppDatabase;
-import com.mygdx.game.Persistance.Coordinate.NNCoordinate;
+import com.mygdx.game.Persistance.Coordinate.NNCoordinateDAO;
 import com.mygdx.game.Persistance.Frame.*;
 import com.mygdx.game.Persistance.PersistenceClient;
 
@@ -20,11 +20,18 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 
 
+/**
+ * The NNFrameDAO tester.
+ */
 @RunWith(AndroidJUnit4.class)
 public class NNFrameDAOTest {
     private NNFrameDAO nnFrameDAO;
     private AppDatabase appDatabase;
 
+    /**
+     * Creates the db instance.
+     * Cleared for later usage.
+     */
     @Before
     public void createDb() {
         this.appDatabase = PersistenceClient.getInstance(ApplicationProvider.getApplicationContext(), "debugDB").getAppDatabase();
@@ -32,11 +39,18 @@ public class NNFrameDAOTest {
         this.nnFrameDAO = appDatabase.nnFrameDAO();
     }
 
+    /**
+     * Clear db.
+     * Required to allow different tests to use debugDB
+     */
     @After
     public void clearDB() {
         this.appDatabase.clearAllTables();
     }
 
+    /**
+     * Insert NNFrameDAOTest. Validates if deleting works as expected.
+     */
     @Test
     public void InsertAmountCounter() {
 
@@ -52,6 +66,9 @@ public class NNFrameDAOTest {
         assertEquals(insertedFrame.frame_count, randomInt);
     }
 
+    /**
+     * Update NNFrameDAOTest test. Validates if updating works as expected.
+     */
     @Test
     public void UpdateAmountCounter() {
 

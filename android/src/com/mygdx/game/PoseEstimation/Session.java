@@ -38,7 +38,7 @@ public class Session {
      * @param uri     the uri
      * @param context the context
      */
-    // TODO: Run benchmark configuration
+// TODO: Run benchmark configuration
     public Session(String uri, Context context) {
 
         try {
@@ -76,7 +76,6 @@ public class Session {
     /**
      * Instantiates a new Session.
      *
-     * @param uri          the uri
      * @param context      the context
      * @param videoSplicer the video splicer
      */
