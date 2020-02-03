@@ -11,6 +11,11 @@ That bring us to the database.
 
 ___
 
+# Building & Running
+
+TODO: gianluca of nico
+
+# Database
 ### Explanation ERD:
 A video consists of frames. These amount of frames shown every second ([FPS](https://en.wikipedia.org/wiki/Frame_rate "Frame rate - Wiki")) 
 are variable. Each frame has 15 or 18 coordinates (depending on the model used).
@@ -81,3 +86,59 @@ This exception can take place when the VideoSplicer has an older API, but the fr
 A model that is not supported is being used. This can cause interpreter issues e.g. for the GPU or the neural network API is being used while this one doesn't exist in the version of Android that is being used. For this exception we can use the CPU as a fallback.
 * InvalidVideoSplicerType
 When the Android version being used is too low, that even the legacy version of the VideoSplicer doesn't work as it is supposed to.
+
+# UI
+The UI was designed and created to be a stand alone front-end in which the other developers can place the work they want to be done in a certain part of the application. We'll first take a look at what Android calls "Activities", how they are currently being used and how the next developer can add new ones. 
+Take this Homescreen example from the codebase:
+``` Java 
+public class a_Home extends AppCompatActivity {
+
+	Button b_archive;
+	Button b_start;
+
+	@Override
+	public void onBackPressed() {
+		finishAffinity();
+	}
+
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+
+		super.onCreate(savedInstanceState);
+
+		setContentView(R.layout.layout_home);
+
+		b_archive = findViewById(R.id.b_archive);
+		b_start = findViewById(R.id.b_start);
+
+		AAL.setTitleBar(getWindow());
+
+		b_archive.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				launchIntent(a_Results.class);
+				overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+			}
+		});
+
+		b_start.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				launchIntent(a_VideoSelect.class);
+			}
+		});
+	}
+
+	public void launchIntent(Class<?> cls) {
+		Intent intent = new Intent(this, cls);
+		startActivity(intent);
+	}
+}
+```
+
+In java it's customary (and sometimes a requirement) to always limit the contents of a file to a single class. In the UI folder of the project you can find every file for every activity of the current application. To add a new activity simply make a new file and make a new class that extends from ```AppCompatActivity```. this extension should always override the ``` onCreate() ``` function, this is basically the constructor. In here you can request the layout and talk to individual screen elements.
+
+For providing feedback to the user (not necessarily required to use) we have created a ```recyclerView``` which is basically a list that can hold a bunch of Android cards. These cards can be designed through the XML editor. For now we have provided a single card layout that can be used to show the user an overview of all the presentation feedback remarks.
+The same card layout can be duplicated and altered to make a list of sessions in the archive section of the application. Our design for the archive can be found [here](https://drive.google.com/file/d/1pYxO5eZTrSUcvZCUQGaNhb-WIId17soT/view).
+
+Take a look at the files prefixed with "c_" in the UI folder for more information and the implementation.
