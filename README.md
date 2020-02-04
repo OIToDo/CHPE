@@ -1,13 +1,10 @@
 
-# Camera Human Pose Estimation (CHPE) mobile app
-### Introduction:
-The Archimedes Institute ([Utrecht Science Park](https://www.utrechtsciencepark.nl/en/home/about-the-park?gclid=Cj0KCQiApaXxBRDNARIsAGFdaB_tQooIpPlGFwhje32Y_yqTvd-EZJwY-UG-r5NI4e3RL78rgCUtVYIaApj8EALw_wcB "Utrecht Science Park - About the park")) had a request for an application that can analyse people their presentations. To be exact, they want to be able to get statistics on the usage of gestures and your stance during a presentation. Based on this data they want to provide an analyses for the user. 
+# Camera Human Pose Estimation Android App
+The Archimedes Institute ([Utrecht Science Park](https://www.utrechtsciencepark.nl/en/home/about-the-park?gclid=Cj0KCQiApaXxBRDNARIsAGFdaB_tQooIpPlGFwhje32Y_yqTvd-EZJwY-UG-r5NI4e3RL78rgCUtVYIaApj8EALw_wcB "Utrecht Science Park - About the park")) had a request for an application that can analyse people's presentations. They want to be able to get statistics on the usage of gestures and your stance during a presentation. Based on this data they want to provide the user with feedback.
 
 The idea we came up with was an application on a mobile device that uses video input from either the camera directly or gallery to estimate a single person's pose. Upon selecting your input a machine learning model ([TensorFlow.js version of PoseNet](https://medium.com/tensorflow/real-time-human-pose-estimation-in-the-browser-with-tensorflow-js-7dd0bc881cd5 "Real-time Human Pose Estimation in the Browser with TensorFlow.js")) will be used to obtain joint coordinates (2 component vectors) for each source frame. The coordinates are stored in an Android Room database so the data is saved inbetween sessions and safe in case of app crash, restart, shutdown etc. The application performs an analysis on these coordinates to figure out what the person did during their presentation. The analysis is currently missing and has yet to be designed and implemented.
 
-___
-
-# Setup
+## Setup
 
 ### Requirements
 Android Studio (preferably latest version).
@@ -22,7 +19,7 @@ To run the application you'll need a debug device to run the application on. Thi
 
 - To use a physical smartphone follow [this](https://developer.android.com/studio/run/device) guide.
 
-# Database Design
+## Database & Processing
 A video consists of frames. These amount of frames shown every second ([FPS](https://en.wikipedia.org/wiki/Frame_rate "Frame rate - Wiki")) are variable. Each frame has 15 or 18 coordinates (depending on the model used). Consider the following Entity Relationship Diagram:
 
 ![ERD Diagram](https://i.gyazo.com/c0f051018e065b8fe9e8e5a9418dfb35.png)
@@ -90,7 +87,7 @@ A model that is not supported is was used, This can cause interpreter issues. Fo
 * InvalidVideoSplicerType
 When the Android version used is too low, that even the legacy version of the VideoSplicer doesn't work as it is supposed to.
 
-# UI
+## UI
 The UI was designed and created to be a stand alone front-end in which other developers can place "work" they want to be done at a certain point during runtime. We'll first take a look at what Android calls "Activities", how they are currently being used and how the next developer can add new ones. 
 Consider this Homescreen example from the codebase:
 ``` Java 
