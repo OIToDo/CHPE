@@ -146,7 +146,7 @@ The same card layout can be duplicated and altered to make a list of sessions in
 Take a look at the files prefixed with "c_" in the UI folder for more information and the implementation.
 
 ## Simulation
-For this project we have developed a simulation for the data substracted from video files. This Simulation can be used to visualize the 2D data. The animation runs from the database data that you can give your animation as a parameter. The code can be found in the 3D simulation branch CPHE/android/src/com/mygdx/game/Simulation. "MyGdxGame.java" is the main for this simulation and can be run from a separate view. The main found in the 3D simulation branch runs example data. 
+For this project we have developed a simulation for the data substracted from video files. This Simulation can be used to visualize the 2D data. The animation runs from the database data that you can give your animation as a parameter. The code can be found in the 3D simulation branch CPHE/android/src/com/mygdx/game/Simulation. "MyGdxGame.java" is the main for this simulation and can be run from a separate view. In the 3D simulation branch MyGdxGame.java runs on example data. 
 The data can be provided to the animation in the following way by adjusting these lines in MyGdxGame.java:
 ```Java
 data = new DatabaseData(PersistenceClient.getInstance(context).getAppDatabase());
