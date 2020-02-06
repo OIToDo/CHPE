@@ -144,3 +144,13 @@ For providing feedback to the user (not necessarily required to use) we have cre
 The same card layout can be duplicated and altered to make a list of sessions in the archive section of the application. Our design for the archive can be found [here](https://drive.google.com/file/d/1pYxO5eZTrSUcvZCUQGaNhb-WIId17soT/view).
 
 Take a look at the files prefixed with "c_" in the UI folder for more information and the implementation.
+
+## Simulation
+For this project we have developed a simulation for the data substracted from video files. This Simulation can be used to visualize the 2D data. The animation runs from the database data that you can give your animation as a parameter. The code can be found in the 3D simulation branch CPHE/android/src/com/mygdx/game/Simulation. "MyGdxGame.java" is the main for this simulation and can be run from a separate view. The main found in the 3D simulation branch runs example data. 
+The data can be provided to the animation in the following way by adjusting these lines in MyGdxGame.java:
+```Java
+data = new DatabaseData(PersistenceClient.getInstance(context).getAppDatabase());
+body.create(1f, data);
+```
+If you ever wonder if your data is correct, or if your application is not behaving as it should. Try to use the visualisation feature to make sure the data looks as it should. Why is this usefull? Eventhough the JASON format is easy to read. It might come in helpfull to be able to actually visualize your data.
+Your could also use this feuture purely as aestethics.
