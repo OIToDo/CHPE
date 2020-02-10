@@ -79,7 +79,7 @@ public class Session {
      * @param context      the context
      * @param videoSplicer the video splicer
      */
-    Session(Context context, VideoSplicer videoSplicer) {
+    public Session(Context context, VideoSplicer videoSplicer) {
 
         this.videoSplicer = videoSplicer;
         this.appDatabase = PersistenceClient.getInstance(context).getAppDatabase();
@@ -103,7 +103,7 @@ public class Session {
     /**
      * Loops through a video and stores it continuously
      */
-    void runVideo() {
+    public void runVideo() {
         while (this.videoSplicer.isNextFrameAvailable()) {
             try {
                 this.PersonToFrame
