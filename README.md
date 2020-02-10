@@ -1,1 +1,156 @@
-# CHPE
+
+# Camera Human Pose Estimation Android App
+The Archimedes Institute ([Utrecht Science Park](https://www.utrechtsciencepark.nl/en/home/about-the-park?gclid=Cj0KCQiApaXxBRDNARIsAGFdaB_tQooIpPlGFwhje32Y_yqTvd-EZJwY-UG-r5NI4e3RL78rgCUtVYIaApj8EALw_wcB "Utrecht Science Park - About the park")) had a request for an application that can analyse people's presentations. They want to be able to get statistics on the usage of gestures and your stance during a presentation. Based on this data they want to provide the user with feedback.
+
+The idea we came up with was an application on a mobile device that uses video input from either the camera directly or gallery to estimate a single person's pose. Upon selecting your input a machine learning model ([TensorFlow.js version of PoseNet](https://medium.com/tensorflow/real-time-human-pose-estimation-in-the-browser-with-tensorflow-js-7dd0bc881cd5 "Real-time Human Pose Estimation in the Browser with TensorFlow.js")) will be used to obtain joint coordinates (2 component vectors) for each source frame. The coordinates are stored in an Android Room database so the data is saved inbetween sessions and safe in case of app crash, restart, shutdown etc. The application performs an analysis on these coordinates to figure out what the person did during their presentation. The analysis is currently missing and has yet to be designed and implemented.
+
+## Setup
+
+### Requirements
+Android Studio (preferably latest version).
+
+### Building
+First make sure you have the latest version of Master branch. Open up Android Studio and select "Open an existing Android Studio Project". From here select the CHPE project, marked with the green Android Studio logo. To build select "Rebuild Project" under "Build" once the project has loaded up. 
+
+### Running
+To run the application you'll need a debug device to run the application on. This can either be an Android Virtual Device or a physical smartphone. The project currently only supports Android 7.1+. 
+
+- To use an Android Virtual Device you can read more about them [here](https://developer.android.com/studio/run/managing-avds). If you're unhappy with the emulator performance try enabling [Windows Hypervisor Platform](https://developer.android.com/studio/run/emulator-acceleration).
+
+- To use a physical smartphone follow [this](https://developer.android.com/studio/run/device) guide.
+
+## Database & Processing
+A video consists of frames. These amount of frames shown every second ([FPS](https://en.wikipedia.org/wiki/Frame_rate "Frame rate - Wiki")) are variable. Each frame has 15 or 18 coordinates (depending on the model used). Consider the following Entity Relationship Diagram:
+
+![ERD Diagram](https://i.gyazo.com/c0f051018e065b8fe9e8e5a9418dfb35.png)
+
+1. For each video a record is added to the video table.
+2. For each frame of a video, a record is added to the frame table.
+3. For every coordinate a record will be added to the coordinate table.
+4. At last the relations between video, frame and frame coordinates are created.
+
+Within the scope of Android and how the data is retrieved it is possible that the program is destructed while executing. This is not desired when the process is not finished yet and there has been no reason for the user to close the application. 
+
+This is taken into account by the database in the following way:
+* If the application is stopped before the queries are executed, the entire process will restart.
+* If a video is added, but there are no frames added, the existing data entries will be used to proceed.
+* If a video is added and a frame is added, but there no coordinates known yet, the coordinates can be added and the process can continue.
+* If a video is added and a frame is added, but not all coordinates have been added to the database yet, the frame will be re-processed.
+
+it can take a really long time to process a certain video and you do not want to have to restart that progress if it gets interrupted. 
+
+### Persistance package
+Consider the following class diagram:
+
+![Persistance Package diagram](https://i.gyazo.com/2ac7816b370d100b44b9098771c2a172.png)
+
+The persistance package is the implementation of our database, the database functions as [ORM](https://blog.bitsrc.io/what-is-an-orm-and-why-you-should-use-it-b2b6f75f5e2a "What is an ORM and Why You Should Use it"). 
+
+### Classes
+* AppDatabase
+Within this class the entities (classes / tables) are registered for Android Room. This class also provides access to the DAO's of each entity.
+* PersistenceClient
+This class provides access to the AppDatabase instance and persists (hence the name) throughout the application's run time.
+ 
+### Notes
+* The "NN" prefix is chosen to indicate that that files have something to do with the neural network. In addition to this, it is also an indication to the programmers that what happens with the NN-classes (not all of these are within the Persistance package) interacts with the database and should therefore not be interrupted.
+*  Android room is used, so the code you end up with (found in the *generate* folder with the suffix '_impl') can be different.
+* Adjusting the scheme may result in having to upgrade the database version.  Upgrading the database version also results in automatic script creation for switching between versions.
+* The AppDatabase currently runs on the main thread of the CPU which, in Android, is usually reserved for the UI. It is recommended to execute tasks regarding the preparation of queries on a different thread to make sure the UI does not experience (more) delay. 
+
+### VideoHandler
+![VideoHandler diagram](https://i.imgur.com/emws6TD.png)
+
+The VideoHandler task is to process the video images. The VideoHandler need to be able to give data on a video and return frames from a specific fragment. In version 28 of android a  handful of functions have been added within Android to process many of the VideoHandler functions with native api calls. For this reason a VideoSplicer legacy class was made as a manual implementation for older versions of android. The factory class can be used best to let the application decide if it needs the regular or legacy version.
+
+### Pose Estimation
+![Pose Estimation diagram](https://i.imgur.com/UouDPaF.png)
+
+### Notes
+* A session in short is the iteration of a video to data (points). The VideoSplicer is used to obtain a frame, process it and add it into the database.
+* The NNInserts is responsible for sending the data to the database. Besides sending to the database the NNInsert is also responsible for normalizing the coordinates.
+* The NNInterpreter is an enum that holds the type of interpreter used by the model. For example, it can either be run through the neural network API, CPU or GPU.
+* CHPE (Camera Human Pose Estimation) is the class that takes a bitmap as input and returns this to data. 
+* The resolution class simply stores the data obtained from the splicer and can create scaled bitmaps.
+
+To clarify the process consider the following activity diagram:
+![Diagram process logic](https://i.imgur.com/9BYD0Sc.png)
+
+### Exceptions
+![Exceptions diagram](https://i.imgur.com/EpJeycq.png)
+
+These custom exceptions were made to detect edge cases and make procedures for them. Within the system a couple of exceptions are possible that are so specific that a regular exception doesn't measure up. Below are some case where these exceptions may occur:
+* InvalidFrameAccess
+This exception is thrown when the VideoSplicer has an older API and the loaded video has a variable framerate, this can lead to out-of-bounds frame access. The only way to retrieve the framerate on older API's is by manually counting them; this is extremely expensive because it is comparing every other frame with the frame before that one every millisecond. This trade-off is very small and we don't expect to retrieve variable frame rates very often. Depending on the situation we could say enough frames have been processed based on the complete duration of the video. If we are missing too many frames we could notify the user.
+* InvalidModelParse
+A model that is not supported is was used, This can cause interpreter issues. For example, if the GPU or the neural network API is being used while it does not exist in the version of Android that is being used. For this exception we can use the CPU as a fallback.
+* InvalidVideoSplicerType
+When the Android version used is too low, that even the legacy version of the VideoSplicer doesn't work as it is supposed to.
+
+## UI
+The UI was designed and created to be a stand alone front-end in which other developers can place "work" they want to be done at a certain point during runtime. We'll first take a look at what Android calls "Activities", how they are currently being used and how the next developer can add new ones. 
+Consider this Homescreen example from the codebase:
+``` Java 
+public class a_Home extends AppCompatActivity {
+
+	Button b_archive;
+	Button b_start;
+
+	@Override
+	public void onBackPressed() {
+		finishAffinity();
+	}
+
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+
+		super.onCreate(savedInstanceState);
+
+		setContentView(R.layout.layout_home);
+
+		b_archive = findViewById(R.id.b_archive);
+		b_start = findViewById(R.id.b_start);
+
+		AAL.setTitleBar(getWindow());
+
+		b_archive.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				launchIntent(a_Results.class);
+				overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+			}
+		});
+
+		b_start.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				launchIntent(a_VideoSelect.class);
+			}
+		});
+	}
+
+	public void launchIntent(Class<?> cls) {
+		Intent intent = new Intent(this, cls);
+		startActivity(intent);
+	}
+}
+```
+
+In java it's customary (and sometimes a requirement) to limit the contents of a file to a single class. In the UI folder of the project you can find every file for every activity of the current application. To add a new activity simply create a new file and make a new class that extends from ```AppCompatActivity```. this extension should always override the ``` onCreate() ``` function, this is basically the constructor. In here you can request the layout and talk to individual screen elements.
+
+The most basic way of retrieving individual screen elements is by calling ```findViewById(R.id.X)``` where the "X" should be replaced with the corresponding ID you defined in the XML layout file of that activity. The functions returns a Java handle to the screen object. Take a look at the example above to see how a button is retrieved and how you define what should happen on click.
+
+For providing feedback to the user (not necessarily required to use) we have created a ```recyclerView``` which is basically a list that can hold any amount of Android cards. These cards can be designed using the XML editor. For now we have provided a single card layout that can be used to show the user an overview of all the presentation feedback remarks.
+The same card layout can be duplicated and altered to make a list of sessions in the archive section of the application. Our design for the archive can be found [here](https://drive.google.com/file/d/1pYxO5eZTrSUcvZCUQGaNhb-WIId17soT/view).
+
+Take a look at the files prefixed with "c_" in the UI folder for more information and the implementation.
+
+## Simulation
+For this project we have developed a simulation for the data substracted from video files. This Simulation can be used to visualize the 2D data. The animation runs from the database data that you can give your animation as a parameter. The code can be found in the 3D simulation branch CPHE/android/src/com/mygdx/game/Simulation. "MyGdxGame.java" is the main for this simulation and can be run from a separate view. In the 3D simulation branch MyGdxGame.java runs on example data. 
+The data can be provided to the animation in the following way by adjusting these lines in MyGdxGame.java:
+```Java
+data = new DatabaseData(PersistenceClient.getInstance(context).getAppDatabase());
+body.create(1f, data);
+```
+If you ever wonder if your data is correct, or if your application is not behaving as it should. Try to use the visualisation feature to make sure the data looks as it should. Why is this usefull? Eventhough the JASON format is easy to read. It might come in helpfull to be able to actually visualize your data.
+Your could also use this feuture purely as aestethics.
