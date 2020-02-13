@@ -294,3 +294,36 @@ Next you will need "Views" in order to seperate (or not) the screen in blocks, s
 	
 ```
 In the code above the developer chose to keep a single view within his layout, setting the constraints to the views parent --> the ContstraintLayout. Setting an id for any UI element makes it accessible from the Java code, giving the developer the possibility to interact with UI elements.
+
+Next up is the implementation of a single button. Buttons give the user a clear and simple way to interact with your application.
+
+```
+    <Button
+        android:id="@+id/JUMP"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginBottom="15dp"
+        android:textAllCaps="false"
+        android:text="Naar Resulaten"
+        android:background="@drawable/custom_button"
+        android:textColor="@android:color/white"
+        app:layout_constraintBottom_toTopOf="@+id/previousResults"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent" />
+	
+```
+Note that not all the design of a button happens in this XML file, the developer has the freedom to create a template button XML file that could be use all over the application. 
+
+```
+<shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle">
+    <solid android:color="#E63028"></solid>
+    <corners android:radius="25dp"></corners>
+    <stroke android:color="@android:color/white"
+        android:width="2dp"></stroke>
+</shape>
+
+```
+Within the resource folder is a "drawable" folder where you have the freedom to create custom buttons with custom textures and shapes, to be used wherever you see fit. Keep in mind that UI elements such as buttons have clear "Material Design" rules, if you plan to follow this design pattern.
