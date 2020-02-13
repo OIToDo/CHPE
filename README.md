@@ -154,3 +154,30 @@ body.create(1f, data);
 ```
 If you ever wonder if your data is correct, or if your application is not behaving as it should. Try to use the visualisation feature to make sure the data looks as it should. Why is this usefull? Eventhough the JASON format is easy to read. It might come in helpfull to be able to actually visualize your data.
 Your could also use this feuture purely as aestethics.
+
+## Creating a new Activity
+Android is all about “Intent”. Intents hold the information about your current session and the context that surrounds your current activity. You will be using an “Intent” to start a new activity (a new screen inside your application). The way to create a new Intent is very simple; 
+
+```
+	Intent intent = new Intent(this, cls);
+        startActivity(intent);
+```
+The way you'll want to start up Intent could be different in every situation, the user might want to enter your application on a specific screen because he/she pressed a "notification", or the user expect to travers through the application with the use of buttons and or swiping. To implement these different methods you'll need to bind the creation of the "Intent" to different function, like the use of an on-screen button.
+
+```
+        b_start.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                launchIntent(a_VideoSelect.class);
+            }
+        });
+```
+
+In this case the "b_start" is the button that is on the screen, the "setOnClickListener()" method calls for the function "launchIntent()", making the user go to a new "Activity"/screen.
+
+```
+    public void launchIntent(Class<?> cls) {
+        Intent intent = new Intent(this, cls);
+        startActivity(intent);
+    }
+```
