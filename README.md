@@ -262,4 +262,4 @@ When you create a new "Activity", through the menu or adding a Java class, you m
 </manifest>
 
 ```
-As you can see not just "Activities" are declared here. 
+As you can see not just "Activities" are declared here. For more information about specific problems there is the [Android developer website](https://developer.android.com/), it holds all the information one needs to create an Android application.
