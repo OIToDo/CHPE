@@ -327,3 +327,38 @@ Note that not all the design of a button happens in this XML file, the developer
 
 ```
 Within the resource folder is a "drawable" folder where you have the freedom to create custom buttons with custom textures and shapes, to be used wherever you see fit. Keep in mind that UI elements such as buttons have clear "Material Design" rules, if you plan to follow this design pattern.
+
+## Threading
+
+Google has the goal to keep applications performing as good as possible, so that the user has a smooth experience. This means that the "main thread (or "UI thread") can focus as much as possible on drawing UI elements on the screen without dropping any frames. Meaning that if your phone has a 60hz display, it needs 1000ms/60hz = 16ms per frame to draw everything. In practice it comes down to even less milliseconds since the processor core needs to perform a few key tasks before it can start to redraw a frame. This all means that if possible, you should keep your workload on a different thread than the "main thread". For that you could use threading. Making a new thread in Android is fairly simple, knowing where to use a new thread effectively might be more challenging. The more you can keep of the "Main thread" the better.
+
+```
+public void onClick(View v) {
+    new Thread(new Runnable() {
+        public void run() {
+            // a potentially time consuming task
+            final Bitmap bitmap =
+                    processBitMap("image.png");
+            imageView.post(new Runnable() {
+                public void run() {
+                    imageView.setImageBitmap(bitmap);
+                }
+            });
+        }
+    }).start();
+}
+```
+
+The above code shows how to start a new thread with corresponding work. If data needs to be collected while the thread is still running, you will need to create a handler to fetch data between threads.
+
+```
+Handler handler = new Handler();
+handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            String txt = progress / 100 + "%";
+                            progressText.setText(txt);
+                        }
+                    });
+```
+A handler could be used to fetch data from ongoing processes to be shown on-screen.
