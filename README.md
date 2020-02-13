@@ -263,3 +263,34 @@ When you create a new "Activity", through the menu or adding a Java class, you m
 
 ```
 As you can see not just "Activities" are declared here. For more information about specific problems there is the [Android developer website](https://developer.android.com/), it holds all the information one needs to create an Android application.
+
+## Creating a simple XML-layout
+
+When you have created a new "Activity" for your application you'll want to create an intuitive UI for the user. Google has certain guidelines in place for application design. This design philosophy is called [Material Design](https://material.io/). By using these guidelines Google tries to offer users of Android applications an overal familiar experience on the Android platform.
+
+You start by choosing the correct layout, there are several layouts to choose from and depending on the purpose of the current "Activity" you will want to choose the most appropriate layout. Usually the more modern "Constraint Layout" will suit your design needs and goals.
+```
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/my_layout"
+    android:background="#00A1E1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+```
+The upper portion of the XML file corresponding to your "Activity" will have general information about what kind of layout it is, and perhaps the color or link to a texture file in your resource folder. The layout height and width correspond (in this case) to the size of your screen. Nested layout will correspond to the parent layout, giving the developer the ability to use several layouts within eachother if ever needed.
+
+Next you will need "Views" in order to seperate (or not) the screen in blocks, so that UI elements can be placed inside different or single views. This will help to keep UI elements grouped toghether and ease the design process.
+
+```
+    <View
+        android:id="@+id/game"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+	
+```
+In the code above the developer chose to keep a single view within his layout, setting the constraints to the views parent --> the ContstraintLayout. Setting an id for any UI element makes it accessible from the Java code, giving the developer the possibility to interact with UI elements.
