@@ -181,3 +181,85 @@ In this case the "b_start" is the button that is on the screen, the "setOnClickL
         startActivity(intent);
     }
 ```
+
+In some situations you'll want to pass along data/information to the next "Activity", one way to do that is to add some content to the "Intent" you are creating. For a full list of what data that can be added to an "Intent" see the Android developer documentation. The code bellow should give a short impression of what is possible.
+
+```
+        intent.setType("video/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+        intent.putExtra("return-data", true);
+```
+
+When you create a new "Activity", through the menu or adding a Java class, you must always declare this "Activity" in the "Android Manifest". This is a special XML file that contains general information about your application.
+
+```
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.mygdx.game">
+
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+
+
+    <application
+        android:allowBackup="false"
+        android:alwaysRetainTaskState="true"
+        android:appCategory="game"
+        android:icon="@drawable/ic_launcher_foreground"
+        android:isGame="false"
+        android:label="Prepper"
+        android:screenOrientation="portrait"
+        android:theme="@style/Theme.AppCompat.NoActionBar"
+        tools:ignore="GoogleAppIndexingWarning">
+        <activity android:name=".UI.a_Results"></activity>
+        <activity android:name=".UI.a_Archive" />
+        <activity android:name=".UI.a_VideoSelect" />
+
+        <uses-library
+            android:name="android.test.base"
+            android:required="false" />
+        <uses-library
+            android:name="android.test.mock"
+            android:required="false" />
+
+        <activity android:name=".ProcessingScreenActivity" />
+        <activity android:name=".CurrentResultActivity" />
+        <activity android:name=".PreviousResultActivity" />
+        <activity android:name=".GalleryScreen" />
+        <activity
+            android:name=".UI.a_Loading"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".UI.a_Home"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <service
+            android:name=".ForegroundService"
+            android:enabled="true"
+            android:exported="true"
+            android:grantUriPermissions="true"
+            android:permission="android.permission.BIND_JOB_SERVICE" />
+        <service
+            android:name=".NeuralService"
+            android:permission="android.permission.BIND_JOB_SERVICE" />
+    </application>
+
+</manifest>
+
+```
+As you can see not just "Activities" are declared here. 
