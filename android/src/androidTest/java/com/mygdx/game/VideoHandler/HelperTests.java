@@ -4,6 +4,10 @@ import android.graphics.Color;
 
 public  class HelperTests {
 
+    /*
+    The current unit tests only work on API 29 and above.
+     */
+
     // Returns the red value as int
     static int getRed(int red) {
         return Color.red(red);

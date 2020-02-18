@@ -1,5 +1,7 @@
 package com.mygdx.game.PoseEstimation;
 
+import android.os.Debug;
+
 import com.mygdx.game.DebugLog;
 import com.mygdx.game.Persistance.AppDatabase;
 import com.mygdx.game.Persistance.Coordinate.NNCoordinate;
@@ -83,7 +85,7 @@ public class NNInserts {
      * @param videoId the video id. The primary key inserted upon entry.
      */
     void normalise(long videoId) {
-        double[] normalised = setNormaliseCoordinates(videoId);
+        double[] normalised = setNormaliseCoordinates(22);
         this.appDatabase
                 .nnCoordinateDAO()
                 .normaliseCoordinates(videoId, normalised[0], normalised[1]);
@@ -91,7 +93,8 @@ public class NNInserts {
 
     /**
      * Links a coordinate to a video.
-     * @param frameId the frame id. The primary key inserted upon entry.
+     *
+     * @param frameId      the frame id. The primary key inserted upon entry.
      * @param coordinateId the video id. The primary key inserted upon entry.
      */
     private void linkFrameToCoordinate(long frameId, long coordinateId) {
@@ -104,6 +107,7 @@ public class NNInserts {
 
     /**
      * Links the frame to a video.
+     *
      * @param frameId the frame id. The primary key inserted upon entry.
      * @param videoId the video id. The primary key inserted upon entry.
      */

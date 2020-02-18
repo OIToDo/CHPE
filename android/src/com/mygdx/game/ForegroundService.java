@@ -7,14 +7,11 @@ import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.media.MediaMetadataRetriever;
 import android.net.Uri;
 import android.os.IBinder;
-import android.os.SystemClock;
 import android.util.Log;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
@@ -22,10 +19,8 @@ import androidx.core.app.NotificationCompat;
 import com.mygdx.game.Exceptions.InvalidVideoSplicerType;
 import com.mygdx.game.PoseEstimation.Session;
 import com.mygdx.game.UI.a_Loading;
-import com.mygdx.game.UI.a_Results;
 import com.mygdx.game.VideoHandler.VideoSplicer;
 import com.mygdx.game.VideoHandler.VideoSplicerFactory;
-import com.mygdx.game.VideoHandler.VideoSplicerUri;
 
 /**
  * Class where the neural network will analyze the video footage
@@ -90,13 +85,12 @@ public class ForegroundService extends Service {
          */
         startForeground(7, notification);
         /**
-         Launch a thread that performs the actual work
+         Launch thread that performs the actual work
          */
 
         final Uri otherUri = intent.getData();
         thread = new Thread(new Runnable() {
             public void run() {
-                work.run();
                 MediaMetadataRetriever metadataRetriever = new MediaMetadataRetriever();
                 metadataRetriever.setDataSource(getApplicationContext(), otherUri);
                 try {
@@ -108,9 +102,7 @@ public class ForegroundService extends Service {
                     Log.e(splicerType.getClass().toGenericString(), splicerType.toString());
                     throw new RuntimeException("InvalidVideoSplicer");
                 }
-
-
-
+                work.run();
                 stopForeground(true);
                 stopSelf();
             }

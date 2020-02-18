@@ -82,14 +82,15 @@ public interface NNCoordinateDAO {
 
 
     /**
-     * Normalise coordinates.
+     * Normalize coordinates.
      * Range coordinates between 0 and 1
      *
      * @param video_id     the video id
      * @param x_multiplier the x multiplier used for calculating x values
      * @param y_multiplier the y multiplier used for calculating y values
+     * @return int affected rows
      */
-    @Query( "UPDATE coordinate SET  " +
+    @Query("UPDATE coordinate SET  " +
             "x = raw_x * :x_multiplier, " +
             "y = raw_y * :y_multiplier  " +
             "WHERE coordinate.id IN (SELECT coordinate.id " +
@@ -98,9 +99,7 @@ public interface NNCoordinateDAO {
             "AND video.id = video_frame.video_id " +
             "AND video_frame.frame_id = frame.id " +
             "AND frame.id = frame_coordinate.frame_id " +
-            "AND frame_coordinate.coordinate_id = coordinate.id " +
-            "AND coordinate.x != 0 " +
-            "AND coordinate.y != 0)")
-    void normaliseCoordinates(long video_id, double x_multiplier, double y_multiplier);
+            "AND frame_coordinate.coordinate_id = coordinate.id)")
+    int normaliseCoordinates(long video_id, double x_multiplier, double y_multiplier);
 }
 
